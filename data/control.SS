@@ -19,13 +19,9 @@
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
 #_Cond 1 1 1 2 4 10 # example move definition for seas=1, morph=1, source=1 dest=2, age1=4, age2=10
 #
-1 #_Nblock_Patterns
-2 #_blocks_per_pattern
-#_begin and end years of blocks
-1989
-2000
-2001
-2023
+0 #_Nblock_Patterns
+#_Cond 0 #_blocks_per_pattern
+# begin and end years of blocks
 #
 # controls for all timevary parameters 
 1 #_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)

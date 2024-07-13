@@ -423,21 +423,21 @@ inputs$ctl$recr_dist_pattern <- data.frame(GPattern=c(1,1,1,1),
 # 1989 2000 2001 2023
 
 #'*N_Block_Designs*
-inputs$ctl$N_Block_Designs<-1
+inputs$ctl$N_Block_Designs<-0
 
 #'*blocks_per_pattern*
-block0 <- list()
-block1<-2
-block0[[1]] <- block1
-names(block0)<-"blocks_per_pattern"
-inputs$ctl <- append(inputs$ctl,block0, after = which(names(inputs$ctl)=="N_Block_Designs"))
+# block0 <- list()
+# block1<-2
+# block0[[1]] <- block1
+# names(block0)<-"blocks_per_pattern"
+# inputs$ctl <- append(inputs$ctl,block0, after = which(names(inputs$ctl)=="N_Block_Designs"))
 
 #'*Block_Design*
-yblock0 <- list()
-yblock1<-data.frame(matrix(c(1989,2000,2001,2023),nrow=1,ncol=4),row.names="boques")
-yblock0[[1]] <- yblock1
-names(yblock0)<-"Block_Design"
-inputs$ctl <- append(inputs$ctl,yblock0, after = which(names(inputs$ctl)=="blocks_per_pattern"))
+# yblock0 <- list()
+# yblock1<-data.frame(matrix(c(1989,2000,2001,2023),nrow=1,ncol=4),row.names="boques")
+# yblock0[[1]] <- yblock1
+# names(yblock0)<-"Block_Design"
+# inputs$ctl <- append(inputs$ctl,yblock0, after = which(names(inputs$ctl)=="blocks_per_pattern"))
 
 ## Autogen ----
 inputs$ctl$time_vary_adjust_method<-1
@@ -705,6 +705,9 @@ inputs$fore
 ## Write back to mod_path  ----
 
 # WATAGE FILE ----
+
+
+
 
 r4ss::SS_write(inputs, dir = mod_path, overwrite = TRUE)
 
