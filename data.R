@@ -706,6 +706,14 @@ inputs$fore
 
 # WATAGE FILE ----
 
+#inputs$wtatage
+
+watFleetSeane0<-data.frame(Yr=0,
+           Seas=0,
+           Sex=0,
+           Bio_Pattern=0,
+           BirthSeas=0,
+           Fleet=0)
 
 
 

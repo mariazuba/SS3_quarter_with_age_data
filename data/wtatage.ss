@@ -5,7 +5,7 @@
 # fleet 0 contains begin season pop WT
 # fleet -1 contains mid season pop WT
 # fleet -2 contains maturity*fecundity
-   #Yr Seas Sex Bio_Pattern BirthSeas Fleet     0      1      2     3     4     5
+   #Yr Seas Sex Bio_Pattern BirthSeas Fleet    E0     E1     E2    E3    E4    E5
   2003    1   1           1         1    -2 0.000 0.2965 0.9855 0.990 1.000 1.000
   2003    1   1           1         1    -1 0.032 0.1190 0.5170 1.178 2.086 3.529
   2003    1   1           1         1     0 0.032 0.1190 0.5170 1.178 2.086 3.529
