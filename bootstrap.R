@@ -1,7 +1,7 @@
 
 
 library("icesTAF")
-
+library("r4ss")
 #taf.skeleton()
 # -boot
 #   - initial
@@ -21,6 +21,7 @@ library("icesTAF")
 taf.bootstrap() # se obtiene los datos de la carpeta boot/data
 
 # crea SOFTWARE.bib
+r4ss::get_ss3_exe(dir = "boot/initial/software", version = "v3.30.22.1")
 draft.software('boot/initial/software/ss3',file=TRUE)
 taf.bootstrap() # se obtiene los datos de la carpeta boot/data, 
 
