@@ -1,0 +1,316 @@
+---
+output:
+  word_document:
+    fig_caption: yes
+    reference_docx: "boot/data/sec_04_template.docx"
+    toc: true
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+
+```
+
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE}
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='!hbt')
+
+# To print the inline numbers using normal notation and not scientific notation.
+options(scipen=999)
+
+```
+
+
+```{r caption_settings}
+tabruns.start <- list(
+  # run_word_field("STYLEREF 2 \\s"), 
+  # ftext("."),
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=4, tns=".", start=1)
+)
+
+tabruns <- list(
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=4, tns=".")
+)
+
+figruns.start <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=4, tns=".", start=1)
+)
+
+figruns <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=4, tns=".")
+)
+
+```
+
+```{r officer_landscape}
+op_section <- prop_section(type = "continuous")
+close_section <- prop_section(
+    page_size = page_size(orient = "landscape"), 
+    type = "continuous")
+
+```
+
+
+```{r load}
+path_dat<-"data/run/S0"
+path_mod<-"report/run/S0"
+path_out<-"output/run/S0"
+path_retro<-"report/retro/S0"
+# load
+load(paste0(path_mod,"/tables_run.RData"))
+load(paste0(path_dat,"/inputs.RData"))
+load(paste0(path_out,"/output.RData"))
+```
+
+```{r}
+block_section(op_section) # open section
+```
+
+
+# Initial implementation SS3 model for  Anchovy in ICES Subdivision 9a South (Ane.27.9a stock). Southern component: 
+
+
+### Assessment model
+
+#### Assessment model for anchovy 27.9a southern component
+
+##### Data
+
+The estimation of the population dynamics of the anchovy in the Gulf of Cádiz was carried out using the Stock Synthesis model (SS3), version 3.30.22.
+
+The data used included catch in tonnes and length compositions in numbers from the purse seine fishery (*SEINE*), conducted quarterly from 1989 to 2023 in the total ICES area 9a South (Algarve and Gulf of Cádiz).
+
+Additionally, biomass in tonnes and age compositions in number from the surveys were considered annually.
+PELAGO spring survey is primarily conducted in April (fraction of the year=0.33) from 1999 to 2023.
+*ECOCADIZ* summer survey is carry out in July (fraction of the year=0.58) from 2004 to 2023. *BOCADEVA summer survey is carry out in July (fraction of the year=0.58) ....
+
+*ECOCADIZ-RECLUTAS* fall survey is carry out in october (fraction of the year=0.83) from 2012 to 2023.
+
+
+Figure `r run_reference("input_data")` summarises data presence by year, where circle area is relative within a data type. Circles are proportional to total catch for catches, to precision for indices and to total sample size for compositions.
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"input_data.png"))
+```
+
+Figure `r run_bookmark("input_data", figruns)`: Summary of inputs and data year ranges for assessment (1989-2023).
+
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/index9_standcpueall.png"))
+```
+
+
+Table  `r run_reference("tab_input")` show ....
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"tb_index.png"))
+```
+
+
+
+##### Sample sizes, CVs and data weighting
+
+
+*Coefficient of variation (CV)*: The catch from the commercial fleet is assumed to be well known and adjusted to the model, assuming a lognormal error structure with minimal observation error (CV=10%).
+For the abundance indices from the surveys, adjustments were made assuming a lognormal error distribution, with variances assumed to be 30% for all surveys (currently assigned arbitrary values).
+
+*Sample size (nm)*:  The size composition data were adjusted assuming a multinomial error structure with variance described by the sample size, set at 100 for both the commercial fleet and acoustic surveys. 
+This value was re-estimated using the T.A.1.8 method specified by Francis (2011), based on the variability in annual mean size observations. Initially set at 100 arbitrarily, iterative adjustments were made in the model until reaching stable values.
+
+Table  `r run_reference("tab_input")` show ....
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"tb_cv_nm.png"))
+```
+
+
+- *Maturity*: Constant for all years.
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/bio6_maturity.png"))
+```
+
+
+- *weight at age*:
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/bio5_weightatsize.png"))
+```
+
+### Model setting
+
+- *Natural mortality*: Age specific [0 to 4]; 2.21, 1.3, 1.3, 1.3, 1.3 and Constant for all years.
+
+
+
+- *Recruitment*: Is assumed to vary between quarters and years using the "random walk" option. In the recruitment process, a stock-recruitment relationship was not incorporated (steepness set to zero). The variations in recruitment were modeled as deviations from the virgin recruitment $R_0$, assuming 1989 as the initial year. To reflect variations in recruitment, a standard deviation for recruitment of 0.6 has been assumed.
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/bio5_weightatsize.png"))
+```
+
+
+- *Selectivity*: All selectivity patterns were estimated using a logistic function, with the parameters being estimated by the model. Seine selectivity over time: Three periods: 1989-2000, 2001-2009 and 2010-2024, estimate for each period, fixed over time within each period. 
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/sel02_multiple_fleets_age1.png"))
+```
+
+
+
+- *Catchability*: It is assumed that the biomass estimates from the acoustic surveys are proportional to the vulnerable biomass of the population, with catchability estimated in the model. The vulnerable biomass estimated by the current model is 5 to 8 times lower than that estimated in the surveys.
+
+```{r}
+output$estimated_non_dev_parameters
+```
+
+
+
+#### Base model
+
+**Pendiente**
+
+#### Exploratory runs
+
+
+
+These highlighted scenarios are the best candidates for a base case considering size composition data, with a focus on length-based selectivity and low error metrics.
+
+### The final model
+
+#### Time series
+
+#### Fit and residuals abundance indices
+
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Indices_fit.png"))
+```
+
+Figure `r run_bookmark("Indices_fit", figruns)`: Model fit to the data (left panel) and observed versus expected values (right panel) of the indices from the acoustic surveys *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*. The lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. .
+
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Runtest_residuals_indices.png"))
+```
+
+Figure `r run_bookmark("Runtest_residuals_indices", figruns)`: Run test plots for the fit of acoustic survey indices. Green shading indicates no evidence (p=0.05) and red shading indicates evidence (p<0.05) for rejecting the hypothesis of a randomly distributed residual time series, respectively. The shaded area (green/red) spans three standard residual deviations on either side of zero, and red points outside the shading violate the three-sigma limit for that series. The boxplot of joint residuals indicates the median and quantiles in cases where residuals from multiple indices are available for a given year, with the solid black line showing a loess smoother. The root mean square errors (RMSE) are included in the top right corner of the boxplot.
+
+
+#### Fit and residuals age composition 
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Age_fit_agg.png"))
+```
+
+Figure `r run_bookmark("Age_fit_agg", figruns)`: Model fit to the aggregated size composition data from the *SEINE* fishery, and the acoustic surveys *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*.
+
+
+##### *SEINE* Fleet by quarters
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Age_fit_Seine.png"))
+```
+
+Figure `r run_bookmark("Age_fit_Seine", figruns)`: Model fit to the size composition data from the *SEINE* fishery, by year and quarter.
+
+
+##### *PELAGO* spring survey
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Age_fit_Pelago.png"))
+```
+
+Figure `r run_bookmark("Age_fit_Pelago", figruns)`: Model fit to the size composition data from the *PELAGO* spring survey, by year and quarter.
+
+
+##### *ECOCADIZ* summer survey
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Age_fit_Ecocadiz.png"))
+```
+
+Figure `r run_bookmark("Age_fit_Ecocadiz", figruns)`: Model fit to the size composition data from the *ECOCADIZ* summer survey, by year and quarter.
+
+
+##### *ECOCADIZ-RECLUTAS* fall survey
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Age_fit_EcocadizRecl.png"))
+```
+
+Figure `r run_bookmark("Age_fit_EcocadizRecl", figruns)`: Model fit to the size composition data from the *ECOCADIZ-RECLUTAS* fall survey, by year and quarter.
+
+
+#### Mean length residuals
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_out,"/plots/comp_agefit__multi-fleet_comparison.png"))
+```
+
+
+Figure `r run_bookmark("Age_residuals_EcocadizRecl", figruns)`: 
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"Runtest_residuals_age.png"))
+```
+
+Figure `r run_bookmark("Runtest_residuals_age", figruns)`: 
+
+
+#### Restrospective
+
+
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_retro,"Retro.png"))
+```
+
+Figure `r run_bookmark("Retro", figruns)`: 
+
+
+
+
+\newpage
+
+
+
+## References
