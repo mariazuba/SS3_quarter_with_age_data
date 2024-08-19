@@ -21,7 +21,7 @@ path_esc<-"model/run"
 
 
 # directorios ----
-path.data<-"boot/data/Scenarios" 
+path.data<-"boot/data/run" 
 list.files(path.data)
 
 # Scenarios ----
