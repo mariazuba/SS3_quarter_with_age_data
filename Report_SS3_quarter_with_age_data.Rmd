@@ -162,13 +162,7 @@ include_graphics(file.path(path_out,"/plots/bio5_weightatsize.png"))
 
 
 
-- *Recruitment*: Is assumed to vary between quarters and years using the "random walk" option. In the recruitment process, a stock-recruitment relationship was not incorporated (steepness set to zero). The variations in recruitment were modeled as deviations from the virgin recruitment $R_0$, assuming 1989 as the initial year. To reflect variations in recruitment, a standard deviation for recruitment of 0.6 has been assumed.
-
-
-```{r}
-# Figure 3.5.1.2
-include_graphics(file.path(path_out,"/plots/bio5_weightatsize.png"))
-```
+- *Recruitment*:  In the recruitment process, a stock-recruitment relationship was not incorporated (steepness set to zero). The variations in recruitment were modeled as deviations from the virgin recruitment $R_0$, assuming 1989 as the initial year. To reflect variations in recruitment, a standard deviation for recruitment of 0.6 has been assumed.
 
 
 - *Selectivity*: All selectivity patterns were estimated using a logistic function, with the parameters being estimated by the model. Seine selectivity over time: Three periods: 1989-2000, 2001-2009 and 2010-2024, estimate for each period, fixed over time within each period. 
@@ -183,10 +177,11 @@ include_graphics(file.path(path_out,"/plots/sel02_multiple_fleets_age1.png"))
 
 - *Catchability*: It is assumed that the biomass estimates from the acoustic surveys are proportional to the vulnerable biomass of the population, with catchability estimated in the model. The vulnerable biomass estimated by the current model is 5 to 8 times lower than that estimated in the surveys.
 
-```{r}
-output$estimated_non_dev_parameters
-```
 
+```{r}
+# Figure 3.5.1.2
+include_graphics(file.path(path_mod,"tb_q.png"))
+```
 
 
 #### Base model
