@@ -152,6 +152,27 @@ nsamp <- inputs$dat$agecomp %>%
 
 combined_df <- left_join(indices, nsamp, by = "year")
 
+params<-output$estimated_non_dev_parameters%>%
+  rownames_to_column(var = "Parameter")
+
+params_est<-params %>% select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
+
+
+convergency<-output$maximum_gradient_component
+like<-output$likelihoods_used
+
+run_cpue<-SSplotRunstest(output,subplots = "cpue")
+jaba_cpue<-SSplotJABBAres(output,subplots = "cpue")
+run_age<-SSplotRunstest(output,subplots = "age")
+jaba_age<-SSplotJABBAres(output,subplots = "age")
+
+#diagnostico
+#Convergencia Likehood RMSE_indices RMSE_tallas Rho ForcastRho
+
+diags<-data.frame(convergency=convergency,
+                  Totallike=like$values[1],
+                  RMSE_index=jaba_cpue$RMSE.perc[5],
+                  RMSE_age=jaba_age$RMSE.perc[5])
 
 ## table index by surveys ----
 ft1<-indices %>%
@@ -209,9 +230,14 @@ ft2 <- align(ft2,part = "header", align = "center")
 ft2 <- autofit(ft2)
 ft2
 
+ft3<-params_est %>%  # Redondear solo columnas numéricas
+  flextable()
+ft3
 
 save_as_image(ft1, path = paste0(path,"/tb_index.png"))
 save_as_image(ft2, path = paste0(path,"/tb_cv_nm.png"))
-save(ft1,ft2, file=paste0(path,"/tables_run.RData"))
+save_as_image(ft3, path = paste0(path,"/tb_params_est.png"))
+
+save(ft1,ft2,ft3, file=paste0(path,"/tables_run.RData"))
 }
 
