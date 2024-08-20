@@ -24,7 +24,7 @@ wd <- getwd()
 inputs<-"data/run"
 outputs<-"output/run"
 esc<-list.files(inputs)
-
+#i=1
 for(i in 1:length(esc)){
   
   load(paste0("output/run/",esc[i],"/output.RData"))
@@ -46,6 +46,30 @@ for(i in 1:length(esc)){
   SSplotBiology(output, subplot = c(1,5,6),seas=4,mainTitle = FALSE)
   dev.off()
 
+
+## wt at age ----
+  inputs$wtatage[inputs$wtatage==0]<-NA
+  watage_mid<-inputs$wtatage %>% filter(Fleet==-1) %>% 
+    select(c(Yr,Seas,`0`,`1`,`2`,`3`)) %>% melt(id.vars=c("Yr","Seas"))
+  
+  fig7<-watage_mid %>% ggplot(aes(x=Yr,y=value,colour=variable)) +
+    geom_point() + geom_line()+
+    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top")+
+    labs(x="Year",y="Weight mean (Kg)")+
+    scale_color_discrete(name  ="Age")+
+    theme(panel.background = element_rect(fill ="gray80")) +
+    theme(panel.grid=element_line(color=NA)) +
+    ggtitle('Weight at age by quarters')+
+    theme(plot.title = element_text(size =12),
+          axis.title = element_text(size = 6),
+          axis.text = element_text(size = 6),
+          strip.text = element_text(size = 6),
+          panel.background = element_rect(colour="gray",fill = "gray99"),
+          strip.background = element_rect(colour = "gray", fill = "gray99")) + 
+    theme(legend.position = 'top') 
+  ggsave(file.path(paste0(path,"/Weight_by_quarters.png")), fig7,  width=5, height=6)
+  
+  
 ## Fit data: Abundance indices ----
   png(file.path(paste0(path,"/Indices_fit.png")),width=6,height=7,res=300,units='in')
   sspar(mfrow = c(4, 2), plot.cex = 0.6)
@@ -157,6 +181,9 @@ params<-output$estimated_non_dev_parameters%>%
 
 params_est<-params %>% select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
 
+natM<-inputs$ctl$natM
+
+maturity<-inputs$wtatage %>% filter(Fleet==-2) %>% select(`0`,`1`,`2`,`3`)
 
 convergency<-output$maximum_gradient_component
 like<-output$likelihoods_used
@@ -234,9 +261,46 @@ ft3<-params_est %>%  # Redondear solo columnas numéricas
   flextable()
 ft3
 
+ft4<-natM %>% flextable()
+ft4
+
+
+
+ft5 <- maturity[1, , drop = FALSE] %>% 
+  setNames(c("Age_0", "Age_1", "Age_2", "Age_3")) %>% 
+  flextable()
+ft5
+
+ft6<-diags%>% 
+  flextable()
+ft6
+
+ft7<-run_cpue%>%
+  flextable()
+ft7
+
+ft8<-jaba_cpue %>% flextable()
+ft8
+
+ft9<-run_age%>%
+  flextable()
+ft9
+
+ft10<-jaba_age %>% flextable()
+ft10
+
 save_as_image(ft1, path = paste0(path,"/tb_index.png"))
 save_as_image(ft2, path = paste0(path,"/tb_cv_nm.png"))
 save_as_image(ft3, path = paste0(path,"/tb_params_est.png"))
+save_as_image(ft4, path = paste0(path,"/tb_natM.png"))
+save_as_image(ft5, path = paste0(path,"/tb_maturity.png"))
+save_as_image(ft6, path = paste0(path,"/tb_diagnostic.png"))
+
+save_as_image(ft7, path = paste0(path,"/tb_run_cpue.png"))
+save_as_image(ft8, path = paste0(path,"/tb_jabba_cpue.png"))
+
+save_as_image(ft9, path = paste0(path,"/tb_run_age.png"))
+save_as_image(ft10, path = paste0(path,"/tb_jabba_age.png"))
 
 save(ft1,ft2,ft3, file=paste0(path,"/tables_run.RData"))
 }
