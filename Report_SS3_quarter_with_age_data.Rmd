@@ -86,10 +86,21 @@ block_section(op_section) # open section
 
 
 ```{r}
-include_graphics(file.path(path_mod,"input_data.png"))
+include_graphics(file.path(path_mod,"fig_input_data.png"))
 ```
 
+\newpage
 #### Catches
+
+```{r}
+include_graphics(file.path(path_mod,"fig_catches.png"))
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_catches.png"))
+```
+
 
 \newpage
 #### Indices
@@ -134,7 +145,7 @@ include_graphics(file.path(path_mod,"tb_maturity.png"))
 - *Weigth at age*
 
 ```{r}
-include_graphics(file.path(path_mod,"Weight_by_quarters.png"))
+include_graphics(file.path(path_mod,"fig_weight_by_quarters.png"))
 ```
 
 
@@ -149,18 +160,24 @@ include_graphics(file.path(path_mod,"tb_params_est.png"))
 include_graphics(file.path(path_out,"/plots/sel02_multiple_fleets_age1.png"))
 ```
 
+### Time series
+
+
+```{r}
+include_graphics(file.path(path_mod,"fig_time_series.png"))
+```
 
 \newpage
 
 ### Fit and residuals indices
 
 ```{r}
-include_graphics(file.path(path_mod,"Indices_fit.png"))
+include_graphics(file.path(path_mod,"fig_indices_fit.png"))
 ```
 
 
 ```{r}
-include_graphics(file.path(path_mod,"Runtest_residuals_indices.png"))
+include_graphics(file.path(path_mod,"fig_runtest_residuals_indices.png"))
 ```
 
 
@@ -180,7 +197,7 @@ include_graphics(file.path(path_mod,"tb_jabba_cpue.png"))
 
 
 ```{r}
-include_graphics(file.path(path_mod,"Age_fit_agg.png"))
+include_graphics(file.path(path_mod,"fig_age_fit_agg.png"))
 ```
 
 
@@ -189,7 +206,7 @@ include_graphics(file.path(path_mod,"Age_fit_agg.png"))
 
 
 ```{r}
-include_graphics(file.path(path_mod,"Age_fit_Seine.png"))
+include_graphics(file.path(path_mod,"fig_age_fit_Seine.png"))
 ```
 
 
@@ -201,7 +218,7 @@ include_graphics(file.path(path_out,"/plots/comp_agefit_data_weighting_TA1.8_SEI
 ##### *PELAGO* spring survey
 
 ```{r}
-include_graphics(file.path(path_mod,"Age_fit_Pelago.png"))
+include_graphics(file.path(path_mod,"fig_age_fit_Pelago.png"))
 ```
 
 
@@ -213,7 +230,7 @@ include_graphics(file.path(path_out,"/plots/comp_agefit_data_weighting_TA1.8_PEL
 ##### *ECOCADIZ* summer survey
 
 ```{r}
-include_graphics(file.path(path_mod,"Age_fit_Ecocadiz.png"))
+include_graphics(file.path(path_mod,"fig_age_fit_Ecocadiz.png"))
 ```
 
 
@@ -225,7 +242,7 @@ include_graphics(file.path(path_out,"/plots/comp_agefit_data_weighting_TA1.8_ECO
 ##### *ECOCADIZ-RECLUTAS* fall survey
 
 ```{r}
-include_graphics(file.path(path_mod,"Age_fit_EcocadizRecl.png"))
+include_graphics(file.path(path_mod,"fig_age_fit_EcocadizRecl.png"))
 ```
 
 
@@ -243,7 +260,7 @@ include_graphics(file.path(path_out,"/plots/comp_agefit__multi-fleet_comparison.
 
 
 ```{r}
-include_graphics(file.path(path_mod,"Runtest_residuals_age.png"))
+include_graphics(file.path(path_mod,"fig_runtest_residuals_age.png"))
 ```
 
 
