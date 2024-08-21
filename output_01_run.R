@@ -31,6 +31,12 @@ summary <- read.table(paste0(run.dir,"/ss_summary.sso"),header=F,sep="",na="NA",
 mkdir(paste0("output/run/",esc[i]))
 run_out<<-paste0("output/run/",esc[i])
 
+# Definir la ruta al directorio que quieres borrar
+dir_to_remove <- paste0("output/run/",esc[i],"/plots")
+
+# Ejecutar el comando para borrar la carpeta
+system(paste("rm -r", shQuote(dir_to_remove)))
+
 r4ss::SS_plots(replist = output, dir = run_out,
                printfolder = "plots",showpost = FALSE)
 
