@@ -77,21 +77,28 @@ block_section(op_section) # open section
 ```
 
 
-# Anchovy Stock in ICES Subdivision 9a South (Ane.27.9a): Assessment Using Age Composition data: 
+# Ane.27.9a stock (Anchovy in ICES Division 9a). Southern component (Anchovy in ICES Subdivision 9a South): Assessment Using Age Composition data.
 
+Autores...
 
 ## Assessment model
 
+
+The assessment of the **southern anchovy southern component** was performed in Stock Synthesis software, version 3.30.22 (**insertar cita Methot et al., 2023**) under the MAC platform. SS is a generalized age and/or length-based model that is very flexible with regard to the types of data that may be included, the functional forms that are used for various biological processes, the level of complexity and number of parameters that may be estimated. The model is coded in C++ with parameter estimation enabled by automatic diferentitation (www.admb-project.org) and available at the NOAA Fisheries integrated toolbox: https://noaa-fisheries-integrated-toolbox.github.io/SS3. A description and discussion of the model can be found in **incluir cita Methot and Wetzel (2013)**.
+
+The stock assessment has been performed for the period 1989-2023 with **the method and settings agreed during the bechmark (ICES, 2024)**. The **southern anchovy southern component** assessment model is a one area, annual with data in quarters, age-based model where the population is comprised of 3+ age-classes (with age 3 representing a plus group) with sexes combined (male and females are modelled together).
+
+
+
 ### Data
 
-The **Figure x** provides a visual representation of the input data used in the stock assessment model, categorized into three main types: catches, abundance indices, and age compositions. These data are displayed over time (years) and are represented by circles, with the size of each circle reflecting **the magnitude of the data (por corroborar)**.
+Input data include total catch (in biomass), length composition of the catch (in numbers), abundance (in biomass) and length composition  from an annual *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey. The **Figure x** provides a visual representation of the input data used in the stock assessment model, categorized into three main types: catches, abundance indices, and age compositions. These data are displayed over time (years) and are represented by circles, with the size of each circle reflecting the magnitude of the data.
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_input_data.png"))
 ```
-Figure `r run_bookmark("fig_input_data", figruns)`: Summary of inputs and data year ranges for assessment (1989-2023).
+Figure `r run_bookmark("fig_input_data", figruns)`: Ane.27.9a stock. summarises data presence by year, where circle area is relative within a data type. Circles are proportional to total catch for catches, to precision for indices and to total sample size for compositions.
 
-\newpage
 #### Catches
 
 Over the past few decades, long-term trends in fish catches have exhibited variability, characterized by peaks in certain periods and phases of stabilization. In the 1990s, catches initially increased, declined in the mid-decade, and recovered towards the end of the period. In the early 2000s, catches reached their highest point, particularly around the year 2000, followed by a gradual decline leading to stabilization throughout the remainder of the decade. Between 2010 and 2019, catches remained stable, with minor fluctuations and an increase towards the end of this period. In the 2020s, catches increased again, reaching levels comparable to those observed in the early 2000s (**Figure and Table**).
@@ -101,11 +108,10 @@ The quarterly pattern of catches shows that the second (Q2) and third quarters (
 ```{r}
 include_graphics(file.path(path_mod,"fig_catches.png"))
 ```
-Figure `r run_bookmark("fig_catches", figruns)`: Quarterly Catch.
+Figure `r run_bookmark("fig_catches", figruns)`: Ane.27.9a stock. Quarterly Catch.
 
-\newpage
 
-Table `r run_bookmark("tb_catches", tabruns.start)`:  Quarterly and Annual Catch Totals. 
+Table `r run_bookmark("tb_catches", tabruns.start)`:  Ane.27.9a stock. Quarterly and Annual Catch Totals. 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_catches.png"))
@@ -121,10 +127,12 @@ The abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS* exhibi
 include_graphics(file.path(path_out,"/plots/index9_standcpueall.png"))
 ```
 
-Figure `r run_bookmark("index9_standcpueall", figruns)`: Time series of biomass indices for the Gulf of Cádiz anchovy stock, represented by the *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS* indices.
+Figure `r run_bookmark("index9_standcpueall", figruns)`: Ane.27.9a stock. Time series of biomass indices for the Gulf of Cádiz anchovy stock, represented by the *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS* indices.
 
 
 \newpage
+
+Table `r run_bookmark("tb_index", tabruns)`: Ane.27.9a stock. Acoustic biomass (ton) by surveys *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS*. 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_index.png"))
@@ -134,19 +142,25 @@ include_graphics(file.path(path_mod,"tb_index.png"))
 \newpage
 #### Age composition
 
+##### Commercial fleet
+
 In the stock assessment model, the age proportion of the commercial fleet (*SEINE*) by quarter and year (1989 to 2023) is used. The historical trend indicates that age 0 is not recorded in Q1 and Q2, but its proportion increases in Q3 and Q4 in more recent years. Age 1 predominates in Q1 and Q2, maintaining a constant proportion over time. In Q3 and Q4, the proportion of age 1 individuals decreases as the proportion of age 0 increases. Ages 2 and 3 exhibit lower and variable proportions across all quarters over the years, without a defined pattern of change (**Figure**).
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSeine.png"))
 ```
 
+Figure `r run_bookmark("fig_agecomp_by_quartersSeine", figruns)`: Ane.27.9a stock. Age proportion of the commercial fleet (*SEINE*) by quarter and year (1989 to 2023) .
+
 \newpage
+##### Surveys
+
 The stock assessment model utilizes age proportions from different surveys (*PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*) by year. The figure shows that in the *PELAGO* survey, conducted in the second quarter (Q2), age 1 represents the highest proportion over time, with a presence of ages 2 and 3, and no records of age 0 individuals. The *ECOCADIZ* survey, primarily conducted in the third quarter (Q3), shows a predominance of age 1, with an increase in the proportion of age 0 from 2010 onward; in 2004 and 2006, when the survey was conducted in the second quarter (Q2), no age 0 individuals were recorded. The *ECOCADIZ-RECLUTAS* survey, conducted since 2014 in October (fourth quarter, Q4), shows a higher proportion of age 0, followed by age 1, with lower representation of ages 2 and 3 (**Figure**).
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSurveys.png"))
 ```
-
+Figure `r run_bookmark("fig_agecomp_by_quartersSurveys", figruns)`: Ane.27.9a stock. Age proportion by surveys  (*PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*).
 
 \newpage
 
@@ -155,6 +169,12 @@ include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSurveys.png"))
 
 #### survey date, coeficient variation (CV) and samples size (nm)
 
+A standar error of **0.10** was assumed for all years of catches and **xx** for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of **xx** is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
+
+The Francis method T.A.xxx was selected for length data weighting in catches and surveys data. The initial population is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment (**Methot and Wetzel, 2013**). The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial <!--**catch of 30 000 tonnes – corresponding to the average Portuguese catches previous 5 years (1987-91) + average Spain catches first 5 years of data (1992-96)**-->. Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_hom.27.9a_assessment)-->. The R packages r4ss version 1.49.2 (**Taylor et al., 2021**) and ss3diags version 1.10.2 (**Carvalho et al., 2021**) were used to process and view model outputs. All analyses were conduction in R version 4.2.2 <!--revisar versiones-->
+
+
+Table `r run_bookmark("tb_cv_nm", tabruns)`: Ane.27.9a stock. coefficient variation and sample size by surveys *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS*. 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_cv_nm.png"))
@@ -164,44 +184,83 @@ include_graphics(file.path(path_mod,"tb_cv_nm.png"))
 \newpage
 ### Model setting
 
-- *Natural mortality*:
+#### Biology
+
+- *Natural mortality*: **Table x** presents the age-specific natural mortality input values at the beginning of the year, which were derived from external data sources. For further details, refer to the working document by **Rincón et al. (yearXXX)**.
+
+- *Growth*: Growth is not modelled explicitly. 
+
+- *Maturity*: **Table x** presents the age-specific maturity input values at the beginning of the year were estimated from external data sources. For further details, refer to the working document by **Ramos et al. (yearXXX)**.
+
+- *Weigth at age*: **Figure x** presents the age-specific weight-at-age input values at the beginning of the year were estimated from external data sources. For further details, refer to the working document by  **XXX et al. (yearXXX)**.
 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_natM.png"))
 ```
 
-- *Maturity* 
-
-
 ```{r}
 include_graphics(file.path(path_mod,"tb_maturity.png"))
 ```
 
+
+
 \newpage
 
-- *Weigth at age*
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_weight_by_quarters.png"))
 ```
-
+Figure `r run_bookmark("fig_weight_by_quarters", figruns)`: Ane.27.9a stock. Weight at age by quarters.
 
 \newpage
-- *Recruitment*, *catchability* and *length and age selectivity*:
 
+#### *Recruitment*
+
+Annual recruitments are parameters, defined as lognormal deviations (**Figure x**) from **Beverton-Holt** stock-recruitment model (**Figure xx**) with steepness fixed at **XX** <!-- Check and update if necessary--> and standard deviation of log number of recruits was set to `r sigmaR`, the same as in the previous model and based on literature for similar species <!-- Check and update if necessary-->. 
+
+$R_0$ = `r round(R0,2)`
+$\sigma_R$ = `r sigmaR`
+steepness $h$ = null
+
+
+```{r}
+include_graphics(file.path(path_mod,"fig_Recdevs.png"))
+```
+Figure `r run_bookmark("fig_Recdevs", figruns)`: Ane.27.9a stock. Recruitment deviation.
+
+
+```{r}
+include_graphics(file.path(path_mod,"fig_stock-recluta.png"))
+```
+Figure `r run_bookmark("fig_stock-recluta", figruns)`: Ane.27.9a stock. Stock-recruitment.
+
+\newpage
+
+#### *Fishing mortality*: 
+
+Fishing mortality is applied as the hybrid method does a Pope´s approximation to provide initial values for iterative adjustment of the continuous F values to closely approximate the observed catch. 
+
+
+
+#### *Catchability*:  
+
+The *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey are assumed to be relative indices of abundance. The catchability are modelled with a simple $q$ linear model.
 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_params_est.png"))
 ```
 
+#### *Selectivity*: 
+
+The fishery selectivity was set as a logistic function fixed over time... <!-- se usan bloques de selectividad--> (**Figure xx**).  In *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys was set as a logistic function fixed over time (**Figure xx**).
+
 ```{r}
 include_graphics(file.path(path_out,"/plots/sel02_multiple_fleets_age1.png"))
 ```
 
 ### Time series
-
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_time_series.png"))
@@ -219,7 +278,6 @@ include_graphics(file.path(path_mod,"fig_indices_fit.png"))
 ```{r}
 include_graphics(file.path(path_mod,"fig_runtest_residuals_indices.png"))
 ```
-
 
 
 ```{r}
@@ -319,6 +377,7 @@ include_graphics(file.path(path_mod,"tb_jabba_age.png"))
 
 #### Restrospective
 
+Figure `r run_reference("Runtest_residuals_indices")`  shows the retrospective pattern of spawning biomass and fishing mortality (F) for the ~~initial model (S1)~~. The retrospective analysis of the assessment model indicates that in terms of phi (mean of retrospective anomalies), the reduction of information generates a pattern of underestimation of fishing mortality ~~(phi = -0.47)~~ and a pattern of overestimation of spawning biomass ~~(phi = 1.62)~~. In general, the estimates of biomass and F for the most recent years can vary substantially between successive updates, while in the earlier years, they tend to converge to stable values. The model exhibits high statistical variance in the last years of the series, resulting in greater uncertainty for projections and generating unreliable estimates for establishing management measures
 
 ```{r}
 include_graphics(file.path(path_retro,"Retro.png"))
