@@ -1,4 +1,16 @@
+
+
 # Script information ------------------------------------------------------
+# This script automates the process of running a retrospective analysis for SS3 
+# model scenarios. It first loads the necessary libraries and sets the working 
+# directory. For each model scenario, the script creates a corresponding directory
+# in model/retro, copies the input files from the `model/run` directory, 
+# and ensures the SS3 executable is available in the new directory. 
+# The script then runs the retrospective analysis over the specified number of 
+# years (0 to -5) in each scenario's directory. After the analysis is complete,
+# the working directory is restored to its original location.
+
+
 
 # run retrospective analysis 
 rm(list=ls())

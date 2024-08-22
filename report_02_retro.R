@@ -2,6 +2,21 @@
 
 ## Before:
 ## After:
+
+# Script information ------------------------------------------------------
+# This script automates the generation of plots and tables for retrospective
+# analysis reports of SS3 model scenarios. It first sets up the working 
+# directory and loads necessary packages. For each scenario with retrospective 
+# analysis results stored in the output/retro directory, the script creates a 
+# corresponding report directory in report/retro. It then loads the retrospective 
+# data, generates plots showing the retrospective patterns in spawning stock 
+# biomass (SSB) and fishing mortality (F), and saves these plots as PNG files. 
+# Additionally, the script calculates the retrospective bias metrics 
+# (Rho and ForecastRho), organizes these metrics into a table using flextable,
+# and saves the table as both a PNG image and an .RData file. The final output 
+# for each scenario is stored in its respective report/retro directory. 
+
+
 rm(list=ls())
 
 

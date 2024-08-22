@@ -3,6 +3,20 @@
 ## Before:
 ## After:
 
+# Script information ------------------------------------------------------
+# This script automates the preprocessing of data for an SS3 model by extracting 
+# data from each executed model, filtering and organizing various data types
+# (such as abundance indices, catches, age composition, and weight-at-age), 
+# and saving them into `.RData` and `Excel` files for generating input data 
+# tables and figures for the executed model. The files are then stored in 
+# the `data/run` directory, and finally, the script performs a commit and push 
+# to a Git repository, ensuring that all processed results are properly versioned 
+# in the current branch of the repository. 
+#'*To avoid making changes directly to  the main repository, it is recommended*
+#'*to either comment out the section that performs the commit and push, or switch*
+#'*to a different branch before running the script.*
+#'*This will help ensure proper version control of the generated files without impacting the main branch.*
+  
 library(icesTAF)
 library(r4ss)
 library(openxlsx)
@@ -78,7 +92,7 @@ saveWorkbook(wb, paste0(data_esc,"/Index.xlsx"),overwrite = TRUE)
 }
 
 
-# Se hace commit y push de los cambios cada vez que se ejecuta el modelo
+#'*Se hace commit y push de los cambios cada vez que se ejecuta el modelo*
 for(i in 1:length(esc)){
   run_dat <- paste0("data/run/",esc[i])
   # Agregar todos los archivos en la carpeta específica al área de preparación

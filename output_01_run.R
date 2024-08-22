@@ -3,6 +3,20 @@
 ## Before:
 ## After:
 
+# Script information ------------------------------------------------------
+# This script automates the extraction of key results and the generation of
+# TAF output tables from SS3 model runs. For each model scenario in the
+# `model/run` directory, the script loads the results, generates plots,
+# and saves them in the `output/run` directory, while removing any previously 
+# generated plot subdirectories. The results and summaries are stored 
+# in `.RData` files. Finally, the script commits and pushes the generated 
+# files to a Git repository, ensuring that the processed results are properly 
+# versioned in the current branch of the repository. *To avoid making changes 
+# directly to the main repository, it is recommended to either comment out 
+# the section that performs the commit and push, or switch to a different 
+# branch before running the script. This will help ensure proper version 
+# control of the generated files without impacting the main branch.*
+
 library(icesTAF)
 
 mkdir("output/run")

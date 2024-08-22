@@ -1,4 +1,15 @@
-
+# Script information ------------------------------------------------------
+# The script automates the generation of `DATA.bib` and `SOFTWARE.bib` files,
+# which contain metadata about the data and software used for an SS3 model, 
+# based on files in the `boot/initial` directory. It employs the `draft.data()` 
+# and `draft.software()` functions to create these files, and organizes the data
+# and software into the `boot/data` and `boot/software` directories using `taf.bootstrap()`. 
+# Finally, it commits and pushes these changes to the Git repository, 
+# ensuring proper version control of the generated files. 
+#'*To avoid making changes directly to the main repository,*
+#'* it is recommended to either comment out the section that performs the commit and push, *
+#'* or switch to a different branch before running the script. *
+#'* This will help ensure proper version control of the generated files without impacting the main branch.*
 
 library("icesTAF")
 library("r4ss")

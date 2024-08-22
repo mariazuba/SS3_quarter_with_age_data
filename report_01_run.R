@@ -2,6 +2,22 @@
 
 ## Before:
 ## After:
+
+# Script information ------------------------------------------------------
+# This script automates the preparation of plots and tables for a report based 
+# on the results of SS3 model runs. For each model scenario, the script loads 
+# input and output data, generates a series of plots including temporal data 
+# coverage, growth curves, catches, age compositions, residuals, and more. 
+# Additionally, the script creates summary tables using `flextable` for estimated 
+# parameters, time series, and other key diagnostics. The generated plots and 
+# tables are saved in the `report/run` directory corresponding to each scenario.
+# Finally, the script performs a commit and push of the generated files to the
+# Git repository, ensuring that all report elements are properly versioned. 
+# *To avoid making changes directly to the main repository, it is recommended to
+# either comment out the section that performs the commit and push, or switch to 
+# a different branch before running the script. This will help ensure proper 
+# version control of the generated files without impacting the main branch.*
+
 rm(list=ls())
 
 
