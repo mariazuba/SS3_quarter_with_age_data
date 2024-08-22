@@ -1,6 +1,6 @@
 # función que elimina archivos
 
-
+# utilizo gitignore 
 deleteFiles<-function(dir,carpetas_principales){
 dir.origin<-getwd()
 # Lista de archivos a eliminar
