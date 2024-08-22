@@ -86,7 +86,65 @@ ggsave(file.path(paste0(path,"/fig_catches.png")), fig1b,  width=8, height=5)
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
 
+## age composition ----
+inputs$dat$agecomp[ inputs$dat$agecomp==0]<-NA
+agecomp<-  inputs$dat$agecomp  %>% filter(FltSvy==1) %>% 
+           select(c(Yr,Seas,`a0`,`a1`,`a2`,`a3`)) %>% 
+           melt(id.vars=c("Yr","Seas")) %>% 
+           mutate(variable = factor(variable, levels = c("a0","a1", "a2", "a3"),
+                           labels = c("0","1", "2", "3")))
 
+figxx<- agecomp %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
+  geom_bar(stat = "identity") + 
+    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top",
+               labeller = labeller(Seas = c("3" = "Q1", 
+                                            "6" = "Q2",
+                                            "9" = "Q3", 
+                                            "12" = "Q4")))+
+    labs(x="Year",y="Proportion",fill="Age")+
+    scale_color_discrete(name  ="Age")+
+    theme(panel.background = element_rect(fill ="gray80")) +
+    theme(panel.grid=element_line(color=NA)) +
+    ggtitle('')+
+    theme(plot.title = element_text(size =12),
+          axis.title = element_text(size = 6),
+          axis.text = element_text(size = 6),
+          strip.text = element_text(size = 6),
+          panel.background = element_rect(colour="gray",fill = "gray99"),
+          strip.background = element_rect(colour = "gray", fill = "gray99")) + 
+    theme(legend.position = 'top') 
+ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSeine.png")), figxx,  width=7, height=5)
+  
+# Age composition surveys ----
+
+agecompSurvey <-  inputs$dat$agecomp  %>% filter(FltSvy>=2) %>% 
+  select(c(Yr,Seas,FltSvy,`a0`,`a1`,`a2`,`a3`)) %>% 
+  melt(id.vars=c("Yr","Seas","FltSvy")) %>% 
+  mutate(variable = factor(variable, 
+                           levels = c("a0","a1", "a2", "a3"),
+                           labels = c("0","1", "2", "3")))
+
+figx1<- agecompSurvey %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
+  geom_bar(stat = "identity") + 
+  facet_wrap(.~FltSvy,ncol=1,as.table = TRUE, strip.position = "top",
+             labeller = labeller(FltSvy = c("2" = "PELAGO", 
+                                          "3" = "ECOCADIZ",
+                                          "5" = "ECOCADIZ-RECLUTAS"))) +
+  labs(x="Year",y="Proportion",fill="Age")+
+  scale_color_discrete(name  ="Age")+
+  theme(panel.background = element_rect(fill ="gray80")) +
+  theme(panel.grid=element_line(color=NA)) +
+  ggtitle('')+
+  theme(plot.title = element_text(size =12),
+        axis.title = element_text(size = 6),
+        axis.text = element_text(size = 6),
+        strip.text = element_text(size = 6),
+        panel.background = element_rect(colour="gray",fill = "gray99"),
+        strip.background = element_rect(colour = "gray", fill = "gray99")) + 
+  theme(legend.position = 'top') 
+ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=7, height=7)
+
+  
 ## Fit data: Length composition (aggregated) ----
   png(file.path(paste0(path,"/fig_age_fit_agg.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(21),kind = "AGE",maxrows = 2,maxcols = 2,
@@ -317,10 +375,12 @@ pivot_wider(
 #'*=================================================================*
 # Flextables ----
 ## table index by surveys 
-ft1<-indices %>%
+indices<-indices %>%
   select(year,obs_2,obs_3,obs_4,obs_5) %>%
   arrange(year) %>%  # Ordenar por la columna 'year'
-  mutate(across(c(obs_2,obs_3,obs_4,obs_5), \(x) round(x, 0))) %>%  # Redondear todas las columnas seleccionadas
+  mutate(across(c(obs_2,obs_3,obs_4,obs_5), \(x) round(x, 0))) 
+
+ft1<-indices%>%  # Redondear todas las columnas seleccionadas
   flextable()  # Crear la flextable
 
 ft1<-set_header_labels(ft1, 
@@ -337,6 +397,7 @@ ft1 <- add_header_row(ft1,
 ft1 <- colformat_double(ft1, digits=1, na_str = "")
 ft1 <- colformat_num(ft1,big.mark = "", na_str = "")
 ft1 <- align(ft1,part = "header", align = "center") 
+ft1 <- fontsize(ft1, size = 9, part = "body")
 ft1 <- autofit(ft1)
 ft1
 
@@ -441,6 +502,7 @@ ft12 <- add_header_row(ft12,
 ft12 <- colformat_double(ft12, digits=1, na_str = "")
 ft12 <- colformat_num(ft12,big.mark = "", na_str = "")
 ft12 <- align(ft12,part = "header", align = "center") 
+ft12 <- fontsize(ft12, size = 8, part = "body")
 ft12 <- autofit(ft12)
 ft12
 
@@ -466,3 +528,20 @@ save_as_image(ft12, path = paste0(path,"/tb_catches.png"))
 save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10,file=paste0(path,"/tables_run.RData"))
 }
 
+
+# Se hace commit y push de los cambios 
+for(i in 1:length(esc)){
+  run_rep <- paste0("report/run/",esc[i])
+  # Agregar todos los archivos en la carpeta específica al área de preparación
+  system2("git", args = c("add",run_rep))
+  system2("git", args = c("add","report_01_run.R"))
+  # Realizar el commit con un mensaje descriptivo
+  fecha_hora <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+  commit_message <- paste0("Actualizados report/run/", esc[i]," ",fecha_hora)
+  # Usar shQuote para manejar correctamente los espacios en el mensaje de commit
+  commit_message_quoted <- shQuote(commit_message)
+  # Ejecutar el comando git commit
+  system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
+  # (Opcional) Subir los cambios al repositorio remoto
+  system2("git", args = c("push"))
+}
