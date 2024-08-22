@@ -84,18 +84,28 @@ block_section(op_section) # open section
 
 ### Data
 
+The **Figure x** provides a visual representation of the input data used in the stock assessment model, categorized into three main types: catches, abundance indices, and age compositions. These data are displayed over time (years) and are represented by circles, with the size of each circle reflecting **the magnitude of the data (por corroborar)**.
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_input_data.png"))
 ```
+Figure `r run_bookmark("fig_input_data", figruns)`: Summary of inputs and data year ranges for assessment (1989-2023).
 
 \newpage
 #### Catches
 
+Over the past few decades, long-term trends in fish catches have exhibited variability, characterized by peaks in certain periods and phases of stabilization. In the 1990s, catches initially increased, declined in the mid-decade, and recovered towards the end of the period. In the early 2000s, catches reached their highest point, particularly around the year 2000, followed by a gradual decline leading to stabilization throughout the remainder of the decade. Between 2010 and 2019, catches remained stable, with minor fluctuations and an increase towards the end of this period. In the 2020s, catches increased again, reaching levels comparable to those observed in the early 2000s (**Figure and Table**).
+
+The quarterly pattern of catches shows that the second (Q2) and third quarters (Q3) consistently record the highest catch volumes over the years, indicating these periods as the most active. The first quarter (Q1) also contributes to the annual totals, although at a lower level compared to Q2 and Q3. The fourth quarter (Q4) consistently records the lowest catch volumes, reflecting a period of reduced activity (**Figure and Table**).
+
 ```{r}
 include_graphics(file.path(path_mod,"fig_catches.png"))
 ```
+Figure `r run_bookmark("fig_catches", figruns)`: Quarterly Catch.
 
+\newpage
+
+Table `r run_bookmark("tb_catches", tabruns.start)`:  Quarterly and Annual Catch Totals. 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_catches.png"))
@@ -103,19 +113,47 @@ include_graphics(file.path(path_mod,"tb_catches.png"))
 
 
 \newpage
-#### Indices
+#### Abundances indices
+
+The abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS* exhibit interannual variability over time. *PELAGO*, with data from 1999 to 2023, shows fluctuations with a peak in 2016 at 65,345 tons, followed by a decline, but with a slight recovery in 2023 to 26,786 tons. *ECOCADIZ*, covering the period from 2004 to 2023, reaches its maximum in 2019 at 57,700 tons, followed by a significant decrease to 9,714 tons in 2023. *BOCADEVA*, with data from 2005 to 2023, shows a steady increase to its peak in 2020 at 81,466 tons, followed by a reduction to 15,138 tons in 2023. *ECORECLUTAS*, recorded from 2014 to 2023, shows a sustained increase until 2019 at 48,398 tons, followed by a decrease to 8,300 tons in 2023. These patterns reflect changes in the abundance of anchovy in the Gulf of Cádiz over time, with periods of increase followed by declines in the later years of each series (**Figure and Table**).
 
 ```{r}
 include_graphics(file.path(path_out,"/plots/index9_standcpueall.png"))
 ```
 
+Figure `r run_bookmark("index9_standcpueall", figruns)`: Time series of biomass indices for the Gulf of Cádiz anchovy stock, represented by the *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECORECLUTAS* indices.
+
+
+\newpage
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_index.png"))
 ```
 
+
 \newpage
-### survey date, coeficient variation (CV) and samples size (nm)
+#### Age composition
+
+In the stock assessment model, the age proportion of the commercial fleet (*SEINE*) by quarter and year (1989 to 2023) is used. The historical trend indicates that age 0 is not recorded in Q1 and Q2, but its proportion increases in Q3 and Q4 in more recent years. Age 1 predominates in Q1 and Q2, maintaining a constant proportion over time. In Q3 and Q4, the proportion of age 1 individuals decreases as the proportion of age 0 increases. Ages 2 and 3 exhibit lower and variable proportions across all quarters over the years, without a defined pattern of change (**Figure**).
+
+```{r}
+include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSeine.png"))
+```
+
+\newpage
+The stock assessment model utilizes age proportions from different surveys (*PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*) by year. The figure shows that in the *PELAGO* survey, conducted in the second quarter (Q2), age 1 represents the highest proportion over time, with a presence of ages 2 and 3, and no records of age 0 individuals. The *ECOCADIZ* survey, primarily conducted in the third quarter (Q3), shows a predominance of age 1, with an increase in the proportion of age 0 from 2010 onward; in 2004 and 2006, when the survey was conducted in the second quarter (Q2), no age 0 individuals were recorded. The *ECOCADIZ-RECLUTAS* survey, conducted since 2014 in October (fourth quarter, Q4), shows a higher proportion of age 0, followed by age 1, with lower representation of ages 2 and 3 (**Figure**).
+
+```{r}
+include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSurveys.png"))
+```
+
+
+\newpage
+
+
+### Data weighting
+
+#### survey date, coeficient variation (CV) and samples size (nm)
 
 
 ```{r}
@@ -151,6 +189,8 @@ include_graphics(file.path(path_mod,"fig_weight_by_quarters.png"))
 
 \newpage
 - *Recruitment*, *catchability* and *length and age selectivity*:
+
+
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_params_est.png"))
