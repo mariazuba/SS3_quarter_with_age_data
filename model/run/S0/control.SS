@@ -10,7 +10,8 @@
 0 # unused option
 # for each settlement assignment:
 #_GPattern	month	area	age
-1	 7	1	0	#_1
+1	 10	1	0	#_1
+#1	 10	1	0	#_1
 #
 #_Cond 0 # N_movement_definitions goes here if N_areas > 1
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
@@ -32,7 +33,7 @@
 3 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate;_5=Maunder_M;_6=Age-range_Lorenzen
 #_ #_Age_natmort_by sex x growthpattern
 #_Age_0	Age_1	Age_2	Age_3
-2.97	1.13	1.13	1.13	#_natM1
+2.97	1.33	1.33	1.33	#_natM1
 1 # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 4=age_specific_K_decr;5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation
 0 #_Age(post-settlement)_for_L1;linear growth below this
 999 #_Growth_Age_for_L2 (999 to use as Linf)
@@ -59,7 +60,9 @@
    -3	  15	      22	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat50%          
    -3	   3	   -0.45	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat_slope       
    -3	   3	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_alpha      
-   -3	   3	       0	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_beta   
+   -3	   3	       0	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_beta       
+#    0	   2	     0.3	0	0	0	 -3	0	0	   0	   0	0	0	0	#_RecrDist_month_1
+#    0    2       0.7  0 0 0  -3  0 0    0     0  0 0 0 #_RecrDist_month_2
     1	   1	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CohortGrowDev   
 1e-07	   1	     0.5	0	0	0	-3	0	0	   0	   0	0	0	0	#_FracFemale      
 #_no timevary MG parameters
@@ -104,8 +107,8 @@
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn  #  parm_name
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_PELAGO 
--30	15	0	0	0	0	3	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
--30	15	0	0	0	0	3	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
+-30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
+-30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
 #_no timevary Q parameters
 #
