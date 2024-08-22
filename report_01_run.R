@@ -70,20 +70,26 @@ for(i in 1:length(esc)){
   
   fig7<-watage_mid %>% ggplot(aes(x=Yr,y=value,colour=variable)) +
     geom_point() + geom_line()+
-    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top")+
+    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top",
+               labeller = labeller(Seas = c("1" = "Q1", 
+                                            "2" = "Q2",
+                                            "3" = "Q3", 
+                                            "4" = "Q4")))+
     labs(x="Year",y="Weight mean (Kg)")+
     scale_color_discrete(name  ="Age")+
     theme(panel.background = element_rect(fill ="gray80")) +
     theme(panel.grid=element_line(color=NA)) +
-    ggtitle('Weight at age by quarters')+
-    theme(plot.title = element_text(size =12),
+    ggtitle('')+
+    theme(plot.title = element_text(size =5),
           axis.title = element_text(size = 6),
           axis.text = element_text(size = 6),
           strip.text = element_text(size = 6),
           panel.background = element_rect(colour="gray",fill = "gray99"),
-          strip.background = element_rect(colour = "gray", fill = "gray99")) + 
+          strip.background = element_rect(colour = "gray", fill = "gray99"),
+          legend.title = element_text(size = 6, face = "bold"), 
+          legend.text = element_text(size = 6)) + 
     theme(legend.position = 'top') 
-  ggsave(file.path(paste0(path,"/fig_weight_by_quarters.png")), fig7,  width=5, height=6)
+  ggsave(file.path(paste0(path,"/fig_weight_by_quarters.png")), fig7,  width=5, height=5)
   
 ## Catches by $uarters
 catches<-  inputs$dat$catch%>% filter(year>-999) %>% select(c(year,seas,catch)) 
@@ -158,7 +164,7 @@ figx1<- agecompSurvey %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
         panel.background = element_rect(colour="gray",fill = "gray99"),
         strip.background = element_rect(colour = "gray", fill = "gray99")) + 
   theme(legend.position = 'top') 
-ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=7, height=7)
+ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=5, height=5)
 
   
 ## Fit data: Length composition (aggregated) ----
@@ -241,9 +247,9 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
   SSplotSelex(output,subplots =1)
   dev.off()
   
-## Stock-Recluta 
+## Stock-Recluta ----
   png(file.path(paste0(path,"/fig_stock-recluta.png")),width=4,height=4,res=300,units='in')
-  sspar(mfrow = c(1, 1), plot.cex = 0.8)
+  sspar(mfrow = c(1, 1), plot.cex = 0.6)
   SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,legendloc ="bottomright")
   dev.off()
 
@@ -364,6 +370,8 @@ nsamp <- inputs$dat$agecomp %>%
          mutate(nm_4=NA)
 
 combined_df <- left_join(indices, nsamp, by = "year")
+
+SR_input<-inputs$ctl$SR_parms
 
 params <- output$estimated_non_dev_parameters%>%
           rownames_to_column(var = "Parameter") %>% 
