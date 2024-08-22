@@ -240,7 +240,23 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
   png(file.path(paste0(path,"/fig_age_selectivity.png")),width=6,height=5,res=300,units='in')
   SSplotSelex(output,subplots =1)
   dev.off()
+  
+## Stock-Recluta 
+  png(file.path(paste0(path,"/fig_stock-recluta.png")),width=4,height=4,res=300,units='in')
+  sspar(mfrow = c(1, 1), plot.cex = 0.8)
+  SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,legendloc ="bottomright")
+  dev.off()
 
+##  Recruitment devs
+  png(file.path(paste0(path,"/fig_Recdevs.png")),width=5,height=5,res=300,units='in')
+  sspar(mfrow = c(1, 1), plot.cex = 0.8)
+  SSplotRecdevs(output,subplots = 2,pwidth = 5,pheight = 5)
+  dev.off()
+  
+  #SSplotSPR(output)
+  #SSplotCatch(output)
+  #SSplotNumbers(output)
+  
   ## time series ----
   stdreptlist<-data.frame(output$derived_quants[,1:3])
   head(stdreptlist)
