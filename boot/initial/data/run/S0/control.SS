@@ -132,9 +132,9 @@
 #_AgeSelex
 -2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
 -1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
--2	5.5	0.5	0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
+-2	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
 -1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ  
--2	5.5	0	0	0	0	-2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
+-2	5.5	0	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
 -1	5.5	1	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS   
 #_timevary selex parameters
 #
