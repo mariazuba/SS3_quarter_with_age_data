@@ -6,7 +6,7 @@
 4 #_nseas
 3 3 3 3 #_months_per_seas
 2 #_Nsubseasons
-7 #_spawn_month
+6 #_spawn_month
 1 #_Nsexes
 3 #_Nages
 1 #_N_areas

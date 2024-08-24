@@ -106,7 +106,7 @@ random number seed:  -1
  0 0.125
  0 0.125
  0 0.125
-SPAWN month: 7; seas: 3; subseas_for_ALK: 1; timing_in_season: 0
+SPAWN month: 6; seas: 2; subseas_for_ALK: 2; timing_in_season: 0.666667
 1 N sexes 
 Accumulator age 3
 1 N_areas 
@@ -576,7 +576,7 @@ N settle timings: 1
 settle events use these settle_times:  1
 Calculated assignments in which settlement occurs 
 Settle_event / Month / Seas / Seas_from_spawn / time_from_seas_start / age_at_settle
-1 / 10  /  4 / 1 / 0  / 0
+1 / 10  /  4 / 2 / 0  / 0
 
 MORPH_INDEXING
 g Sex GP Settlement Birth_Seas Platoon Platoon% Sex*GP Sex*GP*settle_time Used(0/1) SettleTime_frac_yr
@@ -4185,9 +4185,9 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 10873.6
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 6.69202 0.4
-Calculated Btgt: 6.69202 0.4
-Calculated Fmsy 20.0725 7843.46
+Calculated Fspr 3.20318 0.4
+Calculated Btgt: 3.20318 0.4
+Calculated Fmsy 9.60838 7050.55
 Finished benchmark, forecast, and sdreporting
 Iterations: 508
  finished COVAR.SSO
