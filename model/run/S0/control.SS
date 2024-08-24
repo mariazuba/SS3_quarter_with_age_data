@@ -10,8 +10,7 @@
 0 # unused option
 # for each settlement assignment:
 #_GPattern	month	area	age
-1	 7	1	0	#_1
-#1	 10	1	0	#_1
+1	 10	1	0	#_1
 #
 #_Cond 0 # N_movement_definitions goes here if N_areas > 1
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
@@ -83,7 +82,7 @@
   0	 0	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_autocorr 
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
-1989 # first year of main recr_devs; early devs can preceed this era
+1988 # first year of main recr_devs; early devs can preceed this era
 2023 # last year of main recr_devs; forecast devs start in following year
 1 #_recdev phase
 0 # (0/1) to read 13 advanced options
