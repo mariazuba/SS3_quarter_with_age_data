@@ -143,7 +143,7 @@
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
   1 1989 2023 0 3 1 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
-  0.01 5 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
+  0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
   -0.8 0.8 0 0 99 0 -3  # rho_year for fleet:_1
   -0.8 0.8 0 0 99 0 -3  # rho_AGE for fleet:_1
   -9999  0 0 0 0 0 0 0 0 0 0 # terminator
