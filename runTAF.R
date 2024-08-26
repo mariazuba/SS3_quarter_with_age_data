@@ -33,9 +33,9 @@ sourceTAF("report_01_run")
 
 # Compilar reporte.Rmd a reporte.html
 render("Report_SS3_quarter_with_age_data.Rmd", 
-       output_file = "Report_SS3_quarter_with_age_data.html")
+       output_file = "Report_SS3_quarter_with_age_data.docx")
 
-sourceTAF("Script_git")
+sourceTAF("script_git")
 
 #sourceAll()
 
