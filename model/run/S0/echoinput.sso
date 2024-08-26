@@ -106,7 +106,7 @@ random number seed:  -1
  0 0.125
  0 0.125
  0 0.125
-SPAWN month: 3; seas: 1; subseas_for_ALK: 2; timing_in_season: 0.666667
+SPAWN month: 1; seas: 1; subseas_for_ALK: 1; timing_in_season: 0
 1 N sexes 
 Accumulator age 3
 1 N_areas 
@@ -4185,9 +4185,9 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 10873.6
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 14.2626 0.4
-Calculated Btgt: 14.2626 0.4
-Calculated Fmsy 42.7819 8554.22
+Calculated Fspr 40 0.575985
+Calculated Btgt: 40 0.575985
+Calculated Fmsy 119.99 9966.49
 Finished benchmark, forecast, and sdreporting
 Iterations: 508
  finished COVAR.SSO
