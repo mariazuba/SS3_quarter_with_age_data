@@ -10,7 +10,7 @@
 0 # unused option
 # for each settlement assignment:
 #_GPattern	month	area	age
-1	 10	1	0	#_1
+1	 7	1	0	#_1
 #
 #_Cond 0 # N_movement_definitions goes here if N_areas > 1
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
