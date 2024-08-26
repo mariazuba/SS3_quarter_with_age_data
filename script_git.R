@@ -101,9 +101,11 @@ for(i in 1:length(esc)){
 run_rmd<-getwd()
 # Agregar todos los archivos en la carpeta específica al área de preparación
 system2("git", args = c("add",run_rmd))
+system2("git", args = c("add","Report_SS3_quarter_with_age_data.Rmd"))
+system2("git", args = c("add","Report_SS3_quarter_with_age_data.docx"))
 # Realizar el commit con un mensaje descriptivo
 fecha_hora <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-commit_message <- paste0("Actualizados Report_SS3",fecha_hora)
+commit_message <- paste0("Actualizados report/run/", esc[i]," ",fecha_hora)
 # Usar shQuote para manejar correctamente los espacios en el mensaje de commit
 commit_message_quoted <- shQuote(commit_message)
 # Ejecutar el comando git commit
