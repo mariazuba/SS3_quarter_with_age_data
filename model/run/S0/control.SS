@@ -11,6 +11,7 @@
 # for each settlement assignment:
 #_GPattern	month	area	age
 1	 7	1	0	#_1
+#1	 10	1	0	#_1
 #
 #_Cond 0 # N_movement_definitions goes here if N_areas > 1
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
@@ -43,7 +44,7 @@
 0 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
 2 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
 1 #_First_Mature_Age
-3 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
+1 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
 0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn
 1 #_parameter_offset_approach (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)
 #
@@ -82,7 +83,7 @@
   0	 0	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_autocorr 
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
-1988 # first year of main recr_devs; early devs can preceed this era
+1989 # first year of main recr_devs; early devs can preceed this era
 2023 # last year of main recr_devs; forecast devs start in following year
 1 #_recdev phase
 0 # (0/1) to read 13 advanced options
@@ -132,22 +133,14 @@
 #_AgeSelex
 -2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
 -1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
--2	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
+-2	5.5	0.5	0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
 -1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ  
--2	5.5	0	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
+-2	5.5	0	0	0	0	-2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
 -1	5.5	1	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS   
 #_timevary selex parameters
 #
-0   #  use 2D_AR1 selectivity? (0/1)
-#_specifications for 2D_AR1 and associated parameters
-#_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
-#_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-#1 1989 2023 0 3 1 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
-#0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
-#-0.2 0.2 0 0 99 0 -3  # rho_year for fleet:_1
-#-0.8 0.8 0 0 99 0 -3  # rho_AGE for fleet:_1
-#-9999  0 0 0 0 0 0 0 0 0 0 # terminator
-#
+0 #  use 2D_AR1 selectivity(0/1):  experimental feature
+#_no 2D_AR1 selex offset used
 # Tag loss and Tag reporting parameters go next
 0 # TG_custom:  0=no read; 1=read if tags exist
 #_Cond -6 6 1 1 2 0.01 -4 0 0 0 0 0 0 0  #_placeholder if no parameters

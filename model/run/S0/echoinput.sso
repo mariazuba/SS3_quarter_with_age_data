@@ -106,11 +106,7 @@ random number seed:  -1
  0 0.125
  0 0.125
  0 0.125
-<<<<<<< HEAD
 SPAWN month: 1; seas: 1; subseas_for_ALK: 1; timing_in_season: 0
-=======
-SPAWN month: 4; seas: 2; subseas_for_ALK: 1; timing_in_season: 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 1 N sexes 
 Accumulator age 3
 1 N_areas 
@@ -580,11 +576,7 @@ N settle timings: 1
 settle events use these settle_times:  1
 Calculated assignments in which settlement occurs 
 Settle_event / Month / Seas / Seas_from_spawn / time_from_seas_start / age_at_settle
-<<<<<<< HEAD
 1 / 7  /  3 / 2 / 0  / 0
-=======
-1 / 7  /  3 / 1 / 0  / 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 
 MORPH_INDEXING
 g Sex GP Settlement Birth_Seas Platoon Platoon% Sex*GP Sex*GP*settle_time Used(0/1) SettleTime_frac_yr
@@ -671,11 +663,7 @@ g a seas subseas ALK_idx real_age calen_age lin_grow first_grow_age
 0  CV_depvar
 2  Maturity_Option
 1  First_Mature_Age
-<<<<<<< HEAD
 1  Fecundity option
-=======
-3  Fecundity option
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 0  Hermaphro_Option: 0 means No; 1 for F to M; -1 for M to F
 1  MGparm_def
  predparm pointer -1 -1 -1 -1 -1 13
@@ -689,13 +677,8 @@ g a seas subseas ALK_idx real_age calen_age lin_grow first_grow_age
 7  -3 3 3.278 0 0 0 -3 0 0 0 0 0 0 0 Wtlen_2_Fem_GP_1
 8  -3 15 22 0 0 0 -3 0 0 0 0 0 0 0 Mat50%_Fem_GP_1
 9  -3 3 -0.45 0 0 0 -3 0 0 0 0 0 0 0 Mat_slope_Fem_GP_1
-<<<<<<< HEAD
 10  -3 3 1 0 0 0 -3 0 0 0 0 0 0 0 Eggs/kg_inter_Fem_GP_1
 11  -3 3 0 0 0 0 -3 0 0 0 0 0 0 0 Eggs/kg_slope_wt_Fem_GP_1
-=======
-10  -3 3 1 0 0 0 -3 0 0 0 0 0 0 0 Eggs_scalar_Fem_GP_1
-11  -3 3 0 0 0 0 -3 0 0 0 0 0 0 0 Eggs_exp_wt_Fem_GP_1
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 12  0.1 10 1 1 1 0 -1 0 0 0 0 0 0 0 CohortGrowDev
 13  1e-07 1 0.5 0 0 0 -3 0 0 0 0 0 0 0 FracFemale_GP_1
 mgparm_type for each parm:
@@ -768,11 +751,7 @@ MG_active  0 0 0 0 0 0 0 0
 SR_Npar and N_SRparm2 and N_SRparm3:  2 5 5
 SR_parm_RD:  20 0.9 0.6 0 0
 1 do_recdev
-<<<<<<< HEAD
 1989 recdev_start
-=======
-1988 recdev_start
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 2023 recdev_end
 1 recdev_PH
 0 recdev_adv
@@ -793,11 +772,7 @@ SR_parm_RD:  20 0.9 0.6 0 0
 0 #_read_recdevs
 #_end of advanced SR options
 #_recruitment bias adjustment
-<<<<<<< HEAD
  0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
-=======
- 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 0.1 F ballpark is annual F, as specified in F_reporting, for a specified year
 -2023 F_ballpark_yr (<0 to ignore)  
 3 F_Method as read
@@ -862,15 +837,9 @@ Q_parm_RD:
  selex and composition base parameters 
 1 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_SEINE(1)
 2 ##  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
-<<<<<<< HEAD
 3 ##  -2 5.5 0.5 0 0 0 -3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
 4 ##  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_ECOCADIZ(3)
 5 ##  -2 5.5 0 0 0 0 -2 0 0 0 0 0 0 0 ## Age_inflection_ECORECLUTAS(5)
-=======
-3 ##  -2 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
-4 ##  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_ECOCADIZ(3)
-5 ##  -2 5.5 0 0 0 0 2 0 0 0 0 0 0 0 ## Age_inflection_ECORECLUTAS(5)
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 6 ##  -1 5.5 1 0 0 0 2 0 0 0 0 0 0 0 ## Age_95%width_ECORECLUTAS(5)
 identify the fleet associated with each parameter
 selparm_fleet:
@@ -879,15 +848,9 @@ check on conversion of retention parameter
 check on mirror bounds
 1 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
 2 sel  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0
-<<<<<<< HEAD
 3 sel  -2 5.5 0.5 0 0 0 -3 0 0 0 0 0 0 0
 4 sel  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0
 5 sel  -2 5.5 0 0 0 0 -2 0 0 0 0 0 0 0
-=======
-3 sel  -2 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0
-4 sel  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0
-5 sel  -2 5.5 0 0 0 0 2 0 0 0 0 0 0 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 6 sel  -1 5.5 1 0 0 0 2 0 0 0 0 0 0 0
  now read 0/1 for 2D_AR
 0  #_ 0/1 to request experimental 2D_AR selectivity smoother options 
@@ -933,7 +896,6 @@ LAMBDA
  5th value is used only for like_code=6 and specifies the SizeFreq method used, which is in addition to fleet designation.
 0 # extra stdev reporting: 0 = skip, 1 = read specs for reporting stdev for selectivity, size, and numbers, 2 = add option for M, dyn. Bzero & Smrybio 
 End of control file successful! 999
-<<<<<<< HEAD
 N parameters: 66
 Parameters plus derived quant: 249
 Adjust the phases 
@@ -956,39 +918,11 @@ parm 246 covar 227  after forecast
  do Svy_sdreport labels 0
 parm 249 covar 230  after all derived quantities 
 Active parameters plus derived quantities:  230
-=======
-N parameters: 67
-Parameters plus derived quant: 250
-Adjust the phases 
- requested turn_off phase: 10
-Fcast_dev_phase (read and adjusted): 0 2
-ParCount 67   Active parameters: 50
-Turn_off_phase 10
- max_phase 3
-250
-parm 67 covar 50
-deriv_start 67 50
-parm 107 covar 90
-parm 147 covar 130
-parm 185 covar 168
-parm 223 covar 206
-parm 224 covar 207
-parm 241 covar 224  after benchmark 
-parm 247 covar 230  after forecast 
- do ln(SPB) std labels for 3 years
- do Svy_sdreport labels 0
-parm 250 covar 233  after all derived quantities 
-Active parameters plus derived quantities:  233
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 Begin setting up parameters
  now dimension the selectivity arrays 6
  -2 -1 -2 -1 -2 -1
  5.5 5.5 5.5 5.5 5.5 5.5
-<<<<<<< HEAD
  3 3 -3 3 -2 2
-=======
- 3 3 3 3 2 2
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
  OK after dimension the selectivity arrays 
  check 0 
  OK after dimension the 2dar arrays 
@@ -3531,11 +3465,7 @@ Finished reading the empirical weight at age file
  set parms to init values in CTL file 
  MGparms read from ctl  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 22 -0.45 1 0 1 0.5
  SRR_parms read from ctl  20 0.9 0.6 0 0
-<<<<<<< HEAD
  rec_devs read from ctl  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-=======
- rec_devs read from ctl  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
  Q_parms read from ctl  0 0 0 0
  selex_parms read from ctl  0 1 0.5 1 0 1
 
@@ -3548,11 +3478,7 @@ Warning 2 : parameter init value is greater than parameter max 22 > 15 for parm:
  SRR_parms after check  20 0.9 0.6 0 0
 
  now check recdev bounds and priors and do jitter if requested 
-<<<<<<< HEAD
  rec_devs after check  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-=======
- rec_devs after check  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
 
  now check Qparm bounds and priors and do jitter if requested 
  Q_parms after check  0 0 0 0
@@ -4259,19 +4185,11 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 7323.64
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-<<<<<<< HEAD
 Calculated Fspr 40 0.49833
 Calculated Btgt: 40 0.49833
 Calculated Fmsy 119.996 15059
 Finished benchmark, forecast, and sdreporting
 Iterations: 503
-=======
-Calculated Fspr 26.4592 0.4
-Calculated Btgt: 26.4592 0.4
-Calculated Fmsy 79.3744 11890.1
-Finished benchmark, forecast, and sdreporting
-Iterations: 877
->>>>>>> ef8f9f60e4a6d8900313a05611691de3aec307e8
  finished COVAR.SSO
 Finished forecast
 Writing wtatage.ss_new
