@@ -13,7 +13,7 @@ library(icesTAF)
 library(rmarkdown)
 
 # clean the TAF directories (all except bootstrap/initial):
-clean()
+#clean()
 
 # Run the TAF analysis ----------------------------------------------------
 
@@ -30,6 +30,11 @@ sourceTAF("data")
 sourceTAF("model_01_run")
 sourceTAF("output_01_run")
 sourceTAF("report_01_run")
+
+# Compilar reporte.Rmd a reporte.html
+render("Report_SS3_quarter_with_age_data.Rmd", 
+       output_file = "Report_SS3_quarter_with_age_data.html")
+
 sourceTAF("Script_git")
 
 #sourceAll()
