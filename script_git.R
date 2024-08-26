@@ -23,7 +23,7 @@ for(i in 1:length(esc)){
   run_dat <- paste0("data/run/",esc[i])
   # Agregar todos los archivos en la carpeta específica al área de preparación
   system2("git", args = c("add",run_dat))
-  system2("git", args = c("add","data_01_run.R"))
+  system2("git", args = c("add","data.R"))
   # Realizar el commit con un mensaje descriptivo
   fecha_hora <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
   commit_message <- paste0("Actualizados data/run/", esc[i]," ",fecha_hora)
