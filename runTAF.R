@@ -25,9 +25,14 @@ clean()
 # sourceTAF("output") 
 # sourceTAF("report")
 
+sourceTAF("bootstrap")
+sourceTAF("data")
+sourceTAF("model_01_run")
+sourceTAF("output_01_run")
+sourceTAF("report_01_run")
+sourceTAF("Script_git")
 
-
-sourceAll()
+#sourceAll()
 
 
 # End of script -----------------------------------------------------------
