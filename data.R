@@ -96,20 +96,3 @@ saveWorkbook(wb, paste0(data_esc,"/Index.xlsx"),overwrite = TRUE)
 #'*-------------------------------------------------------------*
 }
 
-
-#'*Se hace commit y push de los cambios cada vez que se ejecuta el modelo*
-for(i in 1:length(esc)){
-  run_dat <- paste0("data/run/",esc[i])
-  # Agregar todos los archivos en la carpeta específica al área de preparación
-  system2("git", args = c("add",run_dat))
-  system2("git", args = c("add","data_01_run.R"))
-  # Realizar el commit con un mensaje descriptivo
-  fecha_hora <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-  commit_message <- paste0("Actualizados data/run/", esc[i]," ",fecha_hora)
-  # Usar shQuote para manejar correctamente los espacios en el mensaje de commit
-  commit_message_quoted <- shQuote(commit_message)
-  # Ejecutar el comando git commit
-  system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
-  # (Opcional) Subir los cambios al repositorio remoto
-  system2("git", args = c("push"))
-}
