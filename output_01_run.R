@@ -62,20 +62,3 @@ r4ss::SS_plots(replist = output, dir = run_out,
 save(output,  summary, R0,      
      file=paste0(run_out,"/output.RData"))
 }
-
-# Se hace commit y push de los cambios 
-for(i in 1:length(esc)){
-  run_out <- paste0("output/run/",esc[i])
-# Agregar todos los archivos en la carpeta específica al área de preparación
-system2("git", args = c("add",run_out))
-system2("git", args = c("add","output_01_run.R"))
-# Realizar el commit con un mensaje descriptivo
-fecha_hora <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-commit_message <- paste0("Actualizados output/run/", esc[i]," ",fecha_hora)
-# Usar shQuote para manejar correctamente los espacios en el mensaje de commit
-commit_message_quoted <- shQuote(commit_message)
-# Ejecutar el comando git commit
-system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
-# (Opcional) Subir los cambios al repositorio remoto
-system2("git", args = c("push"))
-}
