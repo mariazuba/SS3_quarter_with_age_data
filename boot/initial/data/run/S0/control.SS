@@ -120,7 +120,7 @@
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_PELAGO 
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
--30	15	0	0	0	0	1	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
+-30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -143,17 +143,20 @@
 #_No size_selex_parm
 #_AgeSelex
 -2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
--2	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+-1	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
+-2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
+-1	5.5	0.2	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+#-2	5.5	0	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
+#-1	5.5	0.2	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
 #_timevary selex parameters
 #
 0   #  use 2D_AR1 selectivity? (0/1)
 #_specifications for 2D_AR1 and associated parameters
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-#1 1989 2023 0 3 1 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
-#0.01 5 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
+#1 1989 2023 0 3 2 0 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
+#0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
+#0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
 #-0.8 0.8 0 0 99 0 -3  # rho_year for fleet:_1
 #-0.8 0.8 0 0 99 0 -3  # rho_AGE for fleet:_1
 #-9999  0 0 0 0 0 0 0 0 0 0 # terminator
