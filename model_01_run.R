@@ -12,20 +12,9 @@
 # The process includes logging the execution time and managing the 
 # version control of the `model/run` directory, making sure that the results
 # from each scenario are accurately tracked and stored. 
-#'*To avoid making changes directly to the main repository, it is recommended to*
-#'*either comment out the section that performs the commit and push, or switch to* 
-#'*a different branch before running the script. This will help ensure proper*
-#'*version control of the generated files without impacting the main branch.*
 
 # libraries ------------------------------------------------------
 library(r4ss) 
-library(reshape2)
-library(readxl)
-library(openxlsx)
-library(dplyr)
-library(kableExtra)
-library(devtools)
-library(ss3diags)
 library(icesTAF)
 
 # directorios ----
@@ -46,8 +35,39 @@ s0_model  <- file.path(path_esc)
 cp(s0_path, s0_model)
 cp("boot/software/ss3", "model/run/S0")
 wd <- paste0(getwd(),"/model/run/S0")
-#setwd(wd)
 system(wd)
 system(paste0("chmod 755 ",wd,"/ss3"))
 r4ss::run(dir=wd, exe="ss3", skipfinished=FALSE, show_in_console =T)
+
+#'*------------------------------------------------------------------------------------------*
+### S1 ----
+# Specify the source and destination folders
+# model_S0 <- "model/run/S0"
+# model_S1 <- "model/run/S1"
+# # Create the destination folder if it doesn't exist
+# dir.create(model_S1, recursive = TRUE, showWarnings = FALSE)
+# # List of files you want to copy
+# files_to_copy <- c("starter.ss", "control.SS", "data.SS", "forecast.ss", "ss3","wtatage.ss")
+# # Copy the files to the destination folder
+# sapply(files_to_copy, function(file) {
+#   file.copy(file.path(model_S0, file), model_S1, overwrite = TRUE)
+# })
+# 
+# #### modify the model
+# inputs <- r4ss::SS_read(dir = model_S1)
+# 
+# 
+# wd <- paste0(getwd(),"/model/run/S0")
+# system(wd)
+# system(paste0("chmod 755 ",wd,"/ss3"))
+# r4ss::run(dir=wd, exe="ss3", skipfinished=FALSE, show_in_console =T)
+
+
+
 setwd(old_wd)
+rm(list=ls())
+
+
+
+
+

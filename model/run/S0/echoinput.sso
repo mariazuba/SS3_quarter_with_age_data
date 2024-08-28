@@ -106,7 +106,7 @@ random number seed:  -1
  0 0.125
  0 0.125
  0 0.125
-SPAWN month: 1; seas: 1; subseas_for_ALK: 1; timing_in_season: 0
+SPAWN month: 4; seas: 2; subseas_for_ALK: 1; timing_in_season: 0
 1 N sexes 
 Accumulator age 3
 1 N_areas 
@@ -130,8 +130,8 @@ rows are fleets; columns are: Fleet_#, fleet_type, timing, area, units, need_cat
 4 #  3 1 1 1 0 # BOCADEVA
 5 #  3 1 1 1 0 # ECORECLUTAS
 YPR_optimize_mask:  1 0 0 0 0
-144 records
-first catch record:  -999 1 1 0 0.01
+160 records
+first catch record:  -999 1 1 0 0.1
 last catch record:  2023 4 1 622.4 0.1
  equ, seas:   -1 1 catches:  0 0 0 0 0
  equ, seas:   -1 2 catches:  0 0 0 0 0
@@ -576,7 +576,7 @@ N settle timings: 1
 settle events use these settle_times:  1
 Calculated assignments in which settlement occurs 
 Settle_event / Month / Seas / Seas_from_spawn / time_from_seas_start / age_at_settle
-1 / 7  /  3 / 2 / 0  / 0
+1 / 7  /  3 / 1 / 0  / 0
 
 MORPH_INDEXING
 g Sex GP Settlement Birth_Seas Platoon Platoon% Sex*GP Sex*GP*settle_time Used(0/1) SettleTime_frac_yr
@@ -661,7 +661,8 @@ g a seas subseas ALK_idx real_age calen_age lin_grow first_grow_age
 1 3 4 2 8 3.375 3.875 -2 1
 0  SD_add_to_LAA
 0  CV_depvar
-2  Maturity_Option
+5  Maturity_Option
+ fecundity and weight at age to be read from file:  wtatage.ss
 1  First_Mature_Age
 1  Fecundity option
 0  Hermaphro_Option: 0 means No; 1 for F to M; -1 for M to F
@@ -675,8 +676,8 @@ g a seas subseas ALK_idx real_age calen_age lin_grow first_grow_age
 5  0.05 0.25 0.1 0 0 0 -3 0 0 0 0 0 0 0 CV_old_Fem_GP_1
 6  -3 3 3.13e-06 0 0 0 -3 0 0 0 0 0 0 0 Wtlen_1_Fem_GP_1
 7  -3 3 3.278 0 0 0 -3 0 0 0 0 0 0 0 Wtlen_2_Fem_GP_1
-8  -3 15 22 0 0 0 -3 0 0 0 0 0 0 0 Mat50%_Fem_GP_1
-9  -3 3 -0.45 0 0 0 -3 0 0 0 0 0 0 0 Mat_slope_Fem_GP_1
+8  -3 15 11 0 0 0 -3 0 0 0 0 0 0 0 Mat50%_Fem_GP_1
+9  -3 3 -0.98 0 0 0 -3 0 0 0 0 0 0 0 Mat_slope_Fem_GP_1
 10  -3 3 1 0 0 0 -3 0 0 0 0 0 0 0 Eggs/kg_inter_Fem_GP_1
 11  -3 3 0 0 0 0 -3 0 0 0 0 0 0 0 Eggs/kg_slope_wt_Fem_GP_1
 12  0.1 10 1 1 1 0 -1 0 0 0 0 0 0 0 CohortGrowDev
@@ -751,9 +752,9 @@ MG_active  0 0 0 0 0 0 0 0
 SR_Npar and N_SRparm2 and N_SRparm3:  2 5 5
 SR_parm_RD:  20 0.9 0.6 0 0
 1 do_recdev
-1989 recdev_start
+1986 recdev_start
 2023 recdev_end
-1 recdev_PH
+2 recdev_PH
 0 recdev_adv
 # advanced options not read;  defaults displayed below
 0 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
@@ -772,7 +773,7 @@ SR_parm_RD:  20 0.9 0.6 0 0
 0 #_read_recdevs
 #_end of advanced SR options
 #_recruitment bias adjustment
- 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
 0.1 F ballpark is annual F, as specified in F_reporting, for a specified year
 -2023 F_ballpark_yr (<0 to ignore)  
 3 F_Method as read
@@ -837,9 +838,9 @@ Q_parm_RD:
  selex and composition base parameters 
 1 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_SEINE(1)
 2 ##  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
-3 ##  -2 5.5 0.5 0 0 0 -3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
+3 ##  -2 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
 4 ##  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_ECOCADIZ(3)
-5 ##  -2 5.5 0 0 0 0 -2 0 0 0 0 0 0 0 ## Age_inflection_ECORECLUTAS(5)
+5 ##  -2 5.5 0 0 0 0 2 0 0 0 0 0 0 0 ## Age_inflection_ECORECLUTAS(5)
 6 ##  -1 5.5 1 0 0 0 2 0 0 0 0 0 0 0 ## Age_95%width_ECORECLUTAS(5)
 identify the fleet associated with each parameter
 selparm_fleet:
@@ -848,9 +849,9 @@ check on conversion of retention parameter
 check on mirror bounds
 1 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
 2 sel  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0
-3 sel  -2 5.5 0.5 0 0 0 -3 0 0 0 0 0 0 0
+3 sel  -2 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0
 4 sel  -1 5.5 1 0 0 0 3 0 0 0 0 0 0 0
-5 sel  -2 5.5 0 0 0 0 -2 0 0 0 0 0 0 0
+5 sel  -2 5.5 0 0 0 0 2 0 0 0 0 0 0 0
 6 sel  -1 5.5 1 0 0 0 2 0 0 0 0 0 0 0
  now read 0/1 for 2D_AR
 0  #_ 0/1 to request experimental 2D_AR selectivity smoother options 
@@ -896,179 +897,179 @@ LAMBDA
  5th value is used only for like_code=6 and specifies the SizeFreq method used, which is in addition to fleet designation.
 0 # extra stdev reporting: 0 = skip, 1 = read specs for reporting stdev for selectivity, size, and numbers, 2 = add option for M, dyn. Bzero & Smrybio 
 End of control file successful! 999
-N parameters: 66
-Parameters plus derived quant: 249
+N parameters: 69
+Parameters plus derived quant: 252
 Adjust the phases 
  requested turn_off phase: 10
-Fcast_dev_phase (read and adjusted): 0 2
-ParCount 66   Active parameters: 47
+Fcast_dev_phase (read and adjusted): 0 3
+ParCount 69   Active parameters: 52
 Turn_off_phase 10
  max_phase 3
-249
-parm 66 covar 47
-deriv_start 66 47
-parm 106 covar 87
-parm 146 covar 127
-parm 184 covar 165
-parm 222 covar 203
-parm 223 covar 204
-parm 240 covar 221  after benchmark 
-parm 246 covar 227  after forecast 
+252
+parm 69 covar 52
+deriv_start 69 52
+parm 109 covar 92
+parm 149 covar 132
+parm 187 covar 170
+parm 225 covar 208
+parm 226 covar 209
+parm 243 covar 226  after benchmark 
+parm 249 covar 232  after forecast 
  do ln(SPB) std labels for 3 years
  do Svy_sdreport labels 0
-parm 249 covar 230  after all derived quantities 
-Active parameters plus derived quantities:  230
+parm 252 covar 235  after all derived quantities 
+Active parameters plus derived quantities:  235
 Begin setting up parameters
  now dimension the selectivity arrays 6
  -2 -1 -2 -1 -2 -1
  5.5 5.5 5.5 5.5 5.5 5.5
- 3 3 -3 3 -2 2
+ 3 3 3 3 2 2
  OK after dimension the selectivity arrays 
  check 0 
  OK after dimension the 2dar arrays 
 end of parameter section
 Begin reading the empirical weight at age file
  N_WTage_max 3
- 1989 1 1 1 1 -2 0 1 1 1
- 1990 1 1 1 1 -2 0 1 1 1
- 1991 1 1 1 1 -2 0 1 1 1
- 1992 1 1 1 1 -2 0 1 1 1
- 1993 1 1 1 1 -2 0 1 1 1
- 1994 1 1 1 1 -2 0 1 1 1
- 1995 1 1 1 1 -2 0 1 1 1
- 1996 1 1 1 1 -2 0 1 1 1
- 1997 1 1 1 1 -2 0 1 1 1
- 1998 1 1 1 1 -2 0 1 1 1
- 1999 1 1 1 1 -2 0 1 1 1
- 2000 1 1 1 1 -2 0 1 1 1
- 2001 1 1 1 1 -2 0 1 1 1
- 2002 1 1 1 1 -2 0 1 1 1
- 2003 1 1 1 1 -2 0 1 1 1
- 2004 1 1 1 1 -2 0 1 1 1
- 2005 1 1 1 1 -2 0 1 1 1
- 2006 1 1 1 1 -2 0 1 1 1
- 2007 1 1 1 1 -2 0 1 1 1
- 2008 1 1 1 1 -2 0 1 1 1
- 2009 1 1 1 1 -2 0 1 1 1
- 2010 1 1 1 1 -2 0 1 1 1
- 2011 1 1 1 1 -2 0 1 1 1
- 2012 1 1 1 1 -2 0 1 1 1
- 2013 1 1 1 1 -2 0 1 1 1
- 2014 1 1 1 1 -2 0 1 1 1
- 2015 1 1 1 1 -2 0 1 1 1
- 2016 1 1 1 1 -2 0 1 1 1
- 2017 1 1 1 1 -2 0 1 1 1
- 2018 1 1 1 1 -2 0 1 1 1
- 2019 1 1 1 1 -2 0 1 1 1
- 2020 1 1 1 1 -2 0 1 1 1
- 2021 1 1 1 1 -2 0 1 1 1
- 2022 1 1 1 1 -2 0 1 1 1
- 2023 1 1 1 1 -2 0 1 1 1
- 1989 2 1 1 1 -2 0 1 1 1
- 1990 2 1 1 1 -2 0 1 1 1
- 1991 2 1 1 1 -2 0 1 1 1
- 1992 2 1 1 1 -2 0 1 1 1
- 1993 2 1 1 1 -2 0 1 1 1
- 1994 2 1 1 1 -2 0 1 1 1
- 1995 2 1 1 1 -2 0 1 1 1
- 1996 2 1 1 1 -2 0 1 1 1
- 1997 2 1 1 1 -2 0 1 1 1
- 1998 2 1 1 1 -2 0 1 1 1
- 1999 2 1 1 1 -2 0 1 1 1
- 2000 2 1 1 1 -2 0 1 1 1
- 2001 2 1 1 1 -2 0 1 1 1
- 2002 2 1 1 1 -2 0 1 1 1
- 2003 2 1 1 1 -2 0 1 1 1
- 2004 2 1 1 1 -2 0 1 1 1
- 2005 2 1 1 1 -2 0 1 1 1
- 2006 2 1 1 1 -2 0 1 1 1
- 2007 2 1 1 1 -2 0 1 1 1
- 2008 2 1 1 1 -2 0 1 1 1
- 2009 2 1 1 1 -2 0 1 1 1
- 2010 2 1 1 1 -2 0 1 1 1
- 2011 2 1 1 1 -2 0 1 1 1
- 2012 2 1 1 1 -2 0 1 1 1
- 2013 2 1 1 1 -2 0 1 1 1
- 2014 2 1 1 1 -2 0 1 1 1
- 2015 2 1 1 1 -2 0 1 1 1
- 2016 2 1 1 1 -2 0 1 1 1
- 2017 2 1 1 1 -2 0 1 1 1
- 2018 2 1 1 1 -2 0 1 1 1
- 2019 2 1 1 1 -2 0 1 1 1
- 2020 2 1 1 1 -2 0 1 1 1
- 2021 2 1 1 1 -2 0 1 1 1
- 2022 2 1 1 1 -2 0 1 1 1
- 2023 2 1 1 1 -2 0 1 1 1
- 1989 3 1 1 1 -2 0 1 1 1
- 1990 3 1 1 1 -2 0 1 1 1
- 1991 3 1 1 1 -2 0 1 1 1
- 1992 3 1 1 1 -2 0 1 1 1
- 1993 3 1 1 1 -2 0 1 1 1
- 1994 3 1 1 1 -2 0 1 1 1
- 1995 3 1 1 1 -2 0 1 1 1
- 1996 3 1 1 1 -2 0 1 1 1
- 1997 3 1 1 1 -2 0 1 1 1
- 1998 3 1 1 1 -2 0 1 1 1
- 1999 3 1 1 1 -2 0 1 1 1
- 2000 3 1 1 1 -2 0 1 1 1
- 2001 3 1 1 1 -2 0 1 1 1
- 2002 3 1 1 1 -2 0 1 1 1
- 2003 3 1 1 1 -2 0 1 1 1
- 2004 3 1 1 1 -2 0 1 1 1
- 2005 3 1 1 1 -2 0 1 1 1
- 2006 3 1 1 1 -2 0 1 1 1
- 2007 3 1 1 1 -2 0 1 1 1
- 2008 3 1 1 1 -2 0 1 1 1
- 2009 3 1 1 1 -2 0 1 1 1
- 2010 3 1 1 1 -2 0 1 1 1
- 2011 3 1 1 1 -2 0 1 1 1
- 2012 3 1 1 1 -2 0 1 1 1
- 2013 3 1 1 1 -2 0 1 1 1
- 2014 3 1 1 1 -2 0 1 1 1
- 2015 3 1 1 1 -2 0 1 1 1
- 2016 3 1 1 1 -2 0 1 1 1
- 2017 3 1 1 1 -2 0 1 1 1
- 2018 3 1 1 1 -2 0 1 1 1
- 2019 3 1 1 1 -2 0 1 1 1
- 2020 3 1 1 1 -2 0 1 1 1
- 2021 3 1 1 1 -2 0 1 1 1
- 2022 3 1 1 1 -2 0 1 1 1
- 2023 3 1 1 1 -2 0 1 1 1
- 1989 4 1 1 1 -2 0 1 1 1
- 1990 4 1 1 1 -2 0 1 1 1
- 1991 4 1 1 1 -2 0 1 1 1
- 1992 4 1 1 1 -2 0 1 1 1
- 1993 4 1 1 1 -2 0 1 1 1
- 1994 4 1 1 1 -2 0 1 1 1
- 1995 4 1 1 1 -2 0 1 1 1
- 1996 4 1 1 1 -2 0 1 1 1
- 1997 4 1 1 1 -2 0 1 1 1
- 1998 4 1 1 1 -2 0 1 1 1
- 1999 4 1 1 1 -2 0 1 1 1
- 2000 4 1 1 1 -2 0 1 1 1
- 2001 4 1 1 1 -2 0 1 1 1
- 2002 4 1 1 1 -2 0 1 1 1
- 2003 4 1 1 1 -2 0 1 1 1
- 2004 4 1 1 1 -2 0 1 1 1
- 2005 4 1 1 1 -2 0 1 1 1
- 2006 4 1 1 1 -2 0 1 1 1
- 2007 4 1 1 1 -2 0 1 1 1
- 2008 4 1 1 1 -2 0 1 1 1
- 2009 4 1 1 1 -2 0 1 1 1
- 2010 4 1 1 1 -2 0 1 1 1
- 2011 4 1 1 1 -2 0 1 1 1
- 2012 4 1 1 1 -2 0 1 1 1
- 2013 4 1 1 1 -2 0 1 1 1
- 2014 4 1 1 1 -2 0 1 1 1
- 2015 4 1 1 1 -2 0 1 1 1
- 2016 4 1 1 1 -2 0 1 1 1
- 2017 4 1 1 1 -2 0 1 1 1
- 2018 4 1 1 1 -2 0 1 1 1
- 2019 4 1 1 1 -2 0 1 1 1
- 2020 4 1 1 1 -2 0 1 1 1
- 2021 4 1 1 1 -2 0 1 1 1
- 2022 4 1 1 1 -2 0 1 1 1
- 2023 4 1 1 1 -2 0 1 1 1
+ 1989 1 1 1 1 -2 0 0.00782767 0.0184841 0.0258542
+ 1990 1 1 1 1 -2 0 0.00809222 0.0191088 0.026728
+ 1991 1 1 1 1 -2 0 0.00703346 0.0166087 0.023231
+ 1992 1 1 1 1 -2 0 0.00842587 0.0198967 0.02783
+ 1993 1 1 1 1 -2 0 0.00840529 0.0198481 0.0277621
+ 1994 1 1 1 1 -2 0 0.00737417 0.0174132 0.0243563
+ 1995 1 1 1 1 -2 0 0.00830232 0.0196049 0.0274219
+ 1996 1 1 1 1 -2 0 0.00708856 0.0167388 0.023413
+ 1997 1 1 1 1 -2 0 0.00782139 0.0184693 0.0258335
+ 1998 1 1 1 1 -2 0 0.00743794 0.0175638 0.024567
+ 1999 1 1 1 1 -2 0 0.00792962 0.0187248 0.0261909
+ 2000 1 1 1 1 -2 0 0.00746182 0.0176202 0.0246458
+ 2001 1 1 1 1 -2 0 0.00865684 0.0204421 0.0285929
+ 2002 1 1 1 1 -2 0 0.00760613 0.0179609 0.0251225
+ 2003 1 1 1 1 -2 0 0.00829049 0.019577 0.0273829
+ 2004 1 1 1 1 -2 0 0.00842197 0.0198875 0.0278171
+ 2005 1 1 1 1 -2 0 0.00780945 0.0184411 0.025794
+ 2006 1 1 1 1 -2 0 0.00779258 0.0184012 0.0257383
+ 2007 1 1 1 1 -2 0 0.00764305 0.0180481 0.0252444
+ 2008 1 1 1 1 -2 0 0.00822838 0.0194303 0.0271777
+ 2009 1 1 1 1 -2 0 0.00798961 0.0188665 0.0263891
+ 2010 1 1 1 1 -2 0 0.00811179 0.019155 0.0267926
+ 2011 1 1 1 1 -2 0 0.00825108 0.0194839 0.0272527
+ 2012 1 1 1 1 -2 0 0.0078041 0.0184284 0.0257764
+ 2013 1 1 1 1 -2 0 0.00827854 0.0195488 0.0273434
+ 2014 1 1 1 1 -2 0 0.00798737 0.0188612 0.0263817
+ 2015 1 1 1 1 -2 0 0.0085708 0.0202389 0.0283087
+ 2016 1 1 1 1 -2 0 0.00804002 0.0189855 0.0265556
+ 2017 1 1 1 1 -2 0 0.00842733 0.0199001 0.0278348
+ 2018 1 1 1 1 -2 0 0.00764784 0.0180595 0.0252603
+ 2019 1 1 1 1 -2 0 0.00816561 0.0192821 0.0269704
+ 2020 1 1 1 1 -2 0 0.0078395 0.018512 0.0258933
+ 2021 1 1 1 1 -2 0 0.00820387 0.0193725 0.0270968
+ 2022 1 1 1 1 -2 0 0.00857255 0.0202431 0.0283145
+ 2023 1 1 1 1 -2 0 0.00788564 0.018621 0.0260457
+ 1989 2 1 1 1 -2 0 0.010125 0.0197254 0.0239688
+ 1990 2 1 1 1 -2 0 0.00981714 0.0191257 0.0232401
+ 1991 2 1 1 1 -2 0 0.0111128 0.0216498 0.0263072
+ 1992 2 1 1 1 -2 0 0.0106552 0.0207584 0.025224
+ 1993 2 1 1 1 -2 0 0.0108689 0.0211747 0.0257298
+ 1994 2 1 1 1 -2 0 0.0104483 0.0203553 0.0247342
+ 1995 2 1 1 1 -2 0 0.0108583 0.021154 0.0257048
+ 1996 2 1 1 1 -2 0 0.00915793 0.0178414 0.0216795
+ 1997 2 1 1 1 -2 0 0.0101773 0.0198273 0.0240926
+ 1998 2 1 1 1 -2 0 0.00932806 0.0181729 0.0220823
+ 1999 2 1 1 1 -2 0 0.0109908 0.0214123 0.0260185
+ 2000 2 1 1 1 -2 0 0.0104929 0.0204422 0.0248398
+ 2001 2 1 1 1 -2 0 0.0118517 0.0230895 0.0280565
+ 2002 2 1 1 1 -2 0 0.0105426 0.020539 0.0249574
+ 2003 2 1 1 1 -2 0 0.0111668 0.0217551 0.0264351
+ 2004 2 1 1 1 -2 0 0.0115969 0.022593 0.0274533
+ 2005 2 1 1 1 -2 0 0.0103451 0.0201543 0.0244899
+ 2006 2 1 1 1 -2 0 0.010851 0.0211398 0.0256874
+ 2007 2 1 1 1 -2 0 0.0106306 0.0207105 0.0251658
+ 2008 2 1 1 1 -2 0 0.0117868 0.022963 0.0279029
+ 2009 2 1 1 1 -2 0 0.0113864 0.0221829 0.026955
+ 2010 2 1 1 1 -2 0 0.0093554 0.0182261 0.022147
+ 2011 2 1 1 1 -2 0 0.0101334 0.0197418 0.0239887
+ 2012 2 1 1 1 -2 0 0.0111977 0.0218154 0.0265083
+ 2013 2 1 1 1 -2 0 0.011365 0.0221413 0.0269044
+ 2014 2 1 1 1 -2 0 0.0103801 0.0202225 0.0245728
+ 2015 2 1 1 1 -2 0 0.00943139 0.0183742 0.0223269
+ 2016 2 1 1 1 -2 0 0.00912412 0.0177756 0.0215995
+ 2017 2 1 1 1 -2 0 0.00947684 0.0184627 0.0224345
+ 2018 2 1 1 1 -2 0 0.0101874 0.0198471 0.0241167
+ 2019 2 1 1 1 -2 0 0.0100051 0.0194919 0.0236851
+ 2020 2 1 1 1 -2 0 0.010419 0.0202982 0.0246648
+ 2021 2 1 1 1 -2 0 0.0110756 0.0215775 0.0262193
+ 2022 2 1 1 1 -2 0 0.0107723 0.0209865 0.0255012
+ 2023 2 1 1 1 -2 0 0.00988459 0.0192571 0.0233997
+ 1989 3 1 1 1 -2 0 0.0135863 0.0225039 0.0279284
+ 1990 3 1 1 1 -2 0 0.0132072 0.0218761 0.0271492
+ 1991 3 1 1 1 -2 0 0.0139781 0.023153 0.0287339
+ 1992 3 1 1 1 -2 0 0.0129848 0.0215077 0.026692
+ 1993 3 1 1 1 -2 0 0.0120939 0.020032 0.0248606
+ 1994 3 1 1 1 -2 0 0.0133467 0.0221071 0.027436
+ 1995 3 1 1 1 -2 0 0.0130289 0.0215808 0.0267828
+ 1996 3 1 1 1 -2 0 0.0118552 0.0196366 0.0243699
+ 1997 3 1 1 1 -2 0 0.012643 0.0209416 0.0259894
+ 1998 3 1 1 1 -2 0 0.0125298 0.0207541 0.0257568
+ 1999 3 1 1 1 -2 0 0.0127908 0.0211864 0.0262933
+ 2000 3 1 1 1 -2 0 0.0126546 0.0209608 0.0260133
+ 2001 3 1 1 1 -2 0 0.0137256 0.0227348 0.0282149
+ 2002 3 1 1 1 -2 0 0.0136221 0.0225633 0.0280021
+ 2003 3 1 1 1 -2 0 0.0133864 0.022173 0.0275177
+ 2004 3 1 1 1 -2 0 0.0135343 0.0224179 0.0278216
+ 2005 3 1 1 1 -2 0 0.0132341 0.0219206 0.0272045
+ 2006 3 1 1 1 -2 0 0.0124512 0.0206238 0.0255951
+ 2007 3 1 1 1 -2 0 0.0132649 0.0219716 0.0272678
+ 2008 3 1 1 1 -2 0 0.0134472 0.0222736 0.0276426
+ 2009 3 1 1 1 -2 0 0.0129995 0.0215321 0.0267224
+ 2010 3 1 1 1 -2 0 0.0129082 0.0213808 0.0265345
+ 2011 3 1 1 1 -2 0 0.0131482 0.0217783 0.0270279
+ 2012 3 1 1 1 -2 0 0.0136789 0.0226574 0.0281189
+ 2013 3 1 1 1 -2 0 0.0137614 0.022794 0.0282884
+ 2014 3 1 1 1 -2 0 0.0138185 0.0228886 0.0284058
+ 2015 3 1 1 1 -2 0 0.0123953 0.0205313 0.0254803
+ 2016 3 1 1 1 -2 0 0.0124347 0.0205965 0.0255612
+ 2017 3 1 1 1 -2 0 0.0126706 0.0209873 0.0260462
+ 2018 3 1 1 1 -2 0 0.0139353 0.0230822 0.028646
+ 2019 3 1 1 1 -2 0 0.0132277 0.02191 0.0271914
+ 2020 3 1 1 1 -2 0 0.0137278 0.0227384 0.0282194
+ 2021 3 1 1 1 -2 0 0.0130864 0.021676 0.0269009
+ 2022 3 1 1 1 -2 0 0.0135682 0.0224741 0.0278914
+ 2023 3 1 1 1 -2 0 0.0127575 0.0211311 0.0262247
+ 1989 4 1 1 1 -2 0 0.0149118 0.0225601 0.0321463
+ 1990 4 1 1 1 -2 0 0.0119546 0.0180862 0.0257713
+ 1991 4 1 1 1 -2 0 0.0161103 0.0243734 0.0347301
+ 1992 4 1 1 1 -2 0 0.0168771 0.0255335 0.0363831
+ 1993 4 1 1 1 -2 0 0.0140106 0.0211967 0.0302035
+ 1994 4 1 1 1 -2 0 0.01448 0.0219069 0.0312156
+ 1995 4 1 1 1 -2 0 0.0145779 0.022055 0.0314266
+ 1996 4 1 1 1 -2 0 0.0133823 0.0202461 0.028849
+ 1997 4 1 1 1 -2 0 0.0134302 0.0203185 0.0289523
+ 1998 4 1 1 1 -2 0 0.0135706 0.0205311 0.0292551
+ 1999 4 1 1 1 -2 0 0.0137936 0.0208684 0.0297357
+ 2000 4 1 1 1 -2 0 0.0144214 0.0218182 0.0310891
+ 2001 4 1 1 1 -2 0 0.0142778 0.021601 0.0307797
+ 2002 4 1 1 1 -2 0 0.0150477 0.0227657 0.0324393
+ 2003 4 1 1 1 -2 0 0.0142523 0.0215623 0.0307246
+ 2004 4 1 1 1 -2 0 0.0148439 0.0224575 0.0320001
+ 2005 4 1 1 1 -2 0 0.0131927 0.0199593 0.0284404
+ 2006 4 1 1 1 -2 0 0.0122198 0.0184874 0.026343
+ 2007 4 1 1 1 -2 0 0.0140165 0.0212056 0.0302163
+ 2008 4 1 1 1 -2 0 0.0155219 0.0234831 0.0334616
+ 2009 4 1 1 1 -2 0 0.0139237 0.0210652 0.0300162
+ 2010 4 1 1 1 -2 0 0.0140418 0.021244 0.0302709
+ 2011 4 1 1 1 -2 0 0.0148042 0.0223974 0.0319145
+ 2012 4 1 1 1 -2 0 0.0139727 0.0211394 0.0301219
+ 2013 4 1 1 1 -2 0 0.0138872 0.02101 0.0299375
+ 2014 4 1 1 1 -2 0 0.0150838 0.0228204 0.0325172
+ 2015 4 1 1 1 -2 0 0.0147283 0.0222825 0.0317508
+ 2016 4 1 1 1 -2 0 0.0141311 0.021379 0.0304633
+ 2017 4 1 1 1 -2 0 0.0138756 0.0209924 0.0299125
+ 2018 4 1 1 1 -2 0 0.016177 0.0244743 0.0348738
+ 2019 4 1 1 1 -2 0 0.0147129 0.0222592 0.0317175
+ 2020 4 1 1 1 -2 0 0.0156425 0.0236656 0.0337216
+ 2021 4 1 1 1 -2 0 0.0152565 0.0230816 0.0328894
+ 2022 4 1 1 1 -2 0 0.0132489 0.0200443 0.0285614
+ 2023 4 1 1 1 -2 0 0.0148324 0.02244 0.0319751
  1989 1 1 1 1 0 0 0.00782767 0.0184841 0.0258542
  1990 1 1 1 1 0 0 0.00809222 0.0191088 0.026728
  1991 1 1 1 1 0 0 0.00703346 0.0166087 0.023231
@@ -2193,146 +2194,146 @@ Begin reading the empirical weight at age file
  N_WTage_rd 1260
  last year read for -2 through Nfleet:   2023 2023 2023 2023 2023 2023 2023 2023
  latest fill year for -2 through Nfleet:   0 0 0 0 0 0 0 0
-year 1989 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1990 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1991 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1992 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1993 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1994 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1995 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1996 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1997 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1998 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1999 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2000 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2001 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2002 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2003 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2004 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2005 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2006 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2007 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2008 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2009 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2010 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2011 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2012 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2013 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2014 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2015 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2016 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2017 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2018 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2019 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2020 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2021 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2022 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2023 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1989 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1990 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1991 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1992 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1993 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1994 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1995 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1996 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1997 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1998 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1999 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2000 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2001 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2002 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2003 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2004 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2005 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2006 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2007 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2008 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2009 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2010 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2011 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2012 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2013 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2014 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2015 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2016 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2017 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2018 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2019 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2020 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2021 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2022 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2023 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1989 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1990 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1991 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1992 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1993 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1994 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1995 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1996 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1997 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1998 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1999 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2000 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2001 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2002 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2003 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2004 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2005 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2006 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2007 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2008 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2009 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2010 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2011 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2012 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2013 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2014 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2015 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2016 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2017 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2018 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2019 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2020 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2021 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2022 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2023 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1989 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1990 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1991 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1992 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1993 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1994 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1995 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1996 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1997 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1998 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 1999 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2000 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2001 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2002 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2003 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2004 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2005 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2006 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2007 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2008 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2009 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2010 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2011 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2012 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2013 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2014 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2015 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2016 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2017 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2018 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2019 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2020 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2021 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2022 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
-year 2023 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 1 1 1
+year 1989 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00782767 0.0184841 0.0258542
+year 1990 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00809222 0.0191088 0.026728
+year 1991 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00703346 0.0166087 0.023231
+year 1992 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00842587 0.0198967 0.02783
+year 1993 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00840529 0.0198481 0.0277621
+year 1994 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00737417 0.0174132 0.0243563
+year 1995 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00830232 0.0196049 0.0274219
+year 1996 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00708856 0.0167388 0.023413
+year 1997 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00782139 0.0184693 0.0258335
+year 1998 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00743794 0.0175638 0.024567
+year 1999 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00792962 0.0187248 0.0261909
+year 2000 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00746182 0.0176202 0.0246458
+year 2001 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00865684 0.0204421 0.0285929
+year 2002 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00760613 0.0179609 0.0251225
+year 2003 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00829049 0.019577 0.0273829
+year 2004 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00842197 0.0198875 0.0278171
+year 2005 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00780945 0.0184411 0.025794
+year 2006 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00779258 0.0184012 0.0257383
+year 2007 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00764305 0.0180481 0.0252444
+year 2008 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00822838 0.0194303 0.0271777
+year 2009 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00798961 0.0188665 0.0263891
+year 2010 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00811179 0.019155 0.0267926
+year 2011 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00825108 0.0194839 0.0272527
+year 2012 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0078041 0.0184284 0.0257764
+year 2013 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00827854 0.0195488 0.0273434
+year 2014 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00798737 0.0188612 0.0263817
+year 2015 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0085708 0.0202389 0.0283087
+year 2016 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00804002 0.0189855 0.0265556
+year 2017 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00842733 0.0199001 0.0278348
+year 2018 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00764784 0.0180595 0.0252603
+year 2019 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00816561 0.0192821 0.0269704
+year 2020 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0078395 0.018512 0.0258933
+year 2021 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00820387 0.0193725 0.0270968
+year 2022 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00857255 0.0202431 0.0283145
+year 2023 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00788564 0.018621 0.0260457
+year 1989 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.010125 0.0197254 0.0239688
+year 1990 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00981714 0.0191257 0.0232401
+year 1991 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0111128 0.0216498 0.0263072
+year 1992 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0106552 0.0207584 0.025224
+year 1993 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0108689 0.0211747 0.0257298
+year 1994 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0104483 0.0203553 0.0247342
+year 1995 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0108583 0.021154 0.0257048
+year 1996 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00915793 0.0178414 0.0216795
+year 1997 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0101773 0.0198273 0.0240926
+year 1998 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00932806 0.0181729 0.0220823
+year 1999 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0109908 0.0214123 0.0260185
+year 2000 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0104929 0.0204422 0.0248398
+year 2001 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0118517 0.0230895 0.0280565
+year 2002 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0105426 0.020539 0.0249574
+year 2003 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0111668 0.0217551 0.0264351
+year 2004 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0115969 0.022593 0.0274533
+year 2005 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0103451 0.0201543 0.0244899
+year 2006 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.010851 0.0211398 0.0256874
+year 2007 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0106306 0.0207105 0.0251658
+year 2008 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0117868 0.022963 0.0279029
+year 2009 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0113864 0.0221829 0.026955
+year 2010 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0093554 0.0182261 0.022147
+year 2011 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0101334 0.0197418 0.0239887
+year 2012 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0111977 0.0218154 0.0265083
+year 2013 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.011365 0.0221413 0.0269044
+year 2014 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0103801 0.0202225 0.0245728
+year 2015 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00943139 0.0183742 0.0223269
+year 2016 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00912412 0.0177756 0.0215995
+year 2017 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00947684 0.0184627 0.0224345
+year 2018 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0101874 0.0198471 0.0241167
+year 2019 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0100051 0.0194919 0.0236851
+year 2020 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.010419 0.0202982 0.0246648
+year 2021 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0110756 0.0215775 0.0262193
+year 2022 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0107723 0.0209865 0.0255012
+year 2023 s 2 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.00988459 0.0192571 0.0233997
+year 1989 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0135863 0.0225039 0.0279284
+year 1990 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0132072 0.0218761 0.0271492
+year 1991 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0139781 0.023153 0.0287339
+year 1992 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0129848 0.0215077 0.026692
+year 1993 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0120939 0.020032 0.0248606
+year 1994 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0133467 0.0221071 0.027436
+year 1995 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0130289 0.0215808 0.0267828
+year 1996 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0118552 0.0196366 0.0243699
+year 1997 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.012643 0.0209416 0.0259894
+year 1998 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0125298 0.0207541 0.0257568
+year 1999 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0127908 0.0211864 0.0262933
+year 2000 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0126546 0.0209608 0.0260133
+year 2001 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0137256 0.0227348 0.0282149
+year 2002 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0136221 0.0225633 0.0280021
+year 2003 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0133864 0.022173 0.0275177
+year 2004 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0135343 0.0224179 0.0278216
+year 2005 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0132341 0.0219206 0.0272045
+year 2006 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0124512 0.0206238 0.0255951
+year 2007 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0132649 0.0219716 0.0272678
+year 2008 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0134472 0.0222736 0.0276426
+year 2009 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0129995 0.0215321 0.0267224
+year 2010 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0129082 0.0213808 0.0265345
+year 2011 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0131482 0.0217783 0.0270279
+year 2012 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0136789 0.0226574 0.0281189
+year 2013 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0137614 0.022794 0.0282884
+year 2014 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0138185 0.0228886 0.0284058
+year 2015 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0123953 0.0205313 0.0254803
+year 2016 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0124347 0.0205965 0.0255612
+year 2017 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0126706 0.0209873 0.0260462
+year 2018 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0139353 0.0230822 0.028646
+year 2019 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0132277 0.02191 0.0271914
+year 2020 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0137278 0.0227384 0.0282194
+year 2021 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0130864 0.021676 0.0269009
+year 2022 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0135682 0.0224741 0.0278914
+year 2023 s 3 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0127575 0.0211311 0.0262247
+year 1989 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0149118 0.0225601 0.0321463
+year 1990 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0119546 0.0180862 0.0257713
+year 1991 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0161103 0.0243734 0.0347301
+year 1992 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0168771 0.0255335 0.0363831
+year 1993 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0140106 0.0211967 0.0302035
+year 1994 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.01448 0.0219069 0.0312156
+year 1995 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0145779 0.022055 0.0314266
+year 1996 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0133823 0.0202461 0.028849
+year 1997 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0134302 0.0203185 0.0289523
+year 1998 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0135706 0.0205311 0.0292551
+year 1999 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0137936 0.0208684 0.0297357
+year 2000 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0144214 0.0218182 0.0310891
+year 2001 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0142778 0.021601 0.0307797
+year 2002 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0150477 0.0227657 0.0324393
+year 2003 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0142523 0.0215623 0.0307246
+year 2004 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0148439 0.0224575 0.0320001
+year 2005 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0131927 0.0199593 0.0284404
+year 2006 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0122198 0.0184874 0.026343
+year 2007 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0140165 0.0212056 0.0302163
+year 2008 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0155219 0.0234831 0.0334616
+year 2009 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0139237 0.0210652 0.0300162
+year 2010 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0140418 0.021244 0.0302709
+year 2011 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0148042 0.0223974 0.0319145
+year 2012 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0139727 0.0211394 0.0301219
+year 2013 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0138872 0.02101 0.0299375
+year 2014 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0150838 0.0228204 0.0325172
+year 2015 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0147283 0.0222825 0.0317508
+year 2016 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0141311 0.021379 0.0304633
+year 2017 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0138756 0.0209924 0.0299125
+year 2018 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.016177 0.0244743 0.0348738
+year 2019 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0147129 0.0222592 0.0317175
+year 2020 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0156425 0.0236656 0.0337216
+year 2021 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0152565 0.0230816 0.0328894
+year 2022 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0132489 0.0200443 0.0285614
+year 2023 s 4 sex 1 gp 1 bs 1 morph 1 pop/fleet -2  0 0.0148324 0.02244 0.0319751
 year 1989 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet 0  0 0.00782767 0.0184841 0.0258542
 year 1990 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet 0  0 0.00809222 0.0191088 0.026728
 year 1991 s 1 sex 1 gp 1 bs 1 morph 1 pop/fleet 0  0 0.00703346 0.0166087 0.023231
@@ -3463,22 +3464,21 @@ Finished reading the empirical weight at age file
  age comp var adjust has been set-up 
  setup stderr for mean size-at-age: 
  set parms to init values in CTL file 
- MGparms read from ctl  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 22 -0.45 1 0 1 0.5
+ MGparms read from ctl  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 11 -0.98 1 0 1 0.5
  SRR_parms read from ctl  20 0.9 0.6 0 0
- rec_devs read from ctl  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ rec_devs read from ctl  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  Q_parms read from ctl  0 0 0 0
  selex_parms read from ctl  0 1 0.5 1 0 1
 
  now check MGparm bounds and priors and do jitter if requested 
-Warning 1 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7
-Warning 2 : parameter init value is greater than parameter max 22 > 15 for parm: 8
- MG_parms after check  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 22 -0.45 1 0 1 0.5
+Warning 5 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7
+ MG_parms after check  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 11 -0.98 1 0 1 0.5
 
  now check SR_parm bounds and priors and do jitter if requested 
  SRR_parms after check  20 0.9 0.6 0 0
 
  now check recdev bounds and priors and do jitter if requested 
- rec_devs after check  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ rec_devs after check  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
  now check Qparm bounds and priors and do jitter if requested 
  Q_parms after check  0 0 0 0
@@ -3489,7 +3489,7 @@ Begin evaluating biology calculations once
 
 **********************
 number of parameters with timevary:  0
-get wtlen parms sex: 1 Gpat: 1 sex*Gpat: 1  3.13e-06 3.278 22 -0.45 1 0 0 0
+get wtlen parms sex: 1 Gpat: 1 sex*Gpat: 1  3.13e-06 3.278 11 -0.98 1 0 0 0
 Finished MGsetup
 Finished growth1
 GROWTH,  yr= 1989
@@ -4185,11 +4185,11 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 7323.64
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 40 0.49833
-Calculated Btgt: 40 0.49833
-Calculated Fmsy 119.996 15059
+Calculated Fspr 16.1448 0.4
+Calculated Btgt: 16.1448 0.4
+Calculated Fmsy 48.4317 10004.8
 Finished benchmark, forecast, and sdreporting
-Iterations: 503
+Iterations: 828
  finished COVAR.SSO
 Finished forecast
 Writing wtatage.ss_new
