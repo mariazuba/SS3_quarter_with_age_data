@@ -12,13 +12,10 @@
 # the `data/run` directory, and finally, the script performs a commit and push 
 # to a Git repository, ensuring that all processed results are properly versioned 
 # in the current branch of the repository. 
-#'*To avoid making changes directly to  the main repository, it is recommended*
-#'*to either comment out the section that performs the commit and push, or switch*
-#'*to a different branch before running the script.*
-#'*This will help ensure proper version control of the generated files without impacting the main branch.*
-  
+
 library(icesTAF)
 library(r4ss)
+library(tidyverse)
 library(openxlsx)
 library(readxl)
 
@@ -35,10 +32,10 @@ sigmaR<-inputs$ctl$SR_parms["SR_sigmaR", "INIT"]
 
 #----------------------------------------------------------
 mkdir(paste0("data/run/",esc[i]))
-data_esc<<-paste0("data/run/",esc[i])
+data_esc<-paste0("data/run/",esc[i])
 
 index <- inputs$dat$CPUE
-
+catch <- inputs$dat$catch 
 agecompSeine<-inputs$dat$agecomp %>% filter(FltSvy==1)
 agecompPelago<-inputs$dat$agecomp %>% filter(FltSvy==2)
 agecompEcocadiz<-inputs$dat$agecomp %>% filter(FltSvy==3)
@@ -91,8 +88,14 @@ saveWorkbook(wb, paste0(data_esc,"/Watage.xlsx"),overwrite = TRUE)
 wb <- createWorkbook()
 addWorksheet(wb, "Index")
 writeData(wb, sheet = "Index", x = index)
-
 saveWorkbook(wb, paste0(data_esc,"/Index.xlsx"),overwrite = TRUE)
+#'*-------------------------------------------------------------*
+wb <- createWorkbook()
+addWorksheet(wb, "Catch")
+writeData(wb, sheet = "Catch", x = index)
+saveWorkbook(wb, paste0(data_esc,"/Catch.xlsx"),overwrite = TRUE)
+
+
 #'*-------------------------------------------------------------*
 }
 
