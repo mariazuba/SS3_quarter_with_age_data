@@ -777,7 +777,7 @@ SR_parm_RD:  20 0.9 0.6 0 0
 0.1 F ballpark is annual F, as specified in F_reporting, for a specified year
 -2023 F_ballpark_yr (<0 to ignore)  
 3 F_Method as read
-2 max_harvest_rate 
+3 max_harvest_rate 
 4 N iterations for tuning hybrid F (typically 3-5)
  ready to read init_F setup for: 0 fleet x season with initial equilibrium catch
  initial equil F parameter setup
@@ -4181,11 +4181,11 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 7739.09
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 13.5029 0.4
-Calculated Btgt: 13.5029 0.4
-Calculated Fmsy 40.5069 12351
+Calculated Fspr 14.9659 0.4
+Calculated Btgt: 14.9659 0.4
+Calculated Fmsy 44.8956 11029.8
 Finished benchmark, forecast, and sdreporting
-Iterations: 418
+Iterations: 398
  finished COVAR.SSO
 Finished forecast
 Writing wtatage.ss_new
