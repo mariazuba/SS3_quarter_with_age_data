@@ -48,7 +48,7 @@ for(i in 1:length(esc)){
   
   mkdir(paste0("report/run/",esc[i]))
   path<-paste0("report/run/",esc[i])
-
+  path_out<-paste0("output/run/",esc[i])
 # Figures --------------------------------------------
 ## Temporal coverage of input data ----
   png(file.path(paste0(path,"/fig_input_data.png")),width=9,height=5,res=300,units='in')
@@ -108,7 +108,7 @@ ggsave(file.path(paste0(path,"/fig_catches.png")), fig1b,  width=8, height=5)
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
 
-## age composition ----
+## age composition Seine ----
 inputs$dat$agecomp[ inputs$dat$agecomp==0]<-NA
 agecomp<-  inputs$dat$agecomp  %>% filter(FltSvy==1) %>% 
            select(c(Yr,Seas,`a0`,`a1`,`a2`,`a3`)) %>% 
@@ -167,20 +167,24 @@ figx1<- agecompSurvey %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
 ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=5, height=5)
 
   
-## Fit data: Length composition (aggregated) ----
+## Fit data: Age composition (aggregated) ----
   png(file.path(paste0(path,"/fig_age_fit_agg.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(21),kind = "AGE",maxrows = 2,maxcols = 2,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
 
-## Fit data: Length composition by source data ----
+## Fit data: Age composition by source data ----
 ### *FLEET by quarters* ----
   png(file.path(paste0(path,"/fig_age_fit_Seine.png")),width=10,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 1,maxrows = 12,maxcols =12,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
-
+  
+### historical mean length
+file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png"),
+            to=paste0(path,"/fig_comp_agefit_SEINE.png"), 
+            overwrite=T)
 
 ### *PELAGO spring survey* ----
   png(file.path(paste0(path,"/fig_age_fit_Pelago.png")),width=8,height=9,res=300,units='in')
@@ -188,12 +192,22 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
+### historical mean length
+  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_PELAGO.png"),
+            to=paste0(path,"/fig_comp_agefit_PELAGO.png"), 
+            overwrite=T)
+  
 ### *ECOCADIZ summer survey* ----
   png(file.path(paste0(path,"/fig_age_fit_Ecocadiz.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 3,maxrows = 4,maxcols = 4,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
+### historical mean length
+  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
+            to=paste0(path,"/fig_comp_agefit_ECOCADIZ.png"), 
+            overwrite=T)
+  
 ### *ECOCADIZ-RECLUTAS fall survey* ----
 
   png(file.path(paste0(path,"/fig_age_fit_EcocadizRecl.png")),width=8,height=9,res=300,units='in')
@@ -201,6 +215,12 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
+### historical mean length
+  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_ECORECLUTAS.png"),
+            to=paste0(path,"/fig_comp_agefit_ECORECLUTAS.png"), 
+            overwrite=T)
+  
+  
 ## Residuals length composition by source data
 
 ### *FLEET by quarters* ----
@@ -228,6 +248,12 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
               showsampsize = F,showeffN = F)
   dev.off()
 
+  file.copy(from=paste0(path_out,"/plots/comp_agefit__multi-fleet_comparison.png"),
+            to=paste0(path,"/fig_comp_agefit_multi-fleet_comparison.png"), 
+            overwrite=T)
+  
+  
+  
 ## Run test indices ----
   png(file.path(paste0(path,"/fig_runtest_residuals_indices.png")),width=7,height=7,res=300,units='in')
   sspar(mfrow = c(3, 2), plot.cex = 0.8)
@@ -244,7 +270,7 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
 
 ## Selectivity ----
   png(file.path(paste0(path,"/fig_age_selectivity.png")),width=6,height=5,res=300,units='in')
-  SSplotSelex(output,subplots =1)
+  SSplotSelex(output,subplots=2)
   dev.off()
   
 ## Stock-Recluta ----
