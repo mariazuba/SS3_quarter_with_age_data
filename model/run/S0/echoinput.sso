@@ -130,7 +130,7 @@ rows are fleets; columns are: Fleet_#, fleet_type, timing, area, units, need_cat
 4 #  3 1 1 1 0 # BOCADEVA
 5 #  3 1 1 1 0 # ECORECLUTAS
 YPR_optimize_mask:  1 0 0 0 0
-160 records
+144 records
 first catch record:  -999 1 1 0 0.1
 last catch record:  2023 4 1 622.4 0.1
  equ, seas:   -1 1 catches:  0 0 0 0 0
@@ -761,11 +761,11 @@ SR_parm_RD:  20 0.9 0.6 0 0
 2 #_recdev_early_phase
 -1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
 1 #_lambda for Fcast_recr_like occurring before endyr+1
-1970.9 #_last_early_yr_nobias_adj_in_MPD
-2003.3 #_first_yr_fullbias_adj_in_MPD
-2022.7 #_last_yr_fullbias_adj_in_MPD
-2030.1 #_first_recent_yr_nobias_adj_in_MPD
-0.9472 #_max_bias_adj_in_MPD
+1985.2 #_last_early_yr_nobias_adj_in_MPD
+1988.5 #_first_yr_fullbias_adj_in_MPD
+2022.9 #_last_yr_fullbias_adj_in_MPD
+2027.7 #_first_recent_yr_nobias_adj_in_MPD
+0.9228 #_max_bias_adj_in_MPD
  #_NOTE: biasadjustment forced to 0.0 after year recdev_end
 0 # period of cycle in recruitment 
 -5 #min rec_dev
@@ -773,7 +773,7 @@ SR_parm_RD:  20 0.9 0.6 0 0
 0 #_read_recdevs
 #_end of advanced SR options
 #_recruitment bias adjustment
- 0.441442 0.470677 0.499911 0.529146 0.55838 0.587615 0.616849 0.646084 0.675319 0.704553 0.733788 0.763022 0.792257 0.821491 0.850726 0.87996 0.909195 0.93843 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9472 0.9088 0 0 0
+ 0.223709 0.503345 0.782982 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.9228 0.903575 0 0 0
 0.1 F ballpark is annual F, as specified in F_reporting, for a specified year
 -2023 F_ballpark_yr (<0 to ignore)  
 3 F_Method as read
@@ -866,10 +866,10 @@ Recalc_flag_for_age_selex_recalc_by_year
 5 ECORECLUTAS  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
 0 TG_custom (need to read even if no tag data ); tag_data?: 0 N_Fleet: 1
  read var_adjust list until -9999
- 5 1 0.00513245
- 5 2 0.00966511
- 5 3 0.0436798
- 5 5 0.00358846
+ 5 1 0.0128287
+ 5 2 0.010556
+ 5 3 0.00472221
+ 5 5 0.00131734
  -9999 0 0
  number of variance adjustment records = 4
  Var_adjustments as read 
@@ -877,7 +877,7 @@ Recalc_flag_for_age_selex_recalc_by_year
  0 0 0 0 0
  0 0 0 0 0
  1 1 1 1 1
- 0.00513245 0.00966511 0.0436798 1 0.00358846
+ 0.0128287 0.010556 0.00472221 1 0.00131734
  1 1 1 1 1
  1 1 1 1 1
 1 max_lambda_phase 
@@ -3467,7 +3467,7 @@ Finished reading the empirical weight at age file
  selex_parms read from ctl  0 1 0.5 1
 
  now check MGparm bounds and priors and do jitter if requested 
-Warning 7 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7
+Warning 3 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7
  MG_parms after check  6 19.96 0.46 0.1 0.1 3.13e-06 3.278 11 -0.98 1 0 1 0.5
 
  now check SR_parm bounds and priors and do jitter if requested 
@@ -4174,18 +4174,18 @@ yr 2023, seas: 4, fleet:1
  finished time series 
 Finished time_series
 Finished survey obj_fun  0 2869.1 1369.33 350.695 2791.64
-Finished agecomp obj_fun  118.945 10.1964 224.129 0 5.05961
+Finished agecomp obj_fun  297.305 11.1362 24.2306 0 1.85741
  initequ_catch -log(L)  0 0 0 0 0
  catch -log(L)  5.90773e-16 0 0 0 0
 Finished recruitdev obj_fun 0 0 0.72
- OK with obj_func 7739.09
+ OK with obj_func 7715.29
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 14.9659 0.4
-Calculated Btgt: 14.9659 0.4
-Calculated Fmsy 44.8956 11029.8
+Calculated Fspr 15.9994 0.4
+Calculated Btgt: 15.9994 0.4
+Calculated Fmsy 47.9958 10131.1
 Finished benchmark, forecast, and sdreporting
-Iterations: 398
+Iterations: 409
  finished COVAR.SSO
 Finished forecast
 Writing wtatage.ss_new

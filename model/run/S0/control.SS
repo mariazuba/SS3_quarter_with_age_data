@@ -88,11 +88,11 @@
 2 #_recdev_early_phase
 -1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
 1 #_lambda for Fcast_recr_like occurring before endyr+1
-1970.9   #_last_early_yr_nobias_adj_in_MPD 
-2003.3   #_first_yr_fullbias_adj_in_MPD 
-2022.7   #_last_yr_fullbias_adj_in_MPD 
-2030.1   #_first_recent_yr_nobias_adj_in_MPD 
-0.9472  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models) 
+1985.2   #_last_early_yr_nobias_adj_in_MPD 
+1988.5   #_first_yr_fullbias_adj_in_MPD 
+2022.9   #_last_yr_fullbias_adj_in_MPD 
+2027.7   #_first_recent_yr_nobias_adj_in_MPD 
+0.9228  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models)
 0 #_period of cycles in recruitment (N parms read below)
 -5 #min rec_dev
 5 #max rec_dev
@@ -120,7 +120,7 @@
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_PELAGO 
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
--30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
+-30	15	0	0	0	0	1	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -152,9 +152,8 @@
 #_specifications for 2D_AR1 and associated parameters
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-#1 1989 2023 0 3 2 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
-#0.01 5 3 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
-#0.01 5 2 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
+#1 1989 2023 0 3 1 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
+#0.01 5 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
 #-0.8 0.8 0 0 99 0 -3  # rho_year for fleet:_1
 #-0.8 0.8 0 0 99 0 -3  # rho_AGE for fleet:_1
 #-9999  0 0 0 0 0 0 0 0 0 0 # terminator
@@ -165,10 +164,10 @@
 #
 # Input variance adjustments factors: 
 #_Data_type	Fleet	Value
-5 1 0.00513245  #_SEINE
-5 2 0.00966511  #_PELAGO
-5 3 0.04367980  #_ECOCADIZ
-5 5 0.00358846  #_ECORECLUTAS
+5 1 0.01282870  #_SEINE
+5 2 0.01055600  #_PELAGO
+5 3 0.00472221  #_ECOCADIZ
+5 5 0.00131734  #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase
