@@ -13,10 +13,6 @@
 # tables are saved in the `report/run` directory corresponding to each scenario.
 # Finally, the script performs a commit and push of the generated files to the
 # Git repository, ensuring that all report elements are properly versioned. 
-# *To avoid making changes directly to the main repository, it is recommended to
-# either comment out the section that performs the commit and push, or switch to 
-# a different branch before running the script. This will help ensure proper 
-# version control of the generated files without impacting the main branch.*
 
 rm(list=ls())
 
@@ -30,7 +26,7 @@ library(lubridate)
 library(ggpubr)
 library(ss3diags)
 library(flextable)
-
+library(reshape2)
 
 # working directory
 wd <- getwd()
@@ -399,14 +395,15 @@ combined_df <- left_join(indices, nsamp, by = "year")
 
 SR_input<-inputs$ctl$SR_parms
 
-params <- output$estimated_non_dev_parameters%>%
-          rownames_to_column(var = "Parameter") %>% 
-          mutate(cut=c("Recruitment",
-                      rep("Catchability",4),
-                      rep("Selectivity",4))) 
+params <- output$estimated_non_dev_parameters %>%
+           rownames_to_column(var = "Parameter")
+#%>% 
+#           mutate(cut=c("Recruitment",
+#                       rep("Catchability",4),
+#                       rep("Selectivity",4))) 
 
 params_est <- params %>% 
-              select(c(cut,Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
+              select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
 
 natM <- inputs$ctl$natM
 
@@ -507,9 +504,9 @@ ft2
 
 #'* estimates parameters: tb_params_est*
 ft3<-params_est %>%flextable()
-ft3<-merge_at(ft3,i=2:5, j=1)
-ft3<-merge_at(ft3,i=6:9, j=1)
-ft3<-set_header_labels(ft3,cut="")
+# ft3<-merge_at(ft3,i=2:5, j=1)
+# ft3<-merge_at(ft3,i=6:9, j=1)
+# ft3<-set_header_labels(ft3,cut="")
 ft3
 
 #'*tb_natM*
