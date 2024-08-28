@@ -38,6 +38,7 @@ run_esc<-paste0(getwd(),"/model/run/")
 esc<-list.files(run_esc)
 
 for(i in 1:length(esc)){
+  i=1
 run.dir  <- paste0(run_esc,esc[i])
 output <- r4ss::SS_output(dir = run.dir,forecast=FALSE)
 summary <- read.table(paste0(run.dir,"/ss_summary.sso"),header=F,sep="",na="NA",fill=T)
