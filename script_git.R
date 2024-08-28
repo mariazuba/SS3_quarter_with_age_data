@@ -1,3 +1,9 @@
+
+
+# input data
+inputs<-"data/run"
+outputs<-"output/run"
+esc<-list.files(inputs)
 #============================================================================
 # bootstrap
 # Se hace commit y push de los cambios cada vez que se ejecuta el modelo

@@ -44,7 +44,7 @@ load(paste0(retro_out,"retrospective_",esc[i],".RData"))
 
 # figure ----
 png(file.path(paste0(retro_rep,"/Retro.png")),
-    width=7,height=7,res=300,units='in')
+    width=5,height=5,res=300,units='in')
 
 sspar(mfrow=c(2,1),plot.cex=0.8)
 
@@ -68,6 +68,11 @@ dev.off()
 ssb.retro<-SShcbias(retroSummary, quant="SSB",verbose=F)
 f.retro<-SShcbias(retroSummary, quant="F",verbose=F)
 
+
+rho_ssb<-ssb.retro %>% filter(peel=="Combined") %>% select(Rho) %>% as.numeric()
+rho_f<-f.retro %>% filter(peel=="Combined") %>% select(Rho) %>% as.numeric()
+
+
 rho_retro<-rbind(ssb.retro,f.retro)
 ft1<-rho_retro %>%
   mutate(across(c(Rho,ForcastRho), round, 2)) %>%  
@@ -76,7 +81,7 @@ ft1<-rho_retro %>%
 # Guarda la flextable como un archivo de imagen PNG
 save_as_image(ft1, path = paste0(retro_rep,"/table_rho.png"))
 save(ft1, file=paste0(retro_rep,"/table_rho.RData"))
-save(ssb.retro,f.retro, file=paste0(retro_rep,"/rho.RData"))
+save(rho_ssb,rho_f, file=paste0(retro_rep,"/rho.RData"))
 }
 
 setwd(wd)
