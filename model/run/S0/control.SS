@@ -80,17 +80,31 @@
   0	 0	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_autocorr 
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
-1986 # first year of main recr_devs; early devs can preceed this era
+1989 # first year of main recr_devs; early devs can preceed this era
 2023 # last year of main recr_devs; forecast devs start in following year
 2 #_recdev phase
-0 # (0/1) to read 13 advanced options
+1 # (0/1) to read 13 advanced options
+-4 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
+2 #_recdev_early_phase
+-1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
+1 #_lambda for Fcast_recr_like occurring before endyr+1
+1970.9   #_last_early_yr_nobias_adj_in_MPD 
+2003.3   #_first_yr_fullbias_adj_in_MPD 
+2022.7   #_last_yr_fullbias_adj_in_MPD 
+2030.1   #_first_recent_yr_nobias_adj_in_MPD 
+0.9472  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models) 
+0 #_period of cycles in recruitment (N parms read below)
+-5 #min rec_dev
+5 #max rec_dev
+0 #_read_recdevs
+#_end of advanced SR options
 #
 #Fishing Mortality info
 0.1 # F ballpark
 -2023 # F ballpark year (neg value to disable)
 3 # F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)
-3 # max F or harvest rate, depends on F_Method
-3 # N iterations for tuning F in hybrid method (recommend 3 to 7)
+2 # max F or harvest rate, depends on F_Method
+4 # N iterations for tuning F in hybrid method (recommend 3 to 7)
 #
 #_initial_F_parms; count = 0
 #
@@ -123,7 +137,7 @@
 10	0	0	0	#_2 PELAGO 
 12	0	0	0	#_3 ECOCADIZ   
 10 	0	0	0	#_4 BOCADEVA       
-12	0	0	0	#_5 ECORECLUTAS
+0	0	0	0	#_5 ECORECLUTAS
 #
 #_SizeSelex
 #_No size_selex_parm
@@ -131,18 +145,17 @@
 -2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
 -1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
 -2	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ  
--2	5.5	0	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
--1	5.5	1	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS   
+-1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
 #_timevary selex parameters
 #
 0   #  use 2D_AR1 selectivity? (0/1)
 #_specifications for 2D_AR1 and associated parameters
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-#1 1989 2023 0 3 1 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
-#0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
-#-0.2 0.2 0 0 99 0 -3  # rho_year for fleet:_1
+#1 1989 2023 0 3 2 1 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
+#0.01 5 3 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
+#0.01 5 2 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
+#-0.8 0.8 0 0 99 0 -3  # rho_year for fleet:_1
 #-0.8 0.8 0 0 99 0 -3  # rho_AGE for fleet:_1
 #-9999  0 0 0 0 0 0 0 0 0 0 # terminator
 #
@@ -153,9 +166,9 @@
 # Input variance adjustments factors: 
 #_Data_type	Fleet	Value
 5 1 0.00513245  #_SEINE
-5 2 0.00966511   #_PELAGO
-5 3 0.04367980   #_ECOCADIZ
-5 5 0.00358846    #_ECORECLUTAS
+5 2 0.00966511  #_PELAGO
+5 3 0.04367980  #_ECOCADIZ
+5 5 0.00358846  #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase
