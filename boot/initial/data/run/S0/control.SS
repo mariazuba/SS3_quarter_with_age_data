@@ -41,9 +41,9 @@
 #
 0 #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)
 0 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
-2 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+5 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
 1 #_First_Mature_Age
-3 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
+1 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
 0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn
 1 #_parameter_offset_approach (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)
 #
@@ -56,12 +56,10 @@
  0.05	0.25	     0.1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CV_old          
    -3	   3	3.13e-06	0	0	0	-3	0	0	   0	   0	0	0	0	#_Wtlen_1         
    -3	   3	   3.278	0	0	0	-3	0	0	   0	   0	0	0	0	#_Wtlen_2         
-   -3	  15	      22	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat50%          
-   -3	   3	   -0.45	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat_slope       
+   -3	  15	      11	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat50%          
+   -3	   3	   -0.98	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat_slope       
    -3	   3	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_alpha      
    -3	   3	       0	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_beta       
-#    0	   2	     0.3	0	0	0	 -3	0	0	   0	   0	0	0	0	#_RecrDist_month_1
-#    0    2       0.7  0 0 0  -3  0 0    0     0  0 0 0 #_RecrDist_month_2
     1	   1	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CohortGrowDev   
 1e-07	   1	     0.5	0	0	0	-3	0	0	   0	   0	0	0	0	#_FracFemale      
 #_no timevary MG parameters
@@ -82,9 +80,9 @@
   0	 0	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_autocorr 
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
-1988 # first year of main recr_devs; early devs can preceed this era
+1986 # first year of main recr_devs; early devs can preceed this era
 2023 # last year of main recr_devs; forecast devs start in following year
-1 #_recdev phase
+2 #_recdev phase
 0 # (0/1) to read 13 advanced options
 #
 #Fishing Mortality info
