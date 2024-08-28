@@ -33,3 +33,5 @@ mwaa_y1s1 <- unlist(waa[waa$Yr == 1989 & waa$Fleet == -2, -c(1:6)])
 # COMPARE SSB to 4300
 sum(num_y1s1 * mwaa_y1s1)
 
+# calculo de catchability
+output$cpue %>% select(c("Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
