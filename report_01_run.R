@@ -11,8 +11,6 @@
 # Additionally, the script creates summary tables using `flextable` for estimated 
 # parameters, time series, and other key diagnostics. The generated plots and 
 # tables are saved in the `report/run` directory corresponding to each scenario.
-# Finally, the script performs a commit and push of the generated files to the
-# Git repository, ensuring that all report elements are properly versioned. 
 
 rm(list=ls())
 
@@ -33,36 +31,36 @@ wd <- getwd()
 # Load data ---------------------------------------------------------------
 
 # input data
-inputs<-"data/run"
-outputs<-"output/run"
-esc<-list.files(inputs)
-#i=1
-for(i in 1:length(esc)){
+data<-"data/run/"
+output<-"output/run/"
+report<-"report/run/"
+
+
+list.files(output)
+esc<-"S0"
+
+run_data<-paste0(data,esc)
+run_out<-paste0(output,esc)
+path_rep<-paste0(report,esc)
+
+mkdir(path_rep)
+
+load(paste0(run_out,"/output.RData"))
+load(paste0(run_data,"/inputData.RData")) 
   
-  load(paste0("output/run/",esc[i],"/output.RData"))
-  load(paste0("data/run/",esc[i],"/inputs.RData")) 
-  
-  mkdir(paste0("report/run/",esc[i]))
-  path<-paste0("report/run/",esc[i])
-  path_out<-paste0("output/run/",esc[i])
+
+
 # Figures --------------------------------------------
 ## Temporal coverage of input data ----
-  png(file.path(paste0(path,"/fig_input_data.png")),width=9,height=5,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_input_data.png")),width=9,height=5,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.8)
   SSplotData(output, subplots = 2,cex.main = 0.8,cex = 1,margins = c(2.1, 2.1, 1.1, 8.1))
   dev.off()
 
-## Growth curve, length-weight relationship and maturity ----
-  png(file.path(paste0(path,"/fig_biology.png")),width=10,height=8,res=300,units='in')
-  sspar(mfrow = c(2, 2), plot.cex = 0.8)
-  SSplotBiology(output, subplot = c(1,5,6),seas=4,mainTitle = FALSE)
-  dev.off()
-
 
 ## wt at age ----
-  inputs$wtatage[inputs$wtatage==0]<-NA
-  watage_mid<-inputs$wtatage %>% filter(Fleet==-1) %>% 
-    select(c(Yr,Seas,`0`,`1`,`2`,`3`)) %>% melt(id.vars=c("Yr","Seas"))
+  west[west==0]<-NA
+  watage_mid<-west  %>% melt(id.vars=c("Yr","Seas"))
   
   fig7<-watage_mid %>% ggplot(aes(x=Yr,y=value,colour=variable)) +
     geom_point() + geom_line()+
@@ -85,29 +83,27 @@ for(i in 1:length(esc)){
           legend.title = element_text(size = 6, face = "bold"), 
           legend.text = element_text(size = 6)) + 
     theme(legend.position = 'top') 
-  ggsave(file.path(paste0(path,"/fig_weight_by_quarters.png")), fig7,  width=5, height=5)
+  ggsave(file.path(paste0(path_rep,"/fig_weight_by_quarters.png")), fig7,  width=5, height=5)
   
 ## Catches by $uarters
-catches<-  inputs$dat$catch%>% filter(year>-999) %>% select(c(year,seas,catch)) 
-fig1b<- ggplot(catches, aes(x = year, y = catch,fill=factor(seas))) +
+fig1b<- ggplot(catch, aes(x = year, y = catch,fill=factor(seas))) +
   geom_bar(stat = "identity") +
   labs(x = "Year",y = "Catches (ton)",title = "",fill = "Quarters" ) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5),legend.position = "top")
 
-ggsave(file.path(paste0(path,"/fig_catches.png")), fig1b,  width=8, height=5)
+ggsave(file.path(paste0(path_rep,"/fig_catches.png")), fig1b,  width=8, height=5)
 
   
 ## Fit data: Abundance indices ----
-  png(file.path(paste0(path,"/fig_indices_fit.png")),width=6,height=7,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_indices_fit.png")),width=6,height=7,res=300,units='in')
   sspar(mfrow = c(4, 2), plot.cex = 0.6)
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
 
 ## age composition Seine ----
-inputs$dat$agecomp[ inputs$dat$agecomp==0]<-NA
-agecomp<-  inputs$dat$agecomp  %>% filter(FltSvy==1) %>% 
-           select(c(Yr,Seas,`a0`,`a1`,`a2`,`a3`)) %>% 
+catage[catage==0]<-NA
+agecomp<-  catage%>% 
            melt(id.vars=c("Yr","Seas")) %>% 
            mutate(variable = factor(variable, levels = c("a0","a1", "a2", "a3"),
                            labels = c("0","1", "2", "3")))
@@ -131,11 +127,11 @@ figxx<- agecomp %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
           panel.background = element_rect(colour="gray",fill = "gray99"),
           strip.background = element_rect(colour = "gray", fill = "gray99")) + 
     theme(legend.position = 'top') 
-ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSeine.png")), figxx,  width=7, height=5)
+ggsave(file.path(paste0(path_rep,"/fig_agecomp_by_quartersSeine.png")), figxx,  width=7, height=5)
   
 # Age composition surveys ----
 
-agecompSurvey <-  inputs$dat$agecomp  %>% filter(FltSvy>=2) %>% 
+agecompSurvey <-  dat$agecomp  %>% filter(FltSvy>=2) %>% 
   select(c(Yr,Seas,FltSvy,`a0`,`a1`,`a2`,`a3`)) %>% 
   melt(id.vars=c("Yr","Seas","FltSvy")) %>% 
   mutate(variable = factor(variable, 
@@ -160,11 +156,11 @@ figx1<- agecompSurvey %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
         panel.background = element_rect(colour="gray",fill = "gray99"),
         strip.background = element_rect(colour = "gray", fill = "gray99")) + 
   theme(legend.position = 'top') 
-ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=5, height=5)
+ggsave(file.path(paste0(path_rep,"/fig_agecomp_by_quartersSurveys.png")), figx1,  width=5, height=5)
 
   
 ## Fit data: Age composition (aggregated) ----
-  png(file.path(paste0(path,"/fig_age_fit_agg.png")),width=8,height=9,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_fit_agg.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(21),kind = "AGE",maxrows = 2,maxcols = 2,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
@@ -172,111 +168,109 @@ ggsave(file.path(paste0(path,"/fig_agecomp_by_quartersSurveys.png")), figx1,  wi
 
 ## Fit data: Age composition by source data ----
 ### *FLEET by quarters* ----
-  png(file.path(paste0(path,"/fig_age_fit_Seine.png")),width=10,height=9,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_fit_Seine.png")),width=10,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 1,maxrows = 12,maxcols =12,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
   
 ### historical mean length
-file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png"),
-            to=paste0(path,"/fig_comp_agefit_SEINE.png"), 
+file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png"),
+            to=paste0(path_rep,"/fig_comp_agefit_SEINE.png"), 
             overwrite=T)
 
 ### *PELAGO spring survey* ----
-  png(file.path(paste0(path,"/fig_age_fit_Pelago.png")),width=8,height=9,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_fit_Pelago.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 2,maxrows = 6,maxcols = 4,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
 ### historical mean length
-  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_PELAGO.png"),
-            to=paste0(path,"/fig_comp_agefit_PELAGO.png"), 
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_PELAGO.png"),
+            to=paste0(path_rep,"/fig_comp_agefit_PELAGO.png"), 
             overwrite=T)
   
 ### *ECOCADIZ summer survey* ----
-  png(file.path(paste0(path,"/fig_age_fit_Ecocadiz.png")),width=8,height=9,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_fit_Ecocadiz.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 3,maxrows = 4,maxcols = 4,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
 ### historical mean length
-  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
-            to=paste0(path,"/fig_comp_agefit_ECOCADIZ.png"), 
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
+            to=paste0(path_rep,"/fig_comp_agefit_ECOCADIZ.png"), 
             overwrite=T)
   
 ### *ECOCADIZ-RECLUTAS fall survey* ----
 
-  png(file.path(paste0(path,"/fig_age_fit_EcocadizRecl.png")),width=8,height=9,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_fit_EcocadizRecl.png")),width=8,height=9,res=300,units='in')
   SSplotComps(output, subplots = c(1),kind = "AGE",fleets = 5,maxrows = 4,maxcols = 4,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
 ### historical mean length
-  file.copy(from=paste0(path_out,"/plots/comp_agefit_data_weighting_TA1.8_ECORECLUTAS.png"),
-            to=paste0(path,"/fig_comp_agefit_ECORECLUTAS.png"), 
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECORECLUTAS.png"),
+            to=paste0(path_rep,"/fig_comp_agefit_ECORECLUTAS.png"), 
             overwrite=T)
   
   
 ## Residuals length composition by source data
 
 ### *FLEET by quarters* ----
-  png(file.path(paste0(path,"/fig_age_residuals_Seine.png")),width=7,height=3,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_residuals_Seine.png")),width=7,height=3,res=300,units='in')
   SSplotComps(output, subplots = c(24),kind = "AGE",fleets = 1,maxrows = 12,maxcols = 5,
               cexZ1 = 1.5,yupper=5,
               cohortlines=T, showsampsize = F,showeffN = F)
   dev.off()
 
 ### *PELAGO spring survey* ----
-  png(file.path(paste0(path,"/fig_age_residuals_Pelago.png")),width=7,height=3,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_residuals_Pelago.png")),width=7,height=3,res=300,units='in')
   SSplotComps(output, subplots = c(24),kind = "AGE",fleets =3,maxrows = 12,maxcols = 5,cexZ1 = 1.5,
               showsampsize = F,showeffN = F)
   dev.off()
 
 ### *ECOCADIZ summer survey* ----
-  png(file.path(paste0(path,"/fig_age_residuals_Ecocadiz.png")),width=7,height=3,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_residuals_Ecocadiz.png")),width=7,height=3,res=300,units='in')
   SSplotComps(output, subplots = c(24),kind = "AGE",fleets = 2,maxrows = 12,maxcols = 5,cexZ1 = 1.5,
               showsampsize = F,showeffN = F)
   dev.off()
 
 ### *ECOCADIZ-RECLUTAS fall survey* ----
-  png(file.path(paste0(path,"/fig_age_residuals_EcocadizRecl.png")),width=7,height=3,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_residuals_EcocadizRecl.png")),width=7,height=3,res=300,units='in')
   SSplotComps(output, subplots = c(24),kind = "AGE",fleets = 5,maxrows = 12,maxcols = 5,cexZ1 = 1.5,
               showsampsize = F,showeffN = F)
   dev.off()
 
-  file.copy(from=paste0(path_out,"/plots/comp_agefit__multi-fleet_comparison.png"),
-            to=paste0(path,"/fig_comp_agefit_multi-fleet_comparison.png"), 
+  file.copy(from=paste0(run_out,"/plots/comp_agefit__multi-fleet_comparison.png"),
+            to=paste0(path_rep,"/fig_comp_agefit_multi-fleet_comparison.png"), 
             overwrite=T)
-  
-  
-  
+
 ## Run test indices ----
-  png(file.path(paste0(path,"/fig_runtest_residuals_indices.png")),width=7,height=7,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_runtest_residuals_indices.png")),width=7,height=7,res=300,units='in')
   sspar(mfrow = c(3, 2), plot.cex = 0.8)
   SSplotRunstest(output,subplots = "cpue", add = TRUE, legendcex = 0.8,verbose = F)
   SSplotJABBAres(output,subplots = "cpue", add = TRUE, legendcex = 0.8,verbose = F)
   dev.off()
 
 ## Run test length ----
-  png(file.path(paste0(path,"/fig_runtest_residuals_age.png")),width=7,height=7,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_runtest_residuals_age.png")),width=7,height=7,res=300,units='in')
   sspar(mfrow = c(3, 2), plot.cex = 0.8)
   SSplotRunstest(output,subplots = "age", add = TRUE, legendcex = 0.8,verbose = F)
   SSplotJABBAres(output,subplots = "age", add = TRUE, legendcex = 0.8,verbose = F)
   dev.off()
 
 ## Selectivity ----
-  png(file.path(paste0(path,"/fig_age_selectivity.png")),width=6,height=5,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=6,height=5,res=300,units='in')
   SSplotSelex(output,subplots=2)
   dev.off()
   
 ## Stock-Recluta ----
-  png(file.path(paste0(path,"/fig_stock-recluta.png")),width=4,height=4,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_stock-recluta.png")),width=4,height=4,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.6)
   SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,legendloc ="bottomright")
   dev.off()
 
 ##  Recruitment devs
-  png(file.path(paste0(path,"/fig_Recdevs.png")),width=5,height=5,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_Recdevs.png")),width=5,height=5,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.8)
   SSplotRecdevs(output,subplots = 2,pwidth = 5,pheight = 5)
   dev.off()
@@ -366,22 +360,22 @@ fig1a<- ggplot(data, aes(x = year, y = Value)) +
         labs(x = "Year",y = "Value",title = "") +
         theme_bw() +
         theme(plot.title = element_text(hjust = 0.5),legend.position = "top")
-ggsave(file.path(paste0(path,"/fig_time_series.png")), fig1a,  width=8, height=5)
+ggsave(file.path(paste0(path_rep,"/fig_time_series.png")), fig1a,  width=8, height=5)
   
   
 # tablas ----
-tb_catch <- inputs$dat$catch%>% filter(year>-999) %>% 
+tb_catch <- dat$catch%>% filter(year>-999) %>% 
             select(c(year,seas,catch)) %>% 
             pivot_wider(
             names_from = "seas", 
             values_from = c("catch"))
 
-indices <- inputs$dat$CPUE%>% 
+indices <- dat$CPUE%>% 
            pivot_wider(
            names_from = "index",  
            values_from = c("obs", "se_log","seas"))
 
-nsamp <- inputs$dat$agecomp %>%
+nsamp <- dat$agecomp %>%
          filter(FltSvy >= 2) %>% 
          select(Yr, FltSvy, Nsamp) %>% 
          pivot_wider(
@@ -393,23 +387,15 @@ nsamp <- inputs$dat$agecomp %>%
 
 combined_df <- left_join(indices, nsamp, by = "year")
 
-SR_input<-inputs$ctl$SR_parms
+
 
 params <- output$estimated_non_dev_parameters %>%
            rownames_to_column(var = "Parameter")
-#%>% 
-#           mutate(cut=c("Recruitment",
-#                       rep("Catchability",4),
-#                       rep("Selectivity",4))) 
 
 params_est <- params %>% 
               select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
 
-natM <- inputs$ctl$natM
 
-maturity <- inputs$wtatage %>% 
-            filter(Fleet==-2) %>% 
-            select(`0`,`1`,`2`,`3`)
 
 convergency<-output$maximum_gradient_component
 like<-output$likelihoods_used
@@ -510,12 +496,12 @@ ft3<-params_est %>%flextable()
 ft3
 
 #'*tb_natM*
-ft4<-natM %>% flextable()
+ft4<-natmort %>% flextable()
 ft4
 
 
 #'*tb_maturity*
-ft5 <- maturity[1, , drop = FALSE] %>% 
+ft5 <- maturity[1,3:6 , drop = FALSE] %>% 
   setNames(c("Age_0", "Age_1", "Age_2", "Age_3")) %>% 
   flextable()
 ft5
@@ -571,22 +557,88 @@ ft12
 
 #'*=================================================================*
 # save tables
-save_as_image(ft1, path = paste0(path,"/tb_index.png"))
-save_as_image(ft2, path = paste0(path,"/tb_cv_nm.png"))
-save_as_image(ft3, path = paste0(path,"/tb_params_est.png"))
-save_as_image(ft4, path = paste0(path,"/tb_natM.png"))
-save_as_image(ft5, path = paste0(path,"/tb_maturity.png"))
-save_as_image(ft6, path = paste0(path,"/tb_diagnostic.png"))
+save_as_image(ft1, path = paste0(path_rep,"/tb_index.png"))
+save_as_image(ft2, path = paste0(path_rep,"/tb_cv_nm.png"))
+save_as_image(ft3, path = paste0(path_rep,"/tb_params_est.png"))
+save_as_image(ft4, path = paste0(path_rep,"/tb_natM.png"))
+save_as_image(ft5, path = paste0(path_rep,"/tb_maturity.png"))
+save_as_image(ft6, path = paste0(path_rep,"/tb_diagnostic.png"))
 
-save_as_image(ft7, path = paste0(path,"/tb_run_cpue.png"))
-save_as_image(ft8, path = paste0(path,"/tb_jabba_cpue.png"))
+save_as_image(ft7, path = paste0(path_rep,"/tb_run_cpue.png"))
+save_as_image(ft8, path = paste0(path_rep,"/tb_jabba_cpue.png"))
 
-save_as_image(ft9, path = paste0(path,"/tb_run_age.png"))
-save_as_image(ft10, path = paste0(path,"/tb_jabba_age.png"))
+save_as_image(ft9, path = paste0(path_rep,"/tb_run_age.png"))
+save_as_image(ft10, path = paste0(path_rep,"/tb_jabba_age.png"))
 
-save_as_image(ft11, path = paste0(path,"/tb_timeseries.png"))
-save_as_image(ft12, path = paste0(path,"/tb_catches.png"))
+save_as_image(ft11, path = paste0(path_rep,"/tb_timeseries.png"))
+save_as_image(ft12, path = paste0(path_rep,"/tb_catches.png"))
 #'*=================================================================*
 # save Rdata tables
-save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10,file=paste0(path,"/tables_run.RData"))
-}
+save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10,file=paste0(path_rep,"/tables_run.RData"))
+
+selectivity<-subset(output$ageselex[output$ageselex$Fleet==1 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])
+colnames(selectivity)[1]<-"year"
+
+sel<-reshape::melt(selectivity,id.vars='year')
+sel_bar<-rowMeans(selectivity[,3:6])
+
+startyr <- output$startyr
+endyr <- output$endyr
+aux <- output$derived_quants
+idx <- match(paste("F_",startyr:(endyr-1),sep=""), aux[,1])
+aux <- aux[idx, ]
+
+F.dat <- data.frame(Year=startyr:(endyr-1),
+                    Value=aux$Value,
+                    CV=aux$StdDev/aux$Value,
+                    Lower=aux$Value-2*aux$StdDev,
+                    Upper=aux$Value+2*aux$StdDev,
+                    param="f apic")
+
+# Fbar.dat <- data.frame(Year=startyr:(endyr-1),
+#                        Value=aux$Value*sel_bar[-length(sel_bar)],
+#                        CV=aux$StdDev/aux$Value*sel_bar[-length(sel_bar)],
+#                        Lower=(aux$Value*sel_bar[-length(sel_bar)])-2*aux$StdDev,
+#                        Upper=(aux$Value*sel_bar[-length(sel_bar)])+2*aux$StdDev,
+#                        param="f bar")
+
+aux <- output$derived_quants
+idx <- match(paste("Recr_",startyr:endyr,sep=""), aux[,1])
+aux <- aux[idx, ] 
+rec.dat <- data.frame(Year=startyr:endyr, 
+                      Value=aux$Value,
+                      CV=aux$StdDev/aux$Value,
+                      Lower=aux$Value-2*aux$StdDev,
+                      Upper=aux$Value+2*aux$StdDev,
+                      param="rec")
+
+aux <- subset(output$timeseries, Era=="TIME",c("Yr","Seas","Bio_smry"))
+idx <- grep("SSB_\\d",output$derived_quants$Label)
+aux$StdDev <- output$derived_quants[idx,"StdDev"]
+cv <- data.frame(cv=output$derived_quants[idx,"StdDev"]/output$derived_quants[idx,"Value"])
+cv$Yr <- output$startyr:output$endyr
+aux <- merge(aux,cv,by="Yr")
+bio.dat <- data.frame(Year=startyr:endyr, 
+                      Value=aux$Bio_smry,
+                      CV=aux$cv,
+                      Lower=aux$Bio_smry-2*aux$StdDev,
+                      Upper=aux$Bio_smry+2*aux$StdDev,
+                      param="bio1plus"
+)
+
+
+ggplot(bio.dat, aes(x = Year,y=Value/1000000)) +
+  geom_pointrange(aes(ymin = Lower/1000000, ymax = Upper/1000000),
+                  position = position_dodge(width=.5) ) +
+  scale_shape_manual(values = c(1, 16)) +
+  scale_linetype_manual(values = c(2, 1)) +
+  theme(text = element_text(size = 14),
+        plot.background =	element_rect(colour = NA, fill = NA),
+        axis.text.x=element_text(size=14),
+        axis.text.y=element_text(size=14),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.position = c(0.9,0.875)) +
+  labs(x="Year", y="Biomass 1+, million tonnes",shape="Assessment", linetype="Assessment")
+#ggsave("report/biomass.png",width=12,height = 8)
