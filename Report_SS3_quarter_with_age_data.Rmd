@@ -315,21 +315,7 @@ Figure `r run_bookmark("fig_runtest_residuals_indices", figruns)`: Ane.27.9a sto
 
 \newpage
 
-Table `r run_bookmark("tb_run_cpue",  tabruns)`: Ane.27.9a stock. test residuals.
 
-```{r}
-include_graphics(file.path(path_mod,"tb_run_cpue.png"))
-```
-
-
-Table `r run_bookmark("tb_jabba_cpue",  tabruns)`: Ane.27.9a stock. test residuals2.
-
-```{r}
-include_graphics(file.path(path_mod,"tb_jabba_cpue.png"))
-```
-
-
-\newpage
 #### Fit and residuals age composition 
 
 
@@ -417,16 +403,6 @@ include_graphics(file.path(path_mod,"fig_runtest_residuals_age.png"))
 Figure `r run_bookmark("fig_runtest_residuals_age", figruns)`: Ane.27.9a stock. a) Runs test results for fits to annual mean age estimates for the surveys (*PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS*) and the fishery (*SEINE*). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.   The complete set of runs test results is presented in Table xx. b) Joint residual plots for annual mean length estimates for surveys and fishery.  Vertical lines with points show the residuals, and solid black lines show loess smoother through all residuals. Boxplot indicate the median and quantiles in cases where residuals from the multiple indices are available for any given year. Root-mean squared errors (RMSE) are included in the upper right-hand corner of each plot.
 
 
-\newpage
-
-```{r}
-include_graphics(file.path(path_mod,"tb_run_age.png"))
-```
-
-
-```{r}
-include_graphics(file.path(path_mod,"tb_jabba_age.png"))
-```
 
 \newpage
 
