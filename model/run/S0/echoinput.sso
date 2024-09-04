@@ -131,8 +131,8 @@ rows are fleets; columns are: Fleet_#, fleet_type, timing, area, units, need_cat
 5 #  3 1 1 1 0 # ECORECLUTAS
 YPR_optimize_mask:  1 0 0 0 0
 144 records
-first catch record:  -999 1 1 0 0.1
-last catch record:  2023 4 1 622.4 0.1
+first catch record:  -999 1 1 0 0.05
+last catch record:  2023 4 1 622.4 0.05
  equ, seas:   -1 1 catches:  0 0 0 0 0
  equ, seas:   -1 2 catches:  0 0 0 0 0
  equ, seas:   -1 3 catches:  0 0 0 0 0
@@ -296,27 +296,27 @@ Fleet Units Err_Type SD_Report
  4 1 0 0
  5 1 0 0
 51 nobs_survey 
- 1999 3 2 24763 0.25
- 2001 3 2 24913 0.25
- 2002 3 2 21335 0.25
- 2003 2 2 24565 0.25
- 2005 4 2 14041 0.25
- 2006 4 2 24082 0.25
- 2007 4 2 38020 0.25
- 2008 4 2 34162 0.25
- 2009 4 2 24745 0.25
- 2010 4 2 7395 0.25
- 2013 4 2 12700 0.25
- 2014 4 2 28917 0.25
- 2015 4 2 33100 0.25
- 2016 4 2 65345 0.25
- 2017 4 2 13797 0.25
- 2018 4 2 23473 0.25
- 2019 4 2 29876 0.25
- 2020 3 2 49787 0.25
- 2021 3 2 14065 0.25
- 2022 3 2 8972.47 0.25
- 2023 3 2 26785.5 0.25
+ 1999 3 2 24763 0.3
+ 2001 3 2 24913 0.3
+ 2002 3 2 21335 0.3
+ 2003 2 2 24565 0.3
+ 2005 4 2 14041 0.3
+ 2006 4 2 24082 0.3
+ 2007 4 2 38020 0.3
+ 2008 4 2 34162 0.3
+ 2009 4 2 24745 0.3
+ 2010 4 2 7395 0.3
+ 2013 4 2 12700 0.3
+ 2014 4 2 28917 0.3
+ 2015 4 2 33100 0.3
+ 2016 4 2 65345 0.3
+ 2017 4 2 13797 0.3
+ 2018 4 2 23473 0.3
+ 2019 4 2 29876 0.3
+ 2020 3 2 49787 0.3
+ 2021 3 2 14065 0.3
+ 2022 3 2 8972.47 0.3
+ 2023 3 2 26785.5 0.3
  2004 6 3 18177.1 0.3
  2006 6 3 35539.4 0.3
  2007 7 3 28882.1 0.3
@@ -332,21 +332,21 @@ Fleet Units Err_Type SD_Report
  2020 8 3 44886.9 0.3
  2023 7 3 9714.19 0.3
  2005 6 4 14673 0.3
- 2008 6 4 31527 0.32
- 2011 7 4 32757 0.4
+ 2008 6 4 31527 0.3
+ 2011 7 4 32757 0.3
  2014 7 4 31569 0.3
- 2017 8 4 12392 0.61
- 2020 8 4 81466 0.43
- 2023 8 4 15138 0.62
- 2014 10 5 8113.16 0.2
- 2015 10 5 30826.8 0.2
- 2016 10 5 19860.9 0.2
- 2018 10 5 10493.3 0.2
- 2019 10 5 48397.6 0.2
- 2020 10 5 36070.3 0.2
- 2021 10 5 17512.3 0.2
- 2022 10 5 11912 0.2
- 2023 10 5 8299.64 0.2
+ 2017 8 4 12392 0.3
+ 2020 8 4 81466 0.3
+ 2023 8 4 15138 0.3
+ 2014 10 5 8113.16 0.3
+ 2015 10 5 30826.8 0.3
+ 2016 10 5 19860.9 0.3
+ 2018 10 5 10493.3 0.3
+ 2019 10 5 48397.6 0.3
+ 2020 10 5 36070.3 0.3
+ 2021 10 5 17512.3 0.3
+ 2022 10 5 11912 0.3
+ 2023 10 5 8299.64 0.3
 Successful read of survey data; total N:  51
 Index Survey_name       N   Super_Per    Min_val   max_val  //  Observations:
 2    PELAGO   21     0      7395 65345 //  24763 24913 21335 24565 14041 24082 38020 34162 24745 7395 12700 28917 33100 65345 13797 23473 29876 49787 14065 8972.47 26785.5
@@ -392,10 +392,10 @@ ageerror_definitions_as_read
 -1 0.0001 0 0 0 0 0.001  #_fleet: 5 ECORECLUTAS
 number of D-M definitions needed for both length and age comp data: 0
 1 Lbin method for defined size ranges 
-age_obs_#:1 #  1989 3 1 0 0 1 -1 -1 317 0 1 0 0
-age_obs_#:2 #  1989 6 1 0 0 1 -1 -1 432 0 1 0 0
+age_obs_#:1 #  1989 3 1 0 0 1 -1 -1 100 0 1 0 0
+age_obs_#:2 #  1989 6 1 0 0 1 -1 -1 100 0 1 0 0
 184 N age comp observations 
-age_obs_#:184 #  2023 10 5 0 0 1 -1 -1 435 0.714943 0.266667 0.0183908 0
+age_obs_#:184 #  2023 10 5 0 0 1 -1 -1 100 0.714943 0.266667 0.0183908 0
 
 Age_Data Nobs by fleet  140 21 14 0 9
 Age_Data superperiods by fleet  0 0 0 0 0
@@ -687,11 +687,11 @@ SR_parm_RD:  20 0.9 0.6 0 0
 2 #_recdev_early_phase
 -1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
 1 #_lambda for Fcast_recr_like occurring before endyr+1
-1985.2 #_last_early_yr_nobias_adj_in_MPD
-1988.5 #_first_yr_fullbias_adj_in_MPD
-2022.3 #_last_yr_fullbias_adj_in_MPD
-2028.3 #_first_recent_yr_nobias_adj_in_MPD
-0.9331 #_max_bias_adj_in_MPD
+1984.9 #_last_early_yr_nobias_adj_in_MPD
+1988.3 #_first_yr_fullbias_adj_in_MPD
+2023 #_last_yr_fullbias_adj_in_MPD
+2028.6 #_first_recent_yr_nobias_adj_in_MPD
+0.9532 #_max_bias_adj_in_MPD
  #_NOTE: biasadjustment forced to 0.0 after year recdev_end
 0 # period of cycle in recruitment 
 -5 #min rec_dev
@@ -699,7 +699,7 @@ SR_parm_RD:  20 0.9 0.6 0 0
 0 #_read_recdevs
 #_end of advanced SR options
 #_recruitment bias adjustment
- 0.226206 0.508964 0.791721 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.9331 0.824238
+ 0.308388 0.588741 0.869094 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532 0.9532
 0.3 F ballpark is annual F, as specified in F_reporting, for a specified year
 -2023 F_ballpark_yr (<0 to ignore)  
 3 F_Method as read
@@ -762,8 +762,8 @@ Q_parm_RD:
 10 12
 #Now create parameters for D-M variance of composition data; CANNOT be time-varying
  selex and composition base parameters 
-1 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_SEINE(1)
-2 ##  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
+1 ##  -2 5.5 0 0 0 0 5 0 0 0 0 0 0 0 ## Age_inflection_SEINE(1)
+2 ##  -1 1.5 0.5 0 0 0 5 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
 3 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_PELAGO(2)
 4 ##  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_PELAGO(2)
 5 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
@@ -775,8 +775,8 @@ selparm_fleet:
  6 6 7 7 8 8 10 10
 check on conversion of retention parameter
 check on mirror bounds
-1 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
-2 sel  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0
+1 sel  -2 5.5 0 0 0 0 5 0 0 0 0 0 0 0
+2 sel  -1 1.5 0.5 0 0 0 5 0 0 0 0 0 0 0
 3 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
 4 sel  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0
 5 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
@@ -786,21 +786,14 @@ check on mirror bounds
  now read 0/1 for 2D_AR
 1  #_ 0/1 to request experimental 2D_AR selectivity smoother options 
 read specification for first 2D_AR1:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, phase before, after
- 5 1989 2023 0 1 1 1 2 5 0 0
-now read a parameter line with the sigma for each age from: 0 to sigma_amax: 1
- sigmasel for AGE 0 1
- sigmasel for AGE 1 1
-read two parameter lines for rho_yr and then rho_age (or length)
- rho year: 0
- rho AGE: 0
+ 1 1989 2023 0 1 0 0 2 5 0 0
+now read a parameter line with the sigma for each age from: 0 to sigma_amax: 0
+ sigmasel for AGE 0 0.5
 ready to read next fleet's 2DAR specs, or terminate by reading line starting with negative fleet
  -9999 0 0 0 0 0 0 0 0 0 0
-N_selparm: 8 with timevary: 8 with TV and 2D_AR: 12 timevary parm range for sel: 1 4 4
+N_selparm: 8 with timevary: 8 with TV and 2D_AR: 9 timevary parm range for sel: 1 1 1
 list all parms used for timevary implementation
-1 parm  0.01 3 1 1 99 0 -5
-2 parm  0.01 3 1 1 99 0 -5
-3 parm  -0 0 0 0 99 0 -3
-4 parm  -0 0 0 0 99 0 -3
+1 parm  0.01 3 0.5 1 99 0 -5
 Recalc_flag_for_length_selex_recalc_by_year
 1 SEINE  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 2 PELAGO  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -808,17 +801,29 @@ Recalc_flag_for_length_selex_recalc_by_year
 4 BOCADEVA  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 5 ECORECLUTAS  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 Recalc_flag_for_age_selex_recalc_by_year
-1 SEINE  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 SEINE  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 2 PELAGO  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 3 ECOCADIZ  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 4 BOCADEVA  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-5 ECORECLUTAS  1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+5 ECORECLUTAS  1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 0 TG_custom (need to read even if no tag data ); tag_data?: 0 N_Fleet: 1
-1 2D_AR1 setup  5 1989 2023 0 1 1 1 2 5 0 0 1 9
+1 2D_AR1 setup  1 1989 2023 0 1 0 0 2 5 0 0 1 9
  total years, and with data  35 35  times nages: 70
  read var_adjust list until -9999
+ 5 1 0.0689289
+ 5 2 0.0562533
+ 5 3 0.0421242
+ 5 5 2.71995
  -9999 0 0
- number of variance adjustment records = 0
+ number of variance adjustment records = 4
+ Var_adjustments as read 
+ 0 0 0 0 0
+ 0 0 0 0 0
+ 0 0 0 0 0
+ 1 1 1 1 1
+ 0.0689289 0.0562533 0.0421242 1 2.71995
+ 1 1 1 1 1
+ 1 1 1 1 1
 1 max_lambda_phase 
 1 sd_offset (adds log(s)); needed if variance parameters are estimated 
 
@@ -832,33 +837,33 @@ LAMBDA
  5th value is used only for like_code=6 and specifies the SizeFreq method used, which is in addition to fleet designation.
 0 # extra stdev reporting: 0 = skip, 1 = read specs for reporting stdev for selectivity, size, and numbers, 2 = add option for M, dyn. Bzero & Smrybio 
 End of control file successful! 999
-N parameters: 142
-Parameters plus derived quant: 340
+N parameters: 139
+Parameters plus derived quant: 337
 Adjust the phases 
  requested turn_off phase: 10
 Fcast_dev_phase (read and adjusted): -1 -1
-ParCount 142   Active parameters: 121
+ParCount 139   Active parameters: 121
 Turn_off_phase 10
  max_phase 5
-340
-parm 142 covar 121
-deriv_start 142 121
-parm 179 covar 158
-parm 216 covar 195
-parm 251 covar 230
-parm 286 covar 265
-parm 320 covar 299
-parm 337 covar 316  after benchmark 
-parm 337 covar 316  after forecast 
+337
+parm 139 covar 121
+deriv_start 139 121
+parm 176 covar 158
+parm 213 covar 195
+parm 248 covar 230
+parm 283 covar 265
+parm 317 covar 299
+parm 334 covar 316  after benchmark 
+parm 334 covar 316  after forecast 
  do ln(SPB) std labels for 3 years
  do Svy_sdreport labels 0
-parm 340 covar 319  after all derived quantities 
+parm 337 covar 319  after all derived quantities 
 Active parameters plus derived quantities:  319
 Begin setting up parameters
- now dimension the selectivity arrays 12
- -2 -1 -2 -1 -2 -1 -2 -1 0.01 0.01 -0 -0
- 5.5 5.5 5.5 5.5 5.5 5.5 5.5 5.5 3 3 0 0
- 3 3 3 3 3 3 2 2 -5 -5 -3 -3
+ now dimension the selectivity arrays 9
+ -2 -1 -2 -1 -2 -1 -2 -1 0.01
+ 5.5 1.5 5.5 5.5 5.5 5.5 5.5 5.5 3
+ 5 5 3 3 3 3 2 2 -5
  OK after dimension the selectivity arrays 
  check 1  70
  OK after dimension the 2dar arrays 
@@ -3403,7 +3408,7 @@ Finished reading the empirical weight at age file
  SRR_parms read from ctl  20 0.9 0.6 0 0
  rec_devs read from ctl  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  Q_parms read from ctl  0 0 0 0
- selex_parms read from ctl  0 0.5 0 0.5 0 0.2 0 0.2 1 1 0 0
+ selex_parms read from ctl  0 0.5 0 0.5 0 0.2 0 0.2 0.5
 
  now check MGparm bounds and priors and do jitter if requested 
 Warning 5 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7
@@ -3419,12 +3424,11 @@ Warning 5 : parameter init value is greater than parameter max 3.278 > 3 for par
  Q_parms after check  0 0 0 0
 
  now check sel_parm bounds and priors and do jitter if requested 
- selex_parms after check   0 0.5 0 0.5 0 0.2 0 0.2 1 1 0 0
+ selex_parms after check   0 0.5 0 0.5 0 0.2 0 0.2 0.5
 
  now check parmdev bounds and priors and do jitter if requested 
  parm_devs after check   0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-fleet: 1 2D_AR rho in prelim for time and age/size 0 0
-determinant for 2D_AR cor: 1  is: 1
+fleet: 1 no 2D_AR rho 
 Begin evaluating biology calculations once
 
 **********************
@@ -4117,19 +4121,19 @@ yr 2023, seas: 4, fleet:1
  sampled  age   2.03583e+07 8.54347e+06 2.25598e+06 805883
  finished time series 
 Finished time_series
-Finished survey obj_fun  0 2866.96 1678.21 350.691 2397.07
-Finished agecomp obj_fun  22302.2 1057.79 7593.85 0 690.191
+Finished survey obj_fun  0 1985.88 1678.21 568.145 1060.97
+Finished agecomp obj_fun  278.611 12.4337 31.3905 0 245.338
  initequ_catch -log(L)  0 0 0 0 0
- catch -log(L)  5.66734e-16 0 0 0 0
+ catch -log(L)  2.26694e-15 0 0 0 0
 Finished recruitdev obj_fun 0 0 0.72
- OK with obj_func 39001.3
+ OK with obj_func 5876.78
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 4.29687 0.6
-Calculated Btgt: 5.4216 0.55
-Calculated Fmsy 16.2624 6023.75
+Calculated Fspr 3.23658 0.6
+Calculated Btgt: 4.04359 0.55
+Calculated Fmsy 12.1291 6663.88
 Finished benchmark, forecast, and sdreporting
-Iterations: 957
+Iterations: 1348
  finished COVAR.SSO
 Writing wtatage.ss_new
 Finished StdDev quantities

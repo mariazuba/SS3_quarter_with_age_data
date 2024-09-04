@@ -88,11 +88,11 @@
 2 #_recdev_early_phase
 -1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
 1 #_lambda for Fcast_recr_like occurring before endyr+1
-1985.2   #_last_early_yr_nobias_adj_in_MPD 
-1988.5   #_first_yr_fullbias_adj_in_MPD 
-2022.3   #_last_yr_fullbias_adj_in_MPD 
-2028.3   #_first_recent_yr_nobias_adj_in_MPD 
-0.9331  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models) 
+1984.9   #_last_early_yr_nobias_adj_in_MPD 
+1988.3   #_first_yr_fullbias_adj_in_MPD 
+2023.0   #_last_yr_fullbias_adj_in_MPD 
+2028.6   #_first_recent_yr_nobias_adj_in_MPD 
+0.9532  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models) 
 0 #_period of cycles in recruitment (N parms read below)
 -5 #min rec_dev
 5 #max rec_dev
@@ -118,8 +118,8 @@
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn  #  parm_name
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_PELAGO 
--30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
--30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
+-30	15	0	0	0	0	3	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
+-30	15	0	0	0	0	4	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
 #_no timevary Q parameters
 #
@@ -142,10 +142,10 @@
 #_SizeSelex
 #_No size_selex_parm
 #_AgeSelex
--2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-2	5.5	0	  0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
+-1	1.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
--1	5.5	0.5  	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
+-1	5.5	0.5 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
 -1	5.5	0.2	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
 -2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
@@ -156,11 +156,10 @@
 #_specifications for 2D_AR1 and associated parameters
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-5 1989 2023 0 1 1 1 2 5 0 0  #  2D_AR specs for fleet: ECORECLUTAS AGE
-0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
-0.01 3 1 1 99 0 -5  # sigma_sel for fleet:_1; AGE_1
--0 0 0 0 99 0 -3  # rho_year for fleet:_1
--0 0 0 0 99 0 -3  # rho_AGE for fleet:_1
+1 1989 2023 0 1 0 0 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
+0.01 3 0.5 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0-1
+#-0 0 0 0 99 0 -3  # rho_year for fleet:_1
+#-0 0 0 0 99 0 -3  # rho_AGE for fleet:_1
 -9999  0 0 0 0 0 0 0 0 0 0 # terminator
 #
 # Tag loss and Tag reporting parameters go next
@@ -169,10 +168,10 @@
 #
 # Input variance adjustments factors: 
 #_Data_type	Fleet	Value
-#5 1 0.0137727  #_SEINE
-#5 2 0.0151968  #_PELAGO
-#5 3 0.0102918  #_ECOCADIZ
-#5 5 1.2022400  #_ECORECLUTAS
+5 1 0.0689289  #_SEINE
+5 2 0.0562533  #_PELAGO
+5 3 0.0421242  #_ECOCADIZ
+5 5 2.7199500  #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase
