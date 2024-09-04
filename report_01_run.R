@@ -555,6 +555,89 @@ ft12 <- fontsize(ft12, size = 8, part = "body")
 ft12 <- autofit(ft12)
 ft12
 
+
+# Input data type, model assumptions and settings for the assessment ----
+
+col1<-c(rep("Data",12),"",
+        rep("Structure and assumptions",10),"",)
+
+DAT<-c("Catch","Catch-at-age", 
+       "Pelago survey",
+       "Pelago numbers-at-age",
+       "Ecocadiz survey",
+       "Ecocadiz numbers-at-age",
+       "Ecocadiz-Reclutas survey",
+       "Ecocadiz-Reclutas numbers-at-age",
+       "Bocadeva survey",
+       "Weight at age in the stock in kg",
+       "Weight at age in the catch in kg",
+       "Maturity at age",
+       "Natural mortality",
+       "Structure and assumptions",
+       "Recruitment",
+       "Initial population",
+       "Fishery selectivity-at-age",
+       "Pelago selectivity-at-age",
+       "Ecocadiz selectivity-at-age",
+       "Ecocadiz-Reclutas selectivity-at-age",
+       "Pelago catchability",
+       "Ecocadiz catchability",
+       "Bocadeva catchability",
+       "Ecocadiz-Reclutas catchability",
+       "Log-likelihood function",
+       "Minimisation of the likehood",
+       "Data weights",
+       "Age data weights"
+       )
+
+desc_DAT<-c("Catch biomass 1989 to 2023. Combined Spanish and Portuguese fleets",
+           "Proportion-at-age 1989 to 2023 [0 to 3]. Spanish fleets",
+           "Biomass 1999 to 2023",
+           "Proportion-at-age 1999 to 2023 [0 to 3].",
+           "Biomass 2004 to 2023",
+           "Proportion-at-age 2004 to 2023 [0 to 3].",
+           "Spawning stock biomass 2005 to 2023",
+           "Biomass 2014 to 2023",
+           "Proportion-at-age 2014 to 2023 [0 to 3].",
+           "1989 to 2023 [0 to 3]. mean weighted by all sources by quarters",
+           "1989 to 2023 [0 to 3]. Same as in weight at age in the stock",
+           "Proportion-at-age [0 to 3]. we assume that all individuals with age 1 or higher (B1+)",
+           "Age specific [0 to 3]. Estimated at WD Rincón et al xxx",
+           "",
+           "SCAA stock recruitment model, Ignore steepness, sigmaR=0.6",
+           "Starting equilibrium population age structure",
+           "Age based. logistic. xxxx",
+           "Age based. logistic. Fixed",
+           "Age based. logistic. Fixed",
+           "Age based. logistic. Fixed",
+           "Simple q linear model",
+           "Simple q linear model",
+           "Simple q linear model",
+           "Simple q linear model",
+           "",
+          "Implemented in phases using standard ADMB process",
+          "Catch CV = 0.05, Pelago = 0.30, Ecocadiz = 0.30, Bocadeva = 0.30, Ecocadiz-Reclutas = 0.30",
+          "The Francis method T.A.xxx was selected for length data weighting in catches and surveys data"
+          )
+
+
+
+
+
+
+tablex<-data.frame(DAT,desc_DAT)
+
+
+ft13<-tablex%>% 
+  flextable()
+ft13<-set_header_labels(ft13,DAT="Data",desc_DAT="Years and age range")
+#ft13 <- align(ft13,part = "header", align = "center") 
+ft13 <- bold(ft13, i = c(14,25), j = 1)
+ft13 <- padding(ft13, i=c(14,25), j=1, padding.left = 15)
+ft13 <- fontsize(ft13, size = 10, part = "body")
+ft13 <- autofit(ft13)
+ft13
+
 #'*=================================================================*
 # save tables
 save_as_image(ft1, path = paste0(path_rep,"/tb_index.png"))
@@ -572,6 +655,9 @@ save_as_image(ft10, path = paste0(path_rep,"/tb_jabba_age.png"))
 
 save_as_image(ft11, path = paste0(path_rep,"/tb_timeseries.png"))
 save_as_image(ft12, path = paste0(path_rep,"/tb_catches.png"))
+
+save_as_image(ft13, path = paste0(path_rep,"/tb_dat_stru.png"))
+
 #'*=================================================================*
 # save Rdata tables
 save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10,file=paste0(path_rep,"/tables_run.RData"))
