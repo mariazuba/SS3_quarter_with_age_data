@@ -34,13 +34,16 @@ library(ss3diags)
 wd <- getwd()
 retro_out<-paste0(getwd(),"/output/retro/")
 retro_ls<-list.files(retro_out)
-esc<-sub(".RData", "", sub("retrospective_", "", retro_ls))
+sub(".RData", "", sub("retrospective_", "", retro_ls))
+esc<-"S0"
 
-for(i in 1:length(esc)){
-  retro_rep<-paste0(getwd(),"/report/retro/",esc[i])
+
+  retro_rep<-paste0(getwd(),"/report/retro/",esc)
+  
+  system(paste("rm -r", shQuote(retro_rep)))  
   mkdir(retro_rep)
 # Load data ---------------------------------------------------------------
-load(paste0(retro_out,"retrospective_",esc[i],".RData"))
+load(paste0(retro_out,"retrospective_",esc,".RData"))
 
 # figure ----
 png(file.path(paste0(retro_rep,"/Retro.png")),
@@ -82,6 +85,6 @@ ft1<-rho_retro %>%
 save_as_image(ft1, path = paste0(retro_rep,"/table_rho.png"))
 save(ft1, file=paste0(retro_rep,"/table_rho.RData"))
 save(rho_ssb,rho_f, file=paste0(retro_rep,"/rho.RData"))
-}
+
 
 setwd(wd)

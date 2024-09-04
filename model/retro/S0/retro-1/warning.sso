@@ -1,12 +1,13 @@
-Warning 1 Adjustment:  recdev_end: 2023 > retro_yr: 2022 reset 
-Warning 2 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7; search for <now check> in echoinput.sso for parm_type
-Warning 3 : parameter init value is greater than parameter max 22 > 15 for parm: 8; search for <now check> in echoinput.sso for parm_type
-Warning 4 : poor convergence in Fspr search 0.4 0.509517
-Warning 5 : Fmult = 40 cannot get high enough to achieve low SPR target: 0.4; SPR achieved is: 0.509517
-Warning 6 : poor convergence in Btarget search 558112 710918
-Warning 7 : poor convergence in Fmsy, final dy/dy2= -0.173699
-Warning 8 : Fmsy.mey is close to max allowed; check for convergence 
-Warning 9 : Forecast F capped by max possible F from control file3
-Warning 10 : Forecast F capped by max possible F from control file3
-Note 1 Information: A revised protocol for the Fcast_yr specification is available and recommended.
- 10 warnings  and 1 note 
+Warning 1 : Forecast=0 or -1, so rest of forecast file will not be read and can be omitted;
+Warning 2 : bias adjustment ramp extends into forecast; biasadj set to 0.0 internally for forecast years
+Warning 3 Adjustment:  recdev_end: 2023 > retro_yr: 2022 reset 
+Warning 4 Adjustment: Adjusting recdev_early to: 1986
+Note 1 Suggestion: Are you sure you want so few early recrdevs? Better to include in range of main recdevs 3
+Warning 5 : 2D_AR selectivity deviations option is selected!
+Warning 6 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7; search for <now check> in echoinput.sso for parm_type
+Warning 7 : poor convergence in Fmsy, final dy/dy2= -0.158309
+Warning 8 : Fmsy/mey is >3x of Fspr are you sure?  check for convergence 
+Warning 9 : Fmsy.mey is close to max allowed; check for convergence 
+Warning 10 : Final gradient: 11966.6 is larger than final_conv: 0.0001
+Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended.
+ 10 warnings  and 2 notes 

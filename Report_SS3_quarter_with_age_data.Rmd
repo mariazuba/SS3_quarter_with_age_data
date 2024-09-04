@@ -68,7 +68,7 @@ path_out<-"output/run/S0"
 path_retro<-"report/retro/S0"
 # load
 load(paste0(path_mod,"/tables_run.RData"))
-load(paste0(path_dat,"/inputs.RData"))
+load(paste0(path_dat,"/inputData.RData"))
 load(paste0(path_out,"/output.RData"))
 load(paste0(path_retro,"/rho.RData"))
 ```
@@ -218,11 +218,9 @@ Figure `r run_bookmark("fig_weight_by_quarters", figruns)`: Ane.27.9a stock. Wei
 
 #### *Recruitment*
 
-Annual recruitments are parameters, defined as lognormal deviations (**Figure x**) from **Beverton-Holt** stock-recruitment model (**Figure xx**) with steepness fixed at **XX** <!-- Check and update if necessary--> and standard deviation of log number of recruits was set to `r sigmaR`, the same as in the previous model and based on literature for similar species <!-- Check and update if necessary-->. 
+Annual recruitments are parameters, defined as lognormal deviations (**Figure x**) from **Beverton-Holt** stock-recruitment model (**Figure xx**) with steepness fixed at **XX** <!-- Check and update if necessary--> and standard deviation of log number of recruits was set to , the same as in the previous model and based on literature for similar species <!-- Check and update if necessary-->. 
 
-$R_0$ = `r round(R0,2)`
-$\sigma_R$ = `r sigmaR`
-steepness $h$ = null
+
 
 
 ```{r}

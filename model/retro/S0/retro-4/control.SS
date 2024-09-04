@@ -11,7 +11,6 @@
 # for each settlement assignment:
 #_GPattern	month	area	age
 1	 7	1	0	#_1
-#1	 10	1	0	#_1
 #
 #_Cond 0 # N_movement_definitions goes here if N_areas > 1
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
@@ -42,7 +41,7 @@
 #
 0 #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)
 0 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
-2 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+5 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
 1 #_First_Mature_Age
 1 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
 0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn
@@ -50,19 +49,17 @@
 #
 #_growth_parms
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env_var&link	dev_link	dev_minyr	dev_maxyr	dev_PH	Block	Block_Fxn
-    0	  10	       6	0	0	0	 -3	0	0	   0	   0	0	0	0	#_L_at_Amin       
+    0	  10	       6	0	0	0	-3	0	0	   0	   0	0	0	0	#_L_at_Amin       
     5	  22	   19.96	0	0	0	-3	0	0	   0	   0	0	0	0	#_L_at_Amax       
-  0.1	   2	    0.46	0	0	0	 -3	0	0	   0	   0	0	0	0	#_VonBert_k       
+  0.1	   2	    0.46	0	0	0	-3	0	0	   0	   0	0	0	0	#_VonBert_k       
  0.05	0.25	     0.1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CV_young        
  0.05	0.25	     0.1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CV_old          
    -3	   3	3.13e-06	0	0	0	-3	0	0	   0	   0	0	0	0	#_Wtlen_1         
    -3	   3	   3.278	0	0	0	-3	0	0	   0	   0	0	0	0	#_Wtlen_2         
-   -3	  15	      22	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat50%          
-   -3	   3	   -0.45	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat_slope       
+   -3	  15	      11	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat50%          
+   -3	   3	   -0.98	0	0	0	-3	0	0	   0	   0	0	0	0	#_Mat_slope       
    -3	   3	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_alpha      
    -3	   3	       0	0	0	0	-3	0	0	   0	   0	0	0	0	#_Eggs_beta       
-#    0	   2	     0.3	0	0	0	 -3	0	0	   0	   0	0	0	0	#_RecrDist_month_1
-#    0    2       0.7  0 0 0  -3  0 0    0     0  0 0 0 #_RecrDist_month_2
     1	   1	       1	0	0	0	-3	0	0	   0	   0	0	0	0	#_CohortGrowDev   
 1e-07	   1	     0.5	0	0	0	-3	0	0	   0	   0	0	0	0	#_FracFemale      
 #_no timevary MG parameters
@@ -86,14 +83,28 @@
 1989 # first year of main recr_devs; early devs can preceed this era
 2023 # last year of main recr_devs; forecast devs start in following year
 1 #_recdev phase
-0 # (0/1) to read 13 advanced options
+1 # (0/1) to read 13 advanced options
+-4 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
+2 #_recdev_early_phase
+-1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
+1 #_lambda for Fcast_recr_like occurring before endyr+1
+1984.9   #_last_early_yr_nobias_adj_in_MPD 
+1988.3   #_first_yr_fullbias_adj_in_MPD 
+2023.0   #_last_yr_fullbias_adj_in_MPD 
+2028.6   #_first_recent_yr_nobias_adj_in_MPD 
+0.9532  #_max_bias_adj_in_MPD (1.0 to mimic pre-2009 models) 
+0 #_period of cycles in recruitment (N parms read below)
+-5 #min rec_dev
+5 #max rec_dev
+0 #_read_recdevs
+#_end of advanced SR options
 #
 #Fishing Mortality info
-0.1 # F ballpark
+0.3 # F ballpark
 -2023 # F ballpark year (neg value to disable)
 3 # F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)
 3 # max F or harvest rate, depends on F_Method
-3 # N iterations for tuning F in hybrid method (recommend 3 to 7)
+4 # N iterations for tuning F in hybrid method (recommend 3 to 7)
 #
 #_initial_F_parms; count = 0
 #
@@ -107,8 +118,8 @@
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn  #  parm_name
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_PELAGO 
--30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
--30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
+-30	15	0	0	0	0	3	0	0	0	0	0	0	0	#_LnQ_base_ECOCADIZ   
+-30	15	0	0	0	0	4	0	0	0	0	0	0	0	#_LnQ_base_BOCADEVA 
 -30	15	0	0	0	0	2	0	0	0	0	0	0	0	#_LnQ_base_ECORECLUTAS
 #_no timevary Q parameters
 #
@@ -123,7 +134,7 @@
 #_age_selex_patterns
 #_Pattern	Discard	Male	Special
 12	0	0	0	#_1 SEINE  
-10	0	0	0	#_2 PELAGO 
+12	0	0	0	#_2 PELAGO 
 12	0	0	0	#_3 ECOCADIZ   
 10 	0	0	0	#_4 BOCADEVA       
 12	0	0	0	#_5 ECORECLUTAS
@@ -131,26 +142,36 @@
 #_SizeSelex
 #_No size_selex_parm
 #_AgeSelex
--2	5.5	0	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE      
--2	5.5	0.5	0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	1	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ  
--2	5.5	0	0	0	0	-2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
--1	5.5	1	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS   
+-2	5.5	0	  0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
+-1	1.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
+-1	5.5	0.5 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
+-2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
+-1	5.5	0.2	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+-2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
+-1	5.5	0.2	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
 #_timevary selex parameters
 #
-0 #  use 2D_AR1 selectivity(0/1):  experimental feature
-#_no 2D_AR1 selex offset used
+1   #  use 2D_AR1 selectivity? (0/1)
+#_specifications for 2D_AR1 and associated parameters
+#_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
+#_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
+1 1989 2023 0 1 0 0 2 5 0 0  #  2D_AR specs for fleet: Fishery AGE
+0.01 3 0.5 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0-1
+#-0 0 0 0 99 0 -3  # rho_year for fleet:_1
+#-0 0 0 0 99 0 -3  # rho_AGE for fleet:_1
+-9999  0 0 0 0 0 0 0 0 0 0 # terminator
+#
 # Tag loss and Tag reporting parameters go next
 0 # TG_custom:  0=no read; 1=read if tags exist
 #_Cond -6 6 1 1 2 0.01 -4 0 0 0 0 0 0 0  #_placeholder if no parameters
 #
 # Input variance adjustments factors: 
 #_Data_type	Fleet	Value
-5 1 0.00513245  #_SEINE
-5 2 0.00966511   #_PELAGO
-5 3 0.04367980   #_ECOCADIZ
-5 5 0.00358846    #_ECORECLUTAS
+5 1 0.0689289  #_SEINE
+5 2 0.0562533  #_PELAGO
+5 3 0.0421242  #_ECOCADIZ
+5 5 2.7199500  #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase

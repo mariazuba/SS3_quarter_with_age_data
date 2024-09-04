@@ -31,6 +31,10 @@ sourceTAF("model_01_run")
 sourceTAF("output_01_run")
 sourceTAF("report_01_run")
 
+# sourceTAF("model_02_retro")
+# sourceTAF("output_02_retro")
+# sourceTAF("report_02_retro")
+
 # Compilar reporte.Rmd a reporte.html
  render("Report_SS3_quarter_with_age_data.Rmd", 
         output_file = "Report_SS3_quarter_with_age_data.docx")

@@ -35,3 +35,4 @@ sum(num_y1s1 * mwaa_y1s1)
 
 # calculo de catchability
 output$cpue %>% select(c("Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
+

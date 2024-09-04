@@ -19,22 +19,27 @@ library(tidyverse)
 library(reshape)
 library(ss3diags)
 # retro's directories
-mkdir("output/retro")
+# delete  folder named "retro" 
+
+
 
 retro_esc<-paste0(getwd(),"/model/retro/")
 retro_out<-paste0(getwd(),"/output/retro/")
-esc<-list.files(retro_esc)
+list.files(retro_esc)
+esc<-"S0"
 
-for(i in 1:length(esc)){
-  retro.dir  <- paste0(retro_esc,esc[i])
+system(paste("rm -r", shQuote(retro_out)))
+mkdir(retro_out)
 
-retroModels<-SSgetoutput(dirvec=file.path(retro_esc,esc[i],paste("retro",0:-5,sep="")))
+  retro.dir  <- paste0(retro_esc,esc)
+
+retroModels<-SSgetoutput(dirvec=file.path(retro_esc,esc,paste("retro",0:-5,sep="")))
 retroSummary <- SSsummarize(retroModels)
 # Save output objects -----------------------------------------------------
 
 save(retroModels,retroSummary,
-     file=paste0(retro_out,"retrospective_",esc[i],".RData"))
-}
+     file=paste0(retro_out,"retrospective_",esc,".RData"))
+
 
 
 # End of script -----------------------------------------------------------

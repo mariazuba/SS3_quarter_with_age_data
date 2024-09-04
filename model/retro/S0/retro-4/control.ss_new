@@ -60,8 +60,10 @@
 0 #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)
 0 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
 #
-2 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+5 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+#_Age_Fecundity by growth pattern from wt-at-age.ss now invoked by read bodywt flag
 1 #_First_Mature_Age
+# NOTE: maturity options 4 and 5 cause fecundity_at_length to be ignored, but parameters still needed 
 1 #_fecundity_at_length option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
 0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn
 1 #_parameter_offset_approach for M, G, CV_G:  1- direct, no offset**; 2- male=fem_parm*exp(male_parm); 3: male=female*exp(parm) then old=young*exp(parm)
@@ -80,8 +82,8 @@
  -3 3 3.13e-06 0 0 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
  -3 3 3.278 0 0 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
 # Sex: 1  BioPattern: 1  Maturity&Fecundity
- -3 15 22 0 0 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
- -3 3 -0.45 0 0 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
+ -3 15 11 0 0 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
+ -3 3 -0.98 0 0 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
  -3 3 1 0 0 0 -3 0 0 0 0 0 0 0 # Eggs/kg_inter_Fem_GP_1
  -3 3 0 0 0 0 -3 0 0 0 0 0 0 0 # Eggs/kg_slope_wt_Fem_GP_1
 # Hermaphroditism
@@ -107,7 +109,7 @@
 0  # 0/1 to use steepness in initial equ recruitment calculation
 0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
-             5            25       15.3202             0             0             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+             5            25       15.3402             0             0             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
            0.2             1           0.9             0             0             0         -4          0          0          0          0          0          0          0 # SR_SCAA_null
              0             2           0.6             0             0             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
             -5             5             0             0             0             0         -4          0          0          0          0          0          0          0 # SR_regime
@@ -117,20 +119,20 @@
 1989 # first year of main recr_devs; early devs can precede this era
 2019 # last year of main recr_devs; forecast devs start in following year
 1 #_recdev phase 
-0 # (0/1) to read 13 advanced options
-#_Cond 0 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
-#_Cond -4 #_recdev_early_phase
-#_Cond 0 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
-#_Cond 1 #_lambda for Fcast_recr_like occurring before endyr+1
-#_Cond 989 #_last_yr_nobias_adj_in_MPD; begin of ramp
-#_Cond 1986 #_first_yr_fullbias_adj_in_MPD; begin of plateau
-#_Cond 2023 #_last_yr_fullbias_adj_in_MPD
-#_Cond 2024 #_end_yr_for_ramp_in_MPD (can be in forecast to shape ramp, but SS3 sets bias_adj to 0.0 for fcast yrs)
-#_Cond 1 #_max_bias_adj_in_MPD (typical ~0.8; -3 sets all years to 0.0; -2 sets all non-forecast yrs w/ estimated recdevs to 1.0; -1 sets biasadj=1.0 for all yrs w/ recdevs)
-#_Cond 0 #_period of cycles in recruitment (N parms read below)
-#_Cond -5 #min rec_dev
-#_Cond 5 #max rec_dev
-#_Cond 0 #_read_recdevs
+1 # (0/1) to read 13 advanced options
+ -4 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
+ 2 #_recdev_early_phase
+ -1 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
+ 1 #_lambda for Fcast_recr_like occurring before endyr+1
+ 1984.9 #_last_yr_nobias_adj_in_MPD; begin of ramp
+ 1988.3 #_first_yr_fullbias_adj_in_MPD; begin of plateau
+ 2023 #_last_yr_fullbias_adj_in_MPD
+ 2028.6 #_end_yr_for_ramp_in_MPD (can be in forecast to shape ramp, but SS3 sets bias_adj to 0.0 for fcast yrs)
+ 0.9532 #_max_bias_adj_in_MPD (typical ~0.8; -3 sets all years to 0.0; -2 sets all non-forecast yrs w/ estimated recdevs to 1.0; -1 sets biasadj=1.0 for all yrs w/ recdevs)
+ 0 #_period of cycles in recruitment (N parms read below)
+ -5 #min rec_dev
+ 5 #max rec_dev
+ 0 #_read_recdevs
 #_end of advanced SR options
 #
 #_placeholder for full parameter lines for recruitment cycles
@@ -138,24 +140,23 @@
 #_Yr Input_value
 #
 # all recruitment deviations
-#  1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016R 2017R 2018R 2019R 2020F 2021F 2022F 2023F 2024F 2025F 2026F
-#  -0.216218 0.0434222 -0.466307 -0.553184 -0.451748 -0.471993 0.439688 0.179699 0.527974 0.139942 -0.144776 0.45102 0.270399 -0.199874 -0.0627379 -0.284608 0.276455 0.487112 -0.376665 -0.263488 -0.82532 -0.0812609 -0.190856 -0.275388 0.568289 -0.100333 0.471292 -0.327815 0.108155 0.190159 1.13896 0.0106266 0.0282437 0.0722419 0.0368467 0 0 0
-#
+#  1986E 1987E 1988E 1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016R 2017R 2018R 2019R
+#  -0.486783 -0.732697 0.0651356 -0.155571 0.118701 -0.296185 -0.611954 -0.400925 -0.333793 0.321399 0.181812 0.451335 0.112376 -0.0217075 0.499224 0.22603 -0.368523 -0.0718896 -0.174779 0.286173 0.370312 -0.34734 -0.288263 -0.827151 -0.00503798 -0.223465 -0.105629 0.462866 -0.00632367 0.490022 -0.103615 0.543754 0.0457512 0.232396#
 #Fishing Mortality info 
-0.1 # F ballpark value in units of annual_F
+0.3 # F ballpark value in units of annual_F
 -2023 # F ballpark year (neg value to disable)
 3 # F_Method:  1=Pope midseason rate; 2=F as parameter; 3=F as hybrid; 4=fleet-specific parm/hybrid (#4 is superset of #2 and #3 and is recommended)
 3 # max F (methods 2-4) or harvest fraction (method 1)
-3  # N iterations for tuning in hybrid mode; recommend 3 (faster) to 5 (more precise if many fleets)
+4  # N iterations for tuning in hybrid mode; recommend 3 (faster) to 5 (more precise if many fleets)
 #
 #_initial_F_parms; for each fleet x season that has init_catch; nest season in fleet; count = 0
 #_for unconstrained init_F, use an arbitrary initial catch and set lambda=0 for its logL
 #_ LO HI INIT PRIOR PR_SD  PR_type  PHASE
 #
 # F rates by fleet x season
-# Yr:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023 2024 2024 2024 2024 2025 2025 2025 2025 2026 2026 2026 2026
-# seas:  1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4
-# SEINE 0.42062 1.20512 0.781672 0.0976343 1.15281 1.34268 1.13393 1.64501 0.623919 3.00014 0.870353 0.516771 0.833751 1.56431 0.724513 0.00703102 0.578218 0.952272 0.212878 0.182026 0.509227 2.16202 0.276985 0.15585 0.12357 0.0613333 0.102746 0.155394 0.0136129 0.313177 0.240216 0.223067 0.262398 0.406812 0.847564 0.407938 0.502958 0.857073 1.41436 2.87804 0.74408 1.20883 1.3721 1.06589 0.237843 0.434687 0.441186 0.589755 0.295334 1.14705 1.68576 1.0977 0.706687 1.64563 2.22741 1.36046 0.619292 2.32833 1.19069 0.927735 0.773082 1.51649 1.67443 1.47646 1.05569 2.999 0.975177 0.216283 0.571435 1.53507 0.280193 0.0208278 0.482282 0.844065 0.683425 0.267798 0.262741 0.572062 0.613116 0.576148 0.275272 0.793528 0.897812 0.172539 0.0485711 2.10408 1.29675 0.574361 0.777254 2.30668 2.99988 1.83916 0.881484 2.87273 2.08199 0.086781 0.292764 1.61064 2.59831 0.574462 0.591021 1.71286 2.30833 0.584612 0.733991 2.29487 2.03335 2.52031 0.511668 1.33052 1.73405 1.20675 0.625205 2.46968 1.50937 0.484899 0.116477 1.53244 1.00758 0.501812 0.121613 0.809198 0.831147 0.715168 0.220278 0.463541 0.601631 0.363961 0.155387 1.13503 1.38909 0.501355 0.193838 1.41425 1.97682 1.15537 0.451481 2.99999 3.0001 1.73261 0.169425 1.01157 1.15641 0.662588 0.169425 1.01157 1.15641 0.662588 0.169425 1.01157 1.15641 0.662588
+# Yr:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023
+# seas:  1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4
+# SEINE 0.456415 1.31142 0.836913 0.107591 1.17074 1.35084 1.01675 1.45995 0.548583 2.54037 0.653636 0.37857 0.588472 1.0313 0.478409 0.00445974 0.497827 0.818792 0.174763 0.150735 0.436042 1.79867 0.214873 0.120795 0.102796 0.0507722 0.0837384 0.126417 0.0153227 0.358345 0.255815 0.243554 0.278422 0.432777 0.862271 0.415914 0.54357 0.938093 1.48816 2.99987 0.754267 1.23592 1.31033 1.02082 0.202328 0.363518 0.353724 0.467127 0.272718 1.04544 1.44603 0.898064 0.707425 1.64821 2.18499 1.30029 0.735961 2.99859 1.35676 1.09362 0.816086 1.61193 1.57421 1.3615 0.915932 2.39219 0.727924 0.156854 0.487834 1.29184 0.238661 0.0175959 0.502193 0.894402 0.705069 0.281197 0.284425 0.620109 0.619554 0.585222 0.268199 0.7712 0.858977 0.165752 0.0472955 2.0395 1.11115 0.487577 0.750457 2.13672 2.33459 1.2578 0.78761 2.46909 1.57507 0.0634824 0.221112 1.16124 2.00603 0.420765 0.511607 1.51095 1.99445 0.513992 0.644961 1.94341 1.50132 1.71902 0.411405 1.05583 1.27792 0.847987 0.499116 1.79155 0.863452 0.257059 0.0721783 0.880576 0.549118 0.248032 0.0821469 0.552558 0.717032 0.611737 0.455962 1.10501 1.5124 1.13833 0.282888 2.23424 2.77494 1.23695 0.271777 2.03052 2.7064 1.78553 0.429532 3.00004 3.00013 1.89498
 #
 #_Q_setup for fleets with cpue or survey data
 #_1:  fleet number
@@ -173,10 +174,10 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-           -30            15       1.04071             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_PELAGO(2)
-           -30            15       1.41975             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECOCADIZ(3)
-           -30            15       1.71136             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_BOCADEVA(4)
-           -30            15      0.398722             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECORECLUTAS(5)
+           -30            15      0.961807             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_PELAGO(2)
+           -30            15       1.27829             0             0             0          3          0          0          0          0          0          0          0  #  LnQ_base_ECOCADIZ(3)
+           -30            15       1.60008             0             0             0          4          0          0          0          0          0          0          0  #  LnQ_base_BOCADEVA(4)
+           -30            15        1.0439             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECORECLUTAS(5)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -225,7 +226,7 @@
 #Age patterns entered with value >100 create Min_selage from first digit and pattern from remainder
 #_Pattern Discard Male Special
  12 0 0 0 # 1 SEINE
- 10 0 0 0 # 2 PELAGO
+ 12 0 0 0 # 2 PELAGO
  12 0 0 0 # 3 ECOCADIZ
  10 0 0 0 # 4 BOCADEVA
  12 0 0 0 # 5 ECORECLUTAS
@@ -237,25 +238,28 @@
 # 4   BOCADEVA LenSelex
 # 5   ECORECLUTAS LenSelex
 # 1   SEINE AgeSelex
-            -2           5.5      0.248352             0             0             0          3          0          0          0          0          0          0          0  #  Age_inflection_SEINE(1)
-            -1           5.5      0.251658             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_SEINE(1)
+            -2           5.5     0.0693118             0             0             0          5          0          0          0          0          0          0          0  #  Age_inflection_SEINE(1)
+            -1           1.5     0.0774636             0             0             0          5          0          0          0          0          0          0          0  #  Age_95%width_SEINE(1)
 # 2   PELAGO AgeSelex
+            -2           5.5      0.963048             0             0             0          3          0          0          0          0          0          0          0  #  Age_inflection_PELAGO(2)
+            -1           5.5    0.00484688             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_PELAGO(2)
 # 3   ECOCADIZ AgeSelex
-            -2           5.5           0.5             0             0             0         -3          0          0          0          0          0          0          0  #  Age_inflection_ECOCADIZ(3)
-            -1           5.5      0.409943             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECOCADIZ(3)
+            -2           5.5      0.383262             0             0             0          3          0          0          0          0          0          0          0  #  Age_inflection_ECOCADIZ(3)
+            -1           5.5      0.319592             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECOCADIZ(3)
 # 4   BOCADEVA AgeSelex
 # 5   ECORECLUTAS AgeSelex
-            -2           5.5             0             0             0             0         -2          0          0          0          0          0          0          0  #  Age_inflection_ECORECLUTAS(5)
-            -1           5.5      0.250811             0             0             0          2          0          0          0          0          0          0          0  #  Age_95%width_ECORECLUTAS(5)
+            -2           5.5      0.157279             0             0             0          2          0          0          0          0          0          0          0  #  Age_inflection_ECORECLUTAS(5)
+            -1           5.5      0.264106             0             0             0          2          0          0          0          0          0          0          0  #  Age_95%width_ECORECLUTAS(5)
 #_No_Dirichlet parameters
 #_no timevary selex parameters
 #
-0   #  use 2D_AR1 selectivity? (0/1)
-#_no 2D_AR1 selex offset used
+1   #  use 2D_AR1 selectivity? (0/1)
+#_specifications for 2D_AR1 and associated parameters
 #_specs:  fleet, ymin, ymax, amin, amax, sigma_amax, use_rho, len1/age2, devphase, before_range, after_range
 #_sigma_amax>amin means create sigma parm for each bin from min to sigma_amax; sigma_amax<0 means just one sigma parm is read and used for all bins
-#_needed parameters follow each fleet's specifications
-# -9999  0 0 0 0 0 0 0 0 0 0 # terminator
+ 1 1989 2023 0 1 0 0 2 5 0 0  #  2D_AR specs for fleet: SEINE AGE
+ 0.01 3 0.5 1 99 0 -5  # sigma_sel for fleet:_1; AGE_0
+-9999  0 0 0 0 0 0 0 0 0 0 # terminator
 #
 # Tag loss and Tag reporting parameters go next
 0  # TG_custom:  0=no read and autogen if tag data exist; 1=read
@@ -273,10 +277,10 @@
  #_6=mult_by_size-at-age_N
  #_7=mult_by_generalized_sizecomp
 #_Factor  Fleet  Value
-      5      1 0.00513245
-      5      2 0.00966511
-      5      3 0.0436798
-      5      5 0.00358846
+      5      1 0.0689289
+      5      2 0.0562533
+      5      3 0.0421242
+      5      5   2.71995
  -9999   1    0  # terminator
 #
 1 #_maxlambdaphase
