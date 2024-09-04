@@ -1,101 +1,107 @@
-## Preprocess data, write TAF data tables
-
-## Before:
-## After:
-
 # Script information ------------------------------------------------------
-# This script automates the preprocessing of data for an SS3 model by extracting 
-# data from each executed model, filtering and organizing various data types
-# (such as abundance indices, catches, age composition, and weight-at-age), 
-# and saving them into `.RData` and `Excel` files for generating input data 
-# tables and figures for the executed model. The files are then stored in 
-# the `data/run` directory, and finally, the script performs a commit and push 
-# to a Git repository, ensuring that all processed results are properly versioned 
-# in the current branch of the repository. 
+
+# Read assessment data (after the bootstrap procedure) and write TAF data tables
+
+# Before running the script in folder ./bootstrap/initial/data we have: 
+#         forecast.ss 
+#         control.SS
+#         data.SS
+#         starter.ss
+#         wtatage.ss
+#         and other files needed later
+# After running the script in folder ./data we have:
+#         inputData.RData with r4ss input object and TAF .csv data tables:
+
+# Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
+
+# Date: 2024/08/30
+
+# Load libraries ----------------------------------------------------------
 
 library(icesTAF)
 library(r4ss)
-library(tidyverse)
-library(openxlsx)
-library(readxl)
 
+# Working directory and folders -------------------------------------------
+
+# check working directory
+getwd()
+
+# directory with input files
 run_esc<-"boot/data/run/" 
-esc<-list.files(run_esc)
-
-for(i in 1:length(esc)){
-run.dir  <- paste0(run_esc,esc[i])
-inputs <- r4ss::SS_read(dir = run.dir)
-
-# setting 
-sigmaR<-inputs$ctl$SR_parms["SR_sigmaR", "INIT"]
+list.files(run_esc)
+esc<-"S0"
+data_esc<-paste0("data/run/",esc)
+# create data folder using the function mkdir in icesTAF
+mkdir(data_esc)
 
 
+
+run.dir  <- paste0(run_esc,esc)
+dat <- r4ss::SS_readdat(file = paste0(run.dir,"/data.SS"),verbose = TRUE)
+wtatage <-r4ss::SS_readwtatage(file = paste0(run.dir,"/wtatage.ss"),verbose = TRUE)
+#ctl <-r4ss::SS_readctl(file = paste0(run.dir,"/control.SS"),datlist =paste0(run.dir,"/data.SS"),verbose = FALSE)
 #----------------------------------------------------------
-mkdir(paste0("data/run/",esc[i]))
-data_esc<-paste0("data/run/",esc[i])
 
-index <- inputs$dat$CPUE
-catch <- inputs$dat$catch 
-agecompSeine<-inputs$dat$agecomp %>% filter(FltSvy==1)
-agecompPelago<-inputs$dat$agecomp %>% filter(FltSvy==2)
-agecompEcocadiz<-inputs$dat$agecomp %>% filter(FltSvy==3)
-agecompEcoReclutas<-inputs$dat$agecomp %>% filter(FltSvy==5)
+# Prepare TAF tables ------------------------------------------------------
 
-fecundity<-inputs$wtatage %>% filter(Fleet==-2)
-watage_init<-inputs$wtatage %>% filter(Fleet==0)
-watage_mid<-inputs$wtatage %>% filter(Fleet==-1)
-watageSeine<-inputs$wtatage %>% filter(Fleet==1)
-watagePelago<-inputs$wtatage %>% filter(Fleet==2)
-watageEcocadiz<-inputs$wtatage %>% filter(Fleet==3)
-watageBocadeva<-inputs$wtatage %>% filter(Fleet==4)
-watageEcoReclutas<-inputs$wtatage %>% filter(Fleet==5)
+# natural maturity table
+age<-c("a0","a1","a2","a3")
+M<-c(2.97,	1.33,	1.33,	1.33)
+natmort <- data.frame(rbind(M)) #ctl$natM
+names(natmort)<-age
 
-save(inputs, sigmaR,    
-     file=paste0(data_esc,"/inputs.RData"))
-
-#'*-------------------------------------------------------------*
-wb <- createWorkbook()
-addWorksheet(wb, "Seine")
-writeData(wb, sheet = "Seine", x = agecompSeine)
-addWorksheet(wb, "Pelago")
-writeData(wb, sheet = "Pelago", x = agecompPelago)
-addWorksheet(wb, "Ecocadiz")
-writeData(wb, sheet = "Ecocadiz", x = agecompEcocadiz)
-addWorksheet(wb, "EcoReclutas")
-writeData(wb, sheet = "EcoReclutas", x = agecompEcoReclutas)
-
-saveWorkbook(wb, paste0(data_esc,"/agecomposition.xlsx"),overwrite = TRUE)
-#'*-------------------------------------------------------------*
-wb <- createWorkbook()
-addWorksheet(wb, "fecundity")
-writeData(wb, sheet = "fecundity", x = fecundity)
-addWorksheet(wb, "watage_init")
-writeData(wb, sheet = "watage_init", x = watage_init)
-addWorksheet(wb, "watage_mid")
-writeData(wb, sheet = "watage_mid", x = watage_mid)
-addWorksheet(wb, "watageSeine")
-writeData(wb, sheet = "watageSeine", x = watageSeine)
-addWorksheet(wb, "watagePelago")
-writeData(wb, sheet = "watagePelago", x = watagePelago)
-addWorksheet(wb, "watageEcocadiz")
-writeData(wb, sheet = "watageEcocadiz", x = watageEcocadiz)
-addWorksheet(wb, "watageBocadeva")
-writeData(wb, sheet = "watageBocadeva", x = watageBocadeva)
-addWorksheet(wb, "watageEcoReclutas")
-writeData(wb, sheet = "watageEcoReclutas", x = watageBocadeva)
-saveWorkbook(wb, paste0(data_esc,"/Watage.xlsx"),overwrite = TRUE)
-#'*-------------------------------------------------------------*
-wb <- createWorkbook()
-addWorksheet(wb, "Index")
-writeData(wb, sheet = "Index", x = index)
-saveWorkbook(wb, paste0(data_esc,"/Index.xlsx"),overwrite = TRUE)
-#'*-------------------------------------------------------------*
-wb <- createWorkbook()
-addWorksheet(wb, "Catch")
-writeData(wb, sheet = "Catch", x = index)
-saveWorkbook(wb, paste0(data_esc,"/Catch.xlsx"),overwrite = TRUE)
+# catch in tonnes
+catch <- subset(dat$catch, year>=(dat$styr), c('year','seas','catch'))
+# total biomass in the acoustic survey Pelago
+btotal_idx_pelago <- subset(dat$CPUE,index==2,c("year",'seas',"obs"))
+# total biomass in the acoustic survey Ecocadiz
+btotal_idx_ecocadiz <- subset(dat$CPUE,index==3,c("year",'seas',"obs"))
+# total biomass in the DEPM survey Bocadeva
+btotal_idx_bocadeva <- subset(dat$CPUE,index==4,c("year",'seas',"obs"))
+# total biomass in the acoustic survey EcocadizReclutas
+btotal_idx_ecocadizRec <- subset(dat$CPUE,index==5,c("year",'seas',"obs"))
 
 
-#'*-------------------------------------------------------------*
-}
+# historical numbers at age in the catch table
+catage    <- subset(dat$agecomp,FltSvy==1 & Yr>=(dat$styr) & Yr<(dat$endyr),c("Yr","Seas","a0","a1","a2","a3"))
+# numbers at age in the acoustic survey Pelago
+natage_idx_pelago <- subset(dat$agecomp,FltSvy==2 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
+# numbers at age in the acoustic survey Ecocadiz
+natage_idx_ecocadiz <- subset(dat$agecomp,FltSvy==3 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
+# numbers at age in the acoustic survey EcocadizReclutas
+natage_idx_ecocadizRec <- subset(dat$agecomp,FltSvy==5 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
 
+
+# weight at age in the catch
+waca <- subset(wtatage, Fleet=="1" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+# weight at age in the stock  mid season
+west <- subset(wtatage, Fleet=="-1" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+
+# fecundity
+fecundity <- subset(wtatage, Fleet=="-2" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+
+# maturity
+maturity <- fecundity/west
+maturity$'0'[maturity$'0'=="NaN"]<-0
+
+# Write TAF tables in data folder -----------------------------------------
+
+write.taf(list(natmort=natmort, 
+               catage = catage, catch = catch, 
+               btotal_idx_pelago = btotal_idx_pelago, natage_idx_pelago=natage_idx_pelago,
+               btotal_idx_ecocadiz = btotal_idx_ecocadiz,natage_idx_ecocadiz=natage_idx_ecocadiz,
+               btotal_idx_bocadeva = btotal_idx_bocadeva, 
+               btotal_idx_ecocadizRec = btotal_idx_ecocadizRec,natage_idx_ecocadizRec=natage_idx_ecocadizRec,
+               waca = waca, west = west, fecundity = fecundity, maturity = maturity),dir=data_esc)
+
+
+# Save data in RData file  -----------------------------------------
+save.image(paste0(data_esc,"/inputData.RData"))
+
+# Script info -------------------------------------------------------------
+
+sessionInfo()
+
+# End of script -----------------------------------------------------------
+
+rm(list=ls())
