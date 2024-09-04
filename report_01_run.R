@@ -195,6 +195,11 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
+  png(file.path(paste0(path_rep,"/fig_age_fit_EcocadizXXX.png")),width=8,height=9,res=300,units='in')
+  SSplotComps(output, subplots = c(11),kind = "AGE",fleets = 3,maxrows = 4,maxcols = 4,
+              showsampsize = F,showeffN = F,mainTitle = T)
+  dev.off()
+  
 ### historical mean length
   file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
             to=paste0(path_rep,"/fig_comp_agefit_ECOCADIZ.png"), 
