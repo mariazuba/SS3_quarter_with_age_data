@@ -177,7 +177,7 @@
 5 1 0.0689289  #_SEINE
 5 2 0.0562533  #_PELAGO
 5 3 0.0421242  #_ECOCADIZ
-5 5 1 #_ECORECLUTAS
+5 5 2.0013 #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase

@@ -813,7 +813,7 @@ Recalc_flag_for_age_selex_recalc_by_year
  5 1 0.0689289
  5 2 0.0562533
  5 3 0.0421242
- 5 5 1
+ 5 5 2.0013
  -9999 0 0
  number of variance adjustment records = 4
  Var_adjustments as read 
@@ -821,7 +821,7 @@ Recalc_flag_for_age_selex_recalc_by_year
  0 0 0 0 0
  0 0 0 0 0
  1 1 1 1 1
- 0.0689289 0.0562533 0.0421242 1 1
+ 0.0689289 0.0562533 0.0421242 1 2.0013
  1 1 1 1 1
  1 1 1 1 1
 1 max_lambda_phase 
@@ -4122,19 +4122,18 @@ yr 2023, seas: 4, fleet:1
  finished time series 
 Finished time_series
 Finished survey obj_fun  0 1985.88 1678.21 568.145 1060.97
-Finished agecomp obj_fun  278.611 12.4337 31.3905 0 90.1996
+Finished agecomp obj_fun  278.611 12.4337 31.3905 0 180.516
  initequ_catch -log(L)  0 0 0 0 0
  catch -log(L)  2.26694e-15 0 0 0 0
 Finished recruitdev obj_fun 0 0 0.72
- OK with obj_func 5721.64
+ OK with obj_func 5811.96
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 3.23488 0.6
-Calculated Btgt: 4.0413 0.55
-Calculated Fmsy 12.1222 6734.69
+Calculated Fspr 3.17796 0.6
+Calculated Btgt: 3.96558 0.55
+Calculated Fmsy 11.8952 6998.41
 Finished benchmark, forecast, and sdreporting
-Iterations: 1566
- finished COVAR.SSO
+Iterations: 1295
 Writing wtatage.ss_new
 Finished StdDev quantities
 Finished posteriors
