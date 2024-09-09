@@ -18,7 +18,9 @@ library(FLCore)
 library(officedown)
 library(officer)
 library(TAF)
-
+library(png)
+library(grid)
+library(gridExtra)
 ```
 
 
@@ -67,6 +69,7 @@ path_mod<-"report/run/S0"
 path_out<-"output/run/S0"
 path_retro<-"report/retro/S0"
 # load
+load(paste0(path_mod,"/report.RData"))
 load(paste0(path_mod,"/tables_run.RData"))
 load(paste0(path_dat,"/inputData.RData"))
 load(paste0(path_out,"/output.RData"))
@@ -80,7 +83,8 @@ block_section(op_section) # open section
 
 # Ane.27.9a stock (Anchovy in ICES Division 9a). Southern component (Anchovy in ICES Subdivision 9a South): Assessment Using Age Composition data.
 
-Autores...
+
+María José Zúñiga,  Margarita Rincón, Fernando Ramos
 
 
 
@@ -88,7 +92,7 @@ Autores...
 
 ## Data
 
-
+A time series analysis was conducted to evaluate interannual trends and compare quarterly and annual data in order to identify both short- and long-term patterns. For this analysis, catch data provided by commercial fleets from 1989 to 2023 were used. Abundance indices were derived from four scientific surveys: *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECOCADIZ-RECLUTAS*, which monitor the biomass of anchovy in the region.
 
 ### Catches
 
@@ -158,10 +162,9 @@ Figure `r run_bookmark("fig_agecomp_by_quartersSurveys", figruns)`: Ane.27.9a st
 
 \newpage
 
-### Weigth at age
+### Weigth-at-age
 
-Figure `r run_reference("fig_weight_by_quarters")` presents the age-specific weight-at-age input values at the beginning of the year were estimated from external data sources. For further details, refer to the working document by  **XXX et al. (yearXXX)**.
-
+Figure `r run_reference("fig_weight_by_quarters")` presents the age-specific weight-at-age values at the start of each season, estimated from external data sources. The figure illustrates that mean weight differences between age groups remain consistent over time, with some variability observed across quarters. Individuals aged 3 show greater variability in mean weight compared to younger age groups. For further details, refer to the working document by XXX et al. (yearXXX).
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_weight_by_quarters.png"))
@@ -203,7 +206,7 @@ The fishery selectivity was set as a logistic function fixed over time... <!-- s
 
 A standar error of **0.10** was assumed for all years of catches and **xx** for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of **xx** is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
 
-The Francis method T.A.xxx [@Francis2011] was selected for length data weighting in catches and surveys data. The initial population is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial <!--**catch of 30 000 tonnes – corresponding to the average Portuguese catches previous 5 years (1987-91) + average Spain catches first 5 years of data (1992-96)**-->. Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_hom.27.9a_assessment)-->. The R packages r4ss version 1.49.2 [@Taylor2021] and ss3diags version 1.10.2 [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in R version 4.2.2 <!--revisar versiones-->
+The Francis method TA1.8 [@Francis2011] was selected for length data weighting in catches and surveys data. The initial population is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial <!--**catch of 30 000 tonnes – corresponding to the average Portuguese catches previous 5 years (1987-91) + average Spain catches first 5 years of data (1992-96)**-->. Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_hom.27.9a_assessment)-->. The R packages r4ss version 1.49.2 [@Taylor2021] and ss3diags version 1.10.2 [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in R version 4.2.2 <!--revisar versiones-->
 
 Figure `r run_reference("fig_input_data")` summarises data presence by year, where circle area is relative within a data type. Circles are proportional to total catch for catches, to precision for indices and to total sample size for compositions.
 
@@ -225,49 +228,18 @@ include_graphics(file.path(path_mod,"tb_dat_stru.png"))
 
 \newpage
 
-The summarised results of the stock assessment are shown in Table **xxx**
-
-
-The estimated SSB shows an increase from xxx to xxx  from xxx thousand tonnes to xxx thousand tonnes. Confidence intervals of SSB are in the range xx-xx% with an average xx%.
-
-The fishing mortality has been relatively stable over the whole time-series and after the slight increase in 2016, showed a decrease in 2017-2023. F0-3 in 2024 was estimated at 0.050  lower than the observed value in 2023 (0.055). Confidence intervals of F with an average of 14%.
-
-The uncertainty in SSB in the most recent years is around 17%. The lack of the combined surveys index could add uncertainty in the present spawning biomass estimates. 
-
-However, the new assessment shows lower uncertainty when compared to previous model. The slight decrease in catches observed in 2024 and the increase in estimated stock abundance resulted in a lower estimate of F in 2024 than in the previous year. The uncertainty in the estimated Fbar is of similar magnitude around 11% for the entire period.
-
-The stock shows a strong recruitment in 1996 and average recruitments in the most recent years, with some peaks in 2011, 2012, 2017 and 2022.
-
-Recruitment estimates in the more recent years presents uncertainty as showed in the confidence bars. In 2023, recruitment showed a decrease and was estimated at 330 million individuals.
-
-
-```{r}
-include_graphics(file.path(path_mod,"fig_time_series.png"))
-```
-
 \newpage
 
-#### Diagnostic
+## Diagnostic
 
-In relation to more classical goodness-of-fit analyses, Figure `r run_reference("fig_indices_fit")` shows that the abundance indices from the acoustic surveys exhibit a high level of variability, summarized by the width of the assumed confidence intervals with a maximum coefficient of variation of 30%. 
-
-The model to adequately reproduce the general trend of variability in the biomass levels presented by the survey estimates.
-
-Figure `r run_reference("fig_runtest_residuals_indices")` shows that the residuals from the fit of the biomass index of the *PELAGO* survey are not randomly distributed, and the estimate for the year 2016 violates the three-sigma limit of the time series. The estimated root mean square error (RMSE) for the joint residual analysis is 61.7%.
-
-The fit to the aggregated size composition indicates that the commercial fleet achieves a better fit than the size compositions from the acoustic surveys (Figure `r run_reference("fig_runtest_residuals_indices")` ). However, Figures `run_reference("fig_runtest_residuals_indices")` to `r run_reference("fig_runtest_residuals_indices")` demonstrate poor performance when showing the fit to the size compositions disaggregated by quarter and year.
+The  model successfully converged, as evidenced by the Hessian matrix being positive definite and the final gradient being relatively small, with a gradient value of `r convergency`.
 
 
-The behavior of the residuals from the size compositions suggests an underestimation of small sizes (<10 cm) and an overestimation of large sizes (>15 cm) in the commercial fleet and *PELAGO* acoustic survey (Figure `r run_reference("fig_runtest_residuals_indices")`).
 
+### Model fit and residuals
 
-The residuals from the *ECOCADIZ* acoustic survey indicate an underestimation of intermediate sizes (between 10 and 15 cm) and an overestimation of large sizes (>15 cm), while the *ECOCADIZ-RECLUTAS* survey shows an underestimation of small sizes (<10 cm) and an overestimation of intermediate sizes (between 10 and 15 cm) (Figure `r run_reference("fig_runtest_residuals_indices")`). 
+The Figure `r run_reference("fig_indices_fit")` shows that the abundance indices from the acoustic surveys exhibit a high level of variability, as reflected by the width of the assumed confidence intervals, with a maximum coefficient of variation of 30%. The model follows the overall trend of the indices, though it encounters some difficulties in accurately fitting the extreme biomass values, both the highest and lowest. However, it adequately reproduces the general trend of variability in biomass levels presented by the survey estimates.
 
-The assumption of annual invariability in exploitation patterns as a measure of parsimony, and the poor specification of recruitment could be causing these mismatches and high residuals in the size compositions.
-
-Figure `r run_reference("fig_runtest_residuals_indices")` shows that the residuals from the fit of the size compositions of the commercial fleet are randomly distributed. Additionally, there is a violation of the three-standard-deviation limit in the years 1991, 1996, 2016, and 2021. In contrast, for the fit of the size compositions from the three acoustic surveys, the hypothesis of a randomly distributed residual time series is rejected. 
-
-The estimated root mean square error (RMSE) for the joint residual analysis is 20.6%.
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_indices_fit.png"))
@@ -275,19 +247,46 @@ include_graphics(file.path(path_mod,"fig_indices_fit.png"))
 
 Figure `r run_bookmark("fig_indices_fit", figruns)`: Ane.27.9a stock. Model fit to the data (left panel) and observed versus expected values (right panel) of the indices from the acoustic surveys *PELAGO*, *ECOCADIZ*, *BOCADEVA* and *ECOCADIZ-RECLUTAS*. The lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. 
 
+\newpage
+
+Figure `r run_reference("fig_runtest_residuals_indices")` shows that the residuals from the fit of the biomass indices are randomly distributed, with p-values greater than 0.05 (*PELAGO* = `r run_cpue[run_cpue$Index=="PELAGO","runs.p"]`, *ECOCADIZ* = `r run_cpue[run_cpue$Index=="ECOCADIZ","runs.p"]`, *BOCADEVA* = `r run_cpue[run_cpue$Index=="BOCADEVA","runs.p"]`, *ECOCADIZ-RECLUTAS* = `r run_cpue[run_cpue$Index=="ECORECLUTAS","runs.p"]`). The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_cpue[jaba_cpue$indices == "Combined", "RMSE.perc"]`%.
+
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_runtest_residuals_indices.png"))
 ```
 
-Figure `r run_bookmark("fig_runtest_residuals_indices", figruns)`: Ane.27.9a stock. Run test plots for the fit of acoustic survey indices. Green shading indicates no evidence (p=0.05) and red shading indicates evidence (p<0.05) for rejecting the hypothesis of a randomly distributed residual time series, respectively. The shaded area (green/red) spans three standard residual deviations on either side of zero, and red points outside the shading violate the three-sigma limit for that series. The boxplot of joint residuals indicates the median and quantiles in cases where residuals from multiple indices are available for a given year, with the solid black line showing a loess smoother. The root mean square errors (RMSE) are included in the top right corner of the boxplot.
-
+Figure `r run_bookmark("fig_runtest_residuals_indices", figruns)`: Ane.27.9a stock. Run test plots for the fit of acoustic survey indices. Green shading indicates no evidence (p>=0.05) and red shading indicates evidence (p<0.05) for rejecting the hypothesis of a randomly distributed residual time series, respectively. The shaded area (green/red) spans three standard residual deviations on either side of zero, and red points outside the shading violate the three-sigma limit for that series. The boxplot of joint residuals indicates the median and quantiles in cases where residuals from multiple indices are available for a given year, with the solid black line showing a loess smoother. The root mean square errors (RMSE) are included in the top right corner of the boxplot.
 
 \newpage
 
+Figure `r run_bookmark("fig_meanage_fit_EcocadizRecl", figruns)` shows the observed mean age in the catch data from the commercial fleet (SEINE) and in the surveys (*PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*), with 95% confidence intervals, along with the mean age fitted by the assessment model (SS3, blue line). Overall, the model adequately captures the general trend of the observed data, where the mean age fluctuates between 0 and 1.5 years, with variations across the different data sources.
+
+In the case of the commercial fleet (*SEINE*), the model captures the observed fluctuations in the mean age, remaining around 1 year. For the *PELAGO* survey, the model follows the oscillation in the mean age, adjusting between 1 and 1.4 years, though it encounters some fitting issues in the later years of the series. In *ECOCADIZ*, the observed trend shows a progressive decline in mean age, starting near 1.0 and dropping below 0.5 in recent years, with the model struggling to fit this trend. Finally, in *ECOCADIZ-RECLUTAS*, the model fits well to an initial mean age below 0.5 years, increasing above 0.5 between 2016 and 2021, before decreasing again in the last two years of the series.
 
 
+```{r fig.width=5, fig.height=6, dpi=300}
 
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Seine.png"))
+img2 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Pelago.png"))
+img3 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Ecocadiz.png"))
+img4 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_EcocadizRecl.png"))
+
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+g3 <- rasterGrob(img3, interpolate=TRUE)
+g4 <- rasterGrob(img4, interpolate=TRUE)
+
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g1, g2, g3, g4, ncol=1)
+
+```
+
+Figure `r run_bookmark("fig_meanage_fit_EcocadizRecl", figruns)`: Mean age for *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS* with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data. The blue line corresponds to the estimated mean age.
+
+The Figure `r run_reference("fig_age_fit_agg")` shows the aggregated age compositions over time for different sources of catch: *SEINE*, *ECOCADIZ*, *PELAGO*, and *ECORECLUTAS*. Overall, a high proportion of young individuals (ages 0 and 1) is observed in both the commercial fleet catches and acoustic surveys, with a significant decline in the proportions of older age classes. The green lines represent the model fits, demonstrating an adequate fit, with the aggregated age compositions well reconstructed. 
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_age_fit_agg.png"))
@@ -295,22 +294,15 @@ include_graphics(file.path(path_mod,"fig_age_fit_agg.png"))
 
 Figure `r run_bookmark("fig_age_fit_agg", figruns)`: Ane.27.9a stock. Model fit to the aggregated age composition data from the SEINE fishery, and the acoustic surveys *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS*. The green line represents the model estimates, while the shaded gray area shows the observed data.
 
+\newpage
 
-
+Although the aggregated fits show an overall adequate result, some years exhibit variability in the age composition of the commercial fleet (SEINE) catches, leading to reduced precision in the fits for the fourth quarter, particularly in 1991, 1996, and 2012 (Figure `r run_reference("fig_age_fit_Seine")`). This pattern is also evident in the annual data fits for the PELAGO survey, especially in the later years of the series (2020-2023), where there is a tendency to overestimate age 1 and underestimate age 2 (Figure `r run_reference("fig_age_fit_Pelago")`). In the ECOCADIZ survey, there are difficulties in estimating ages 0 and 1, with a tendency to underestimate age 0 and overestimate age 1 from 2016 to 2023 (Figure `r run_reference("fig_age_fit_Ecocadiz")`). In ECOCADIZ-RECLUTAS, a generally good fit is observed without a clear pattern of overestimation or underestimation (Figure `r run_reference("fig_age_fit_EcocadizRecl")`). These patterns are also reflected in the bubble plots of the residuals corresponding to the fit of these data (Figure `r run_reference("fig_comp_agefit_multi-fleet_comparison")`).
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_age_fit_Seine.png"))
 ```
 
 Figure `r run_bookmark("fig_age_fit_Seine", figruns)`: Ane.27.9a stock. Model fit to the age composition data from the *SEINE* fishery, by year and quarter. The green line represents the model estimates, while the shaded gray area shows the observed data.
-
-
-```{r}
-include_graphics(file.path(path_mod,"fig_comp_agefit_SEINE.png"))
-```
-
-Figure `r run_bookmark("fig_comp_agefit_SEINE", figruns)`: Ane.27.9a stock. Mean age for *SEINE* with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data from *SEINE*. The blue line corresponds to the estimated mean age.
-
 
 
 
@@ -320,25 +312,12 @@ include_graphics(file.path(path_mod,"fig_age_fit_Pelago.png"))
 
 Figure `r run_bookmark("fig_age_fit_Pelago", figruns)`: Ane.27.9a stock. Model fit to the age composition data from the *PELAGO* spring survey by year. The green line represents the model estimates, while the shaded gray area shows the observed data.
 
-```{r}
-include_graphics(file.path(path_mod,"fig_comp_agefit_PELAGO.png"))
-```
-
-Figure `r run_bookmark("fig_comp_agefit_PELAGO", figruns)`: Ane.27.9a stock. Mean age for *PELAGO* with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data from *PELAGO*. The blue line corresponds to the estimated mean age.
-
-
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_age_fit_Ecocadiz.png"))
 ```
 
 Figure `r run_bookmark("fig_age_fit_Ecocadiz", figruns)`: Ane.27.9a stock. Model fit to the age composition data from the *ECOCADIZ* summer survey by year. The green line represents the model estimates, while the shaded gray area shows the observed data.
-
-```{r}
-include_graphics(file.path(path_mod,"fig_comp_agefit_ECOCADIZ.png"))
-```
-
-Figure `r run_bookmark("fig_comp_agefit_ECOCADIZ", figruns)`: Ane.27.9a stock. Mean age for *ECOCADIZ* with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data from *ECOCADIZ*. The blue line corresponds to the estimated mean age.
 
 
 ```{r}
@@ -347,12 +326,6 @@ include_graphics(file.path(path_mod,"fig_age_fit_EcocadizRecl.png"))
 
 Figure `r run_bookmark("fig_age_fit_EcocadizRecl", figruns)`: Ane.27.9a stock. Model fit to the age composition data from the *ECOCADIZ-RECLUTAS* fall survey by year. The green line represents the model estimates, while the shaded gray area shows the observed data.
 
-```{r}
-include_graphics(file.path(path_mod,"fig_comp_agefit_ECORECLUTAS.png"))
-```
-
-Figure `r run_bookmark("fig_comp_agefit_ECORECLUTAS", figruns)`: Ane.27.9a stock. Mean age for *ECOCADIZ-RECLUTAS* with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data from *ECOCADIZ-RECLUTAS*. The blue line corresponds to the estimated mean age.
-
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_comp_agefit_multi-fleet_comparison.png"))
@@ -360,28 +333,86 @@ include_graphics(file.path(path_mod,"fig_comp_agefit_multi-fleet_comparison.png"
 
 Figure `r run_bookmark("fig_comp_agefit_multi-fleet_comparison", figruns)`: Ane.27.9a stock.  Pearson residuals, comparing across fleets. Closed bubbles are positive residuals (observed > expected) and open negative residuals (observed < expected).
 
+\newpage
 
+The Figure `r run_reference("fig_runtest_residuals_age")` shows that the residuals from the fit of the age proportions are randomly distributed, with p-values greater than 0.05 in the case of the commercial fleet (*SEINE* = `r run_age[run_age$Index=="SEINE","runs.p"]`) and the acoustic surveys (*PELAGO* = `r run_age[run_age$Index=="PELAGO","runs.p"]`, *ECOCADIZ-RECLUTAS* = `r run_age[run_age$Index=="ECORECLUTAS","runs.p"]`). Some violations of the three-standard-deviation limit are observed for the commercial fleet (*SEINE*) during the fourth quarter of 1991, 1996, and 2012, as well as in the *PELAGO* survey in the last year of the series (2023). In the case of the *ECOCADIZ* survey, the residuals are not randomly distributed *ECOCADIZ* = `r run_age[run_age$Index=="ECOCADIZ","runs.p"]`, with several violations of the three-standard-deviation limit observed, primarily from 2018 to 2023. The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_age[jaba_age$indices == "Combined", "RMSE.perc"]`%.
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_runtest_residuals_age.png"))
 ```
 
-Figure `r run_bookmark("fig_runtest_residuals_age", figruns)`: Ane.27.9a stock. a) Runs test results for fits to annual mean age estimates for the surveys (*PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS*) and the fishery (*SEINE*). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.   The complete set of runs test results is presented in Table xx. b) Joint residual plots for annual mean length estimates for surveys and fishery.  Vertical lines with points show the residuals, and solid black lines show loess smoother through all residuals. Boxplot indicate the median and quantiles in cases where residuals from the multiple indices are available for any given year. Root-mean squared errors (RMSE) are included in the upper right-hand corner of each plot.
+Figure `r run_bookmark("fig_runtest_residuals_age", figruns)`: Ane.27.9a stock. a) Runs test results for fits to annual mean age estimates for the surveys (*PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS*) and the fishery (*SEINE*). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.  b) Joint residual plots for annual mean length estimates for surveys and fishery.  Vertical lines with points show the residuals, and solid black lines show loess smoother through all residuals. Boxplot indicate the median and quantiles in cases where residuals from the multiple indices are available for any given year. Root-mean squared errors (RMSE) are included in the upper right-hand corner of each plot.
 
+\newpage
 
+### Retrospective
 
+Figure `r run_reference("Retro")` shows a retrospective pattern in both spawning biomass and fishing mortality in the base model. The retrospective analysis of the assessment model reveals that, in terms of Mohn's rho (mean of retrospective anomalies), the reduction in data leads to a pattern of underestimation in fishing mortality (rho = `r rho_f`) and overestimation in spawning biomass (rho = `r rho_ssb`). These values the Mohn´s rho  were inside the bounds of recommended values, according to the rule proposed by @HurtadoFerro2014, which states that Mohn's rho index values greater than 0.30 or less than -0.22 for short-lived species should be considered as indicators of concern when evaluating a retrospective pattern.
 
-Figure `r run_reference("Retro")`  shows the retrospective pattern of spawning biomass and fishing mortality (F) for the base model. The retrospective analysis of the assessment model indicates that in terms of phi (mean of retrospective anomalies), the reduction of information generates a pattern of underestimation of fishing mortality (phi = `r rho_f`) and a pattern of overestimation of spawning biomass (phi = `r rho_ssb`). In general, the estimates of biomass and F for the most recent years can vary substantially between successive updates, while in the earlier years, they tend to converge to stable values. The model exhibits high statistical variance in the last years of the series, resulting in greater uncertainty for projections and generating unreliable estimates for establishing management measures.
+<!-- In general, the estimates of biomass and F for the most recent years can vary substantially between successive updates, while in the earlier years, they tend to converge to stable values. The model exhibits high statistical variance in the last years of the series, resulting in greater uncertainty for projections and generating unreliable estimates for establishing management measures. -->
 
 ```{r}
 include_graphics(file.path(path_retro,"Retro.png"))
 ```
 
-
 Figure `r run_bookmark("Retro", figruns)`: Ane.27.9a stock. Retrospective analysis of spawning stock biomass (SSB) and fishing mortality (F). Models  conducted by re-fitting the reference model (Ref) after removing five years of observations, one year at a time sequentially. The retrospective results are shown the entire time series. Mohn's rho statistic and the corresponding 'hindcast rho' values (in brackets) are printed at the top of the panels. One-year-ahead projections denoted by color-coded dashed lines with terminal points are shown for each model. Gray shaded areas are the 95% confidence intervals from the reference model.
 
 \newpage
 
+## Time series
 
+The Figure  `r run_reference("fig_time_series")` shows the  biomass shows variability around the historical mean of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a minimum in `r agg_Value2[agg_Value2$type == "Bt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes and a maximum recorded in `r agg_Value2[agg_Value2$type == "Bt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes. In 2023, the biomass is estimated to be `r round(1 - (data[data$type == "Bt" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. The catch shows variability around the historical mean of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Catch", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "Catch", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes.  In 2023, the catch is estimated to be `r round( (data[data$type == "Catch" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
+
+The fishing mortality (`Ft`) shows variability around the historical mean of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE], 2)`, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Ft", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.max", drop = TRUE], 2)` and a minimum in `r agg_Value2[agg_Value2$type == "Ft", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.min", drop = TRUE], 2)`. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Ft", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Ft", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Ft", "Value.mean", drop = TRUE], 2)`.  In 2023, the `Ft` is estimated to be `r round( (data[data$type == "Ft" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
+
+The recruitment (`Rt`) fluctuates around a historical mean of  `r round(agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE] / 1000000, 2)` millions recruits, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Rt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.max", drop = TRUE] / 1000000, 2)` millions recruits and a minimum in `r agg_Value2[agg_Value2$type == "Rt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.min", drop = TRUE] / 1000000, 2)` millions recruits. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Rt", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Rt", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Rt", "Value.mean", drop = TRUE], 2)`.  In 2023, the `Rt` is estimated to be `r round(1- (data[data$type == "Rt" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
+
+Finally, the spawning biomass (SSB) varies around a historical mean of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "SSB", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "SSB", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes. Confidence intervals range from `r round(agg_CV[agg_CV$type == "SSB", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "SSB", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "SSB", "Value.mean", drop = TRUE], 2)`.In 2023, the `SSB` is estimated to be `r round(1- (data[data$type == "SSB" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
+
+The summarised results of the stock assessment are shown in Table `r run_reference("tb_timeseries")`.
+
+```{r}
+include_graphics(file.path(path_mod,"fig_time_series.png"))
+```
+
+Figure `r run_bookmark("fig_time_series", figruns)`: Ane.27.9a stock. Time series estimated by the model for annual catches (in tons), recruitment (millions of fish), total biomass and spawning biomass (in tons), and fishing mortality (year-1).
+
+\newpage
+
+Table `r run_bookmark("tb_timeseries", tabruns)`:  Ane.27.9a stock. Time series estimated by the model for annual catches (in tons), recruitment (millions of fish), total biomass and spawning biomass (in tons), and fishing mortality (year-1).
+
+```{r}
+include_graphics(file.path(path_mod,"tb_timeseries.png"))
+```
+
+## Selectivity
+
+
+```{r fig.width=7, fig.height=4, dpi=300}
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"fig_age_selectivity_var.png"))
+img2 <- png::readPNG(file.path(path_mod,"fig_age_selectivity.png"))
+
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g1, g2,  ncol=2)
+```
+
+
+## Catchability
+
+<!-- En lo que respecta a la capturabilidad, se ha considerado que la biomasa observada en las campañas acústicas es proporcional a la biomasa vulnerable de la población, y la capturabilidad (q) se ajusta para garantizar que la relación entre la biomasa observada y la biomasa vulnerable sea coherente con las expectativas del modelo.  -->
+<!-- Sin embargo, es crucial señalar que las biomasas estimadas por el modelo han resultado ser xx veces menores que las estimadas en las campañas acústicas. Este desajuste podría indicar que los datos no están proporcionando información sustancial para la estimación de R0, como se evidenció en el perfil de verosimilitud, que mostró un gradiente plano para los índices de biomasa acústica. Se debe revisar y ajustar los parámetros del modelo, especialmente aquellos relacionados con la capturabilidad, con el fin de mejorar la concordancia entre las estimaciones del modelo y los datos observados. -->
+
+
+
+\newpage
+
+## Funding
+
+The author(s) declare that financial support was received for the research, authorship of this document. This research has been developed in the framework of the Math4Fish project: New tools for mathematical modelling in Spanish fisheries scientific advice, financed by the European Union – NextGenerationEU, and the Recovery and Resilience Facility, Component 3, Investment 7 and has been carried out within the framework of the agreement between the Spanish Ministry of Agriculture, Fishing and Food and the Spanish National Research Council (CSIC) through the Spanish Institute of Oceanography (IEO) to promote fisheries research as a basis for sustainable fisheries management. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Commission. Neither the European Union nor the European Commission can be held responsible for them
 
 ## References
