@@ -96,7 +96,7 @@ ggsave(file.path(paste0(path_rep,"/fig_catches.png")), fig1b,  width=8, height=5
 
   
 ## Fit data: Abundance indices ----
-  png(file.path(paste0(path_rep,"/fig_indices_fit.png")),width=6,height=7,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_indices_fit.png")),width=6,height=6,res=300,units='in')
   sspar(mfrow = c(4, 2), plot.cex = 0.6)
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
@@ -174,6 +174,11 @@ ggsave(file.path(paste0(path_rep,"/fig_agecomp_by_quartersSurveys.png")), figx1,
   dev.off()
   
 ### historical mean length
+  png(file.path(paste0(path_rep,"/fig_meanage_fit_Seine.png")),width=6,height=3,res=300,units='in')
+  SSplotComps(output, subplots = c(9),kind = "AGE",fleets = 1,maxrows = 12,maxcols =12,
+              showsampsize = F,showeffN = F,mainTitle = T)
+  dev.off()
+  
 file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png"),
             to=paste0(path_rep,"/fig_comp_agefit_SEINE.png"), 
             overwrite=T)
@@ -184,7 +189,14 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
+  
 ### historical mean length
+  png(file.path(paste0(path_rep,"/fig_meanage_fit_Pelago.png")),width=6,height=3,res=300,units='in')
+  SSplotComps(output, subplots = c(9),kind = "AGE",fleets = 2,maxrows = 6,maxcols = 4,
+              showsampsize = F,showeffN = F,mainTitle = T)
+  dev.off()
+  
+  
   file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_PELAGO.png"),
             to=paste0(path_rep,"/fig_comp_agefit_PELAGO.png"), 
             overwrite=T)
@@ -195,12 +207,13 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
 
-  png(file.path(paste0(path_rep,"/fig_age_fit_EcocadizXXX.png")),width=8,height=9,res=300,units='in')
-  SSplotComps(output, subplots = c(11),kind = "AGE",fleets = 3,maxrows = 4,maxcols = 4,
+  
+### historical mean length
+  png(file.path(paste0(path_rep,"/fig_meanage_fit_Ecocadiz.png")),width=6,height=3,res=300,units='in')
+  SSplotComps(output, subplots = c(9),kind = "AGE",fleets = 3,maxrows = 4,maxcols = 4,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
   
-### historical mean length
   file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
             to=paste0(path_rep,"/fig_comp_agefit_ECOCADIZ.png"), 
             overwrite=T)
@@ -213,6 +226,13 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   dev.off()
 
 ### historical mean length
+  
+  png(file.path(paste0(path_rep,"/fig_meanage_fit_EcocadizRecl.png")),width=6,height=3,res=300,units='in')
+  SSplotComps(output, subplots = c(9),kind = "AGE",fleets = 5,maxrows = 4,maxcols = 4,
+              showsampsize = F,showeffN = F,mainTitle = T)
+  dev.off()
+  
+  
   file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECORECLUTAS.png"),
             to=paste0(path_rep,"/fig_comp_agefit_ECORECLUTAS.png"), 
             overwrite=T)
@@ -264,8 +284,12 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   dev.off()
 
 ## Selectivity ----
-  png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=6,height=5,res=300,units='in')
-  SSplotSelex(output,subplots=2)
+  png(file.path(paste0(path_rep,"/fig_age_selectivity_var.png")),width=4,height=4,res=300,units='in')
+  SSplotSelex(output,subplots=11)
+  dev.off()
+  
+  png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=4,height=4,res=300,units='in')
+  SSplotSelex(output,subplots=13)
   dev.off()
   
 ## Stock-Recluta ----
@@ -344,7 +368,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   colnames(catch)<-c("year","Value","StdDev")
   catch$type<-"Catch"
   
-  data<-rbind(ssb,recr,ft,bt)
+  data<-rbind(ssb,recr,ft,bt,catch)
   data <- data %>%
     mutate(
       Value = as.numeric(Value),
@@ -355,17 +379,52 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
         TRUE ~ Value - 1.96 * StdDev),
       upper = case_when(
         is.na(StdDev) ~ 0,
-        TRUE ~ Value + 1.96 * StdDev))
+        TRUE ~ Value + 1.96 * StdDev),
+      CV=case_when(
+        is.na(StdDev) ~ 0,
+        TRUE ~ StdDev/ Value))
+  
+  # Calcular la media, el valor máximo y mínimo de 'Value' por 'type'
+  agg_Value <- aggregate(Value ~ type, data, function(x) c(mean = mean(x), max = max(x), min = min(x)))
+  
+  agg_Value2 <- agg_Value %>%
+    mutate(
+      year.max = sapply(type, function(t) data$year[data$type == t][which.max(data$Value[data$type == t])]),
+      year.min = sapply(type, function(t) data$year[data$type == t][which.min(data$Value[data$type == t])])
+    )
+  
+  # Convertir a un formato de data frame manejable
+  agg_Value2 <- do.call(data.frame, agg_Value2)
   
   
+  
+  agg_CV <- aggregate(CV ~ type, data, function(x) c(mean = mean(x), max = max(x), min = min(x)))
+  # Convertir a un formato de data frame manejable
+  agg_CV <- do.call(data.frame, agg_CV)
+  
+  # Renombrar las columnas correctamente
+  names(agg_CV) <- c("type", "Value.mean", "Value.max", "Value.min")
+  agg_CV$year_max <- sapply(agg_CV$type, function(t) data$year[data$type == t][which.max(data$Value[data$type == t])])
+  agg_CV$year_min <- sapply(agg_CV$type, function(t) data$year[data$type == t][which.min(data$Value[data$type == t])])
+  agg_CV[, c("Value.mean", "Value.max", "Value.min")] <- lapply(agg_CV[, c("Value.mean", "Value.max", "Value.min")], round, 2)
+
+  
+
+  
+    
 fig1a<- ggplot(data, aes(x = year, y = Value)) +
         geom_line() +
         geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2) +
-        facet_wrap(.~type,scales = "free")+
-        labs(x = "Year",y = "Value",title = "") +
+        facet_wrap(.~type,scales = "free",ncol=2,strip.position = "top",
+                   labeller = labeller(type = c("SSB" = "SSB", 
+                                                "Rt" = "Recruits",
+                                                "Ft" = "F apical", 
+                                                "Catch" = "Catch",
+                                                "Bt" = "Biomass")))+
+        labs(x = "",y = "",title = "") +
         theme_bw() +
         theme(plot.title = element_text(hjust = 0.5),legend.position = "top")
-ggsave(file.path(paste0(path_rep,"/fig_time_series.png")), fig1a,  width=8, height=5)
+ggsave(file.path(paste0(path_rep,"/fig_time_series.png")), fig1a,  width=8, height=7)
   
   
 # tablas ----
@@ -401,14 +460,11 @@ params_est <- params %>%
               select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
 
 
-
-convergency<-output$maximum_gradient_component
-like<-output$likelihoods_used
-
-run_cpue<-SSplotRunstest(output,subplots = "cpue")
-jaba_cpue<-SSplotJABBAres(output,subplots = "cpue")
-run_age<-SSplotRunstest(output,subplots = "age")
-jaba_age<-SSplotJABBAres(output,subplots = "age")
+# 
+# run_cpue<-SSplotRunstest(output,subplots = "cpue")
+# jaba_cpue<-SSplotJABBAres(output,subplots = "cpue")
+# run_age<-SSplotRunstest(output,subplots = "age")
+# jaba_age<-SSplotJABBAres(output,subplots = "age")
 
 #diagnostico
 #Convergencia Likehood RMSE_indices RMSE_tallas Rho ForcastRho
@@ -419,11 +475,22 @@ diags<-data.frame(convergency=convergency,
                   RMSE_age=jaba_age$RMSE.perc[5])
 
 
-timeseries<-data %>% select(c(year,Value,type)) %>% 
+timeseries<-  data %>% select(c(year,Value,CV,type)) %>% 
 pivot_wider(
   names_from = "type",  # Esta columna (index) se convertirá en nombres de columnas
-  values_from = c("Value")  # Estas columnas llenarán las nuevas columnas
+  values_from = c("Value","CV")  # Estas columnas llenarán las nuevas columnas
 )
+timeseries
+# Eliminar columnas donde todos los valores de CV sean 0
+timeseries_filtered <- timeseries %>% 
+  select(-matches("^CV_")) %>% 
+  bind_cols(timeseries %>% select(starts_with("CV_")) %>% select_if(~any(. != 0)))
+
+# Reorganizar las columnas para que Value_xx esté al lado de CV_xx
+timeseries_final <- timeseries_filtered[, c("year", "Value_SSB", "CV_SSB", 
+                                            "Value_Rt", "CV_Rt",
+                                            "Value_Ft", "CV_Ft",
+                                            "Value_Bt", "Value_Catch")]
 
 
 #'*=================================================================*
@@ -535,11 +602,14 @@ ft10<-jaba_age %>% flextable()
 ft10
 
 #'*time series*
-ft11<-timeseries%>%
-  mutate(across(where(is.numeric), ~round(.x, 2)))%>% flextable()
+ft11<-timeseries_final %>%
+  mutate(across(where(is.numeric), ~round(.x, 2)))%>%
+  setNames(c("Year","SSB\nton", "CV\nSSB", "Recruits\nnumber", "CV\nRecruits","F apical\nyear-1", "CV\nF apical","Total Biomass\nton", "Catch\nton")) %>% 
+  flextable()
 ft11 <- colformat_double(ft11, digits=1, na_str = "")
 ft11 <- colformat_num(ft11,big.mark = "", na_str = "")
 ft11 <- align(ft11,part = "header", align = "center") 
+ft11 <- fontsize(ft11, size = 8, part = "body")
 ft11 <- autofit(ft11)
 ft11
 
@@ -665,7 +735,9 @@ save_as_image(ft13, path = paste0(path_rep,"/tb_dat_stru.png"))
 
 #'*=================================================================*
 # save Rdata tables
-save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10,file=paste0(path_rep,"/tables_run.RData"))
+save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10, file=paste0(path_rep,"/tables_run.RData"))
+
+save(data, agg_Value2 ,agg_CV,file=paste0(path_rep,"/report.RData"))
 
 selectivity<-subset(output$ageselex[output$ageselex$Fleet==1 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])
 colnames(selectivity)[1]<-"year"
