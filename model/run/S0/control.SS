@@ -17,8 +17,9 @@
 #_Cond 1 1 1 2 4 10 # example move definition for seas=1, morph=1, source=1 dest=2, age1=4, age2=10
 #
 0 #_Nblock_Patterns
-#_Cond 0 #_blocks_per_pattern
+#2 #_blocks_per_pattern 
 # begin and end years of blocks
+#1989 2009 2010 2023
 #
 # controls for all timevary parameters 
 1 #_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)
@@ -143,14 +144,19 @@
 #_No size_selex_parm
 #_AgeSelex
 -2	5.5	0	  0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	1.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-1	5.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
 -1	5.5	0.5 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	0.2	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
--2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
--1	5.5	0.2	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
+-1	5.5	0.2 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+-2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
+-1	5.5	0.2	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
 #_timevary selex parameters
+#_LO  HI    INIT  PRIOR   PR_SD   PR_type   PHASE  #  parm_name
+# -2   5.5   0.5   0       0       0        4  #_AgeSel_P_1_ECOCADIZ_Block1
+# -2   5.5   0     0       0       0        4  #_AgeSel_P_1_ECOCADIZ_Block2  
+# -2   5.5   0.5   0       0       0        4  #_AgeSel_P_2_ECOCADIZ_Block1
+# -2   5.5   0.2   0       0       0        4  #_AgeSel_P_2_ECOCADIZ_Block2 
 #
 1   #  use 2D_AR1 selectivity? (0/1)
 #_specifications for 2D_AR1 and associated parameters
@@ -171,7 +177,7 @@
 5 1 0.0689289  #_SEINE
 5 2 0.0562533  #_PELAGO
 5 3 0.0421242  #_ECOCADIZ
-5 5 2.7199500  #_ECORECLUTAS
+5 5 0.0500000 #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase
