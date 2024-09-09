@@ -63,8 +63,16 @@ r4ss::SS_plots(replist = output, dir = run_out,
 
 
 R0 <- output$estimated_non_dev_parameters["SR_LN(R0)", "Value"]
+convergency<-output$maximum_gradient_component
+like<-output$likelihoods_used
+
+run_cpue<-SSplotRunstest(output,subplots = "cpue")
+jaba_cpue<-SSplotJABBAres(output,subplots = "cpue")
+run_age<-SSplotRunstest(output,subplots = "age")
+jaba_age<-SSplotJABBAres(output,subplots = "age")
+
 
 # Write .RData ----
-save(output,  summary, R0,      
+save(output,  summary, R0,  convergency, like,  run_cpue, jaba_cpue, run_age,jaba_age,
      file=paste0(run_out,"/output.RData"))
 
