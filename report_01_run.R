@@ -13,7 +13,9 @@
 # tables are saved in the `report/run` directory corresponding to each scenario.
 
 rm(list=ls())
-
+run_esc<-"boot/data/run/" 
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
 
 # Load packages -----------------------------------------------------------
 
@@ -35,15 +37,14 @@ data<-"data/run/"
 output<-"output/run/"
 report<-"report/run/"
 
-
 list.files(output)
-esc<-"S0"
 
 run_data<-paste0(data,esc)
 run_out<-paste0(output,esc)
 path_rep<-paste0(report,esc)
 
 mkdir(path_rep)
+#dir.create("nueva_carpeta")
 
 load(paste0(run_out,"/output.RData"))
 load(paste0(run_data,"/inputData.RData")) 
@@ -285,11 +286,11 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
 
 ## Selectivity ----
   png(file.path(paste0(path_rep,"/fig_age_selectivity_var.png")),width=4,height=4,res=300,units='in')
-  SSplotSelex(output,subplots=11)
-  dev.off()
+   SSplotSelex(output,subplots=11)
+   dev.off()
   
   png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=4,height=4,res=300,units='in')
-  SSplotSelex(output,subplots=13)
+  SSplotSelex(output,subplots=2,mainTitle = FALSE)
   dev.off()
   
 ## Stock-Recluta ----
@@ -457,7 +458,7 @@ params <- output$estimated_non_dev_parameters %>%
            rownames_to_column(var = "Parameter")
 
 params_est <- params %>% 
-              select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient))
+              select(c(Parameter,Value,Phase,Min,Max,Init,Status,Parm_StDev,Gradient,Afterbound))
 
 
 # 
@@ -562,9 +563,9 @@ ft2
 
 #'* estimates parameters: tb_params_est*
 ft3<-params_est %>%flextable()
-# ft3<-merge_at(ft3,i=2:5, j=1)
-# ft3<-merge_at(ft3,i=6:9, j=1)
-# ft3<-set_header_labels(ft3,cut="")
+ # ft3<-merge_at(ft3,i=2:5, j=1)
+ # ft3<-merge_at(ft3,i=6:9, j=1)
+ # ft3<-set_header_labels(ft3,cut="")
 ft3
 
 #'*tb_natM*
@@ -634,7 +635,7 @@ ft12
 # Input data type, model assumptions and settings for the assessment ----
 
 col1<-c(rep("Data",12),"",
-        rep("Structure and assumptions",10),"",)
+        rep("Structure and assumptions",10),"")
 
 DAT<-c("Catch","Catch-at-age", 
        "Pelago survey",
@@ -739,69 +740,69 @@ save(ft1,ft2,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10, file=paste0(path_rep,"/tables_run
 
 save(data, agg_Value2 ,agg_CV,file=paste0(path_rep,"/report.RData"))
 
-selectivity<-subset(output$ageselex[output$ageselex$Fleet==1 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])
-colnames(selectivity)[1]<-"year"
-
-sel<-reshape::melt(selectivity,id.vars='year')
-sel_bar<-rowMeans(selectivity[,3:6])
-
-startyr <- output$startyr
-endyr <- output$endyr
-aux <- output$derived_quants
-idx <- match(paste("F_",startyr:(endyr-1),sep=""), aux[,1])
-aux <- aux[idx, ]
-
-F.dat <- data.frame(Year=startyr:(endyr-1),
-                    Value=aux$Value,
-                    CV=aux$StdDev/aux$Value,
-                    Lower=aux$Value-2*aux$StdDev,
-                    Upper=aux$Value+2*aux$StdDev,
-                    param="f apic")
-
-# Fbar.dat <- data.frame(Year=startyr:(endyr-1),
-#                        Value=aux$Value*sel_bar[-length(sel_bar)],
-#                        CV=aux$StdDev/aux$Value*sel_bar[-length(sel_bar)],
-#                        Lower=(aux$Value*sel_bar[-length(sel_bar)])-2*aux$StdDev,
-#                        Upper=(aux$Value*sel_bar[-length(sel_bar)])+2*aux$StdDev,
-#                        param="f bar")
-
-aux <- output$derived_quants
-idx <- match(paste("Recr_",startyr:endyr,sep=""), aux[,1])
-aux <- aux[idx, ] 
-rec.dat <- data.frame(Year=startyr:endyr, 
-                      Value=aux$Value,
-                      CV=aux$StdDev/aux$Value,
-                      Lower=aux$Value-2*aux$StdDev,
-                      Upper=aux$Value+2*aux$StdDev,
-                      param="rec")
-
-aux <- subset(output$timeseries, Era=="TIME",c("Yr","Seas","Bio_smry"))
-idx <- grep("SSB_\\d",output$derived_quants$Label)
-aux$StdDev <- output$derived_quants[idx,"StdDev"]
-cv <- data.frame(cv=output$derived_quants[idx,"StdDev"]/output$derived_quants[idx,"Value"])
-cv$Yr <- output$startyr:output$endyr
-aux <- merge(aux,cv,by="Yr")
-bio.dat <- data.frame(Year=startyr:endyr, 
-                      Value=aux$Bio_smry,
-                      CV=aux$cv,
-                      Lower=aux$Bio_smry-2*aux$StdDev,
-                      Upper=aux$Bio_smry+2*aux$StdDev,
-                      param="bio1plus"
-)
-
-
-ggplot(bio.dat, aes(x = Year,y=Value/1000000)) +
-  geom_pointrange(aes(ymin = Lower/1000000, ymax = Upper/1000000),
-                  position = position_dodge(width=.5) ) +
-  scale_shape_manual(values = c(1, 16)) +
-  scale_linetype_manual(values = c(2, 1)) +
-  theme(text = element_text(size = 14),
-        plot.background =	element_rect(colour = NA, fill = NA),
-        axis.text.x=element_text(size=14),
-        axis.text.y=element_text(size=14),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        legend.position = c(0.9,0.875)) +
-  labs(x="Year", y="Biomass 1+, million tonnes",shape="Assessment", linetype="Assessment")
-#ggsave("report/biomass.png",width=12,height = 8)
+# selectivity<-subset(output$ageselex[output$ageselex$Fleet==1 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])
+# colnames(selectivity)[1]<-"year"
+# 
+# sel<-reshape::melt(selectivity,id.vars='year')
+# sel_bar<-rowMeans(selectivity[,3:6])
+# 
+# startyr <- output$startyr
+# endyr <- output$endyr
+# aux <- output$derived_quants
+# idx <- match(paste("F_",startyr:(endyr-1),sep=""), aux[,1])
+# aux <- aux[idx, ]
+# 
+# F.dat <- data.frame(Year=startyr:(endyr-1),
+#                     Value=aux$Value,
+#                     CV=aux$StdDev/aux$Value,
+#                     Lower=aux$Value-2*aux$StdDev,
+#                     Upper=aux$Value+2*aux$StdDev,
+#                     param="f apic")
+# 
+# # Fbar.dat <- data.frame(Year=startyr:(endyr-1),
+# #                        Value=aux$Value*sel_bar[-length(sel_bar)],
+# #                        CV=aux$StdDev/aux$Value*sel_bar[-length(sel_bar)],
+# #                        Lower=(aux$Value*sel_bar[-length(sel_bar)])-2*aux$StdDev,
+# #                        Upper=(aux$Value*sel_bar[-length(sel_bar)])+2*aux$StdDev,
+# #                        param="f bar")
+# 
+# aux <- output$derived_quants
+# idx <- match(paste("Recr_",startyr:endyr,sep=""), aux[,1])
+# aux <- aux[idx, ] 
+# rec.dat <- data.frame(Year=startyr:endyr, 
+#                       Value=aux$Value,
+#                       CV=aux$StdDev/aux$Value,
+#                       Lower=aux$Value-2*aux$StdDev,
+#                       Upper=aux$Value+2*aux$StdDev,
+#                       param="rec")
+# 
+# aux <- subset(output$timeseries, Era=="TIME",c("Yr","Seas","Bio_smry"))
+# idx <- grep("SSB_\\d",output$derived_quants$Label)
+# aux$StdDev <- output$derived_quants[idx,"StdDev"]
+# cv <- data.frame(cv=output$derived_quants[idx,"StdDev"]/output$derived_quants[idx,"Value"])
+# cv$Yr <- output$startyr:output$endyr
+# aux <- merge(aux,cv,by="Yr")
+# bio.dat <- data.frame(Year=startyr:endyr, 
+#                       Value=aux$Bio_smry,
+#                       CV=aux$cv,
+#                       Lower=aux$Bio_smry-2*aux$StdDev,
+#                       Upper=aux$Bio_smry+2*aux$StdDev,
+#                       param="bio1plus"
+# )
+# 
+# 
+# ggplot(bio.dat, aes(x = Year,y=Value/1000000)) +
+#   geom_pointrange(aes(ymin = Lower/1000000, ymax = Upper/1000000),
+#                   position = position_dodge(width=.5) ) +
+#   scale_shape_manual(values = c(1, 16)) +
+#   scale_linetype_manual(values = c(2, 1)) +
+#   theme(text = element_text(size = 14),
+#         plot.background =	element_rect(colour = NA, fill = NA),
+#         axis.text.x=element_text(size=14),
+#         axis.text.y=element_text(size=14),
+#         panel.grid.minor.x = element_blank(),
+#         panel.grid.major.x = element_blank(),
+#         panel.grid.minor.y = element_blank(),
+#         legend.position = c(0.9,0.875)) +
+#   labs(x="Year", y="Biomass 1+, million tonnes",shape="Assessment", linetype="Assessment")
+# #ggsave("report/biomass.png",width=12,height = 8)
