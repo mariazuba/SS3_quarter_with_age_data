@@ -15,6 +15,7 @@
 # Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
 
 # Date: 2024/08/30
+rm(list=ls())
 
 # Load libraries ----------------------------------------------------------
 
@@ -28,13 +29,13 @@ getwd()
 
 # directory with input files
 run_esc<-"boot/data/run/" 
-list.files(run_esc)
-esc<-"S0"
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
 data_esc<-paste0("data/run/",esc)
+
 # create data folder using the function mkdir in icesTAF
 mkdir(data_esc)
-
-
+#dir.create(data_esc)
 
 run.dir  <- paste0(run_esc,esc)
 dat <- r4ss::SS_readdat(file = paste0(run.dir,"/data.SS"),verbose = TRUE)
