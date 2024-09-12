@@ -64,10 +64,14 @@ close_section <- prop_section(
 
 
 ```{r load}
-path_dat<-"data/run/S0"
-path_mod<-"report/run/S0"
-path_out<-"output/run/S0"
-path_retro<-"report/retro/S0"
+run_esc<-"boot/data/run/" 
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
+
+
+path_dat<-paste0("data/run/",esc)
+path_mod<-paste0("report/run/",esc)
+path_out<-paste0("output/run/",esc)
+path_retro<-paste0("report/retro/",esc)
 # load
 load(paste0(path_mod,"/report.RData"))
 load(paste0(path_mod,"/tables_run.RData"))
@@ -232,8 +236,14 @@ include_graphics(file.path(path_mod,"tb_dat_stru.png"))
 
 ## Diagnostic
 
-The  model successfully converged, as evidenced by the Hessian matrix being positive definite and the final gradient being relatively small, with a gradient value of `r convergency`.
+The  model successfully converged, as evidenced by the Hessian matrix being positive definite and the final gradient being relatively small, with a gradient value of `r convergency`. The "Status" column in Table `r run_reference("tb_params_est")` shows that the initial model configuration has allowed for adequate optimization of the parameters. Additionally, the gradient for all parameters is relatively small. It is important to note that the bounds imposed on the initial parameters have not restricted the search for optimized values, as reflected in the "Afterbound" column.
 
+
+Table `r run_bookmark("tb_params_est", tabruns)`:  Ane.27.9a stock. Parameters estimated by the initial base model.
+
+```{r}
+include_graphics(file.path(path_mod,"tb_params_est.png"))
+```
 
 
 ### Model fit and residuals
