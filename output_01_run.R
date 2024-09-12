@@ -2,7 +2,9 @@
 
 ## Before:
 ## After:
-
+rm(list=ls())
+boot<-"boot/initial/data/run/"
+esc<-readLines(paste0(boot,"Esc.txt")) 
 # Script information ------------------------------------------------------
 # This script automates the extraction of key results and the generation of
 # TAF output tables from SS3 model runs. For each model scenario in the
@@ -40,7 +42,6 @@ library(lubridate)
 # Setup and read in files -----------------------------------------------------
 run_esc<-paste0(getwd(),"/model/run/")
 list.files(run_esc)
-esc<-"S0"
 run_out<-paste0("output/run/",esc)
 mkdir(run_out)
 
