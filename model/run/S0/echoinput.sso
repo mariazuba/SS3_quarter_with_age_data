@@ -394,17 +394,17 @@ number of D-M definitions needed for both length and age comp data: 0
 1 Lbin method for defined size ranges 
 age_obs_#:1 #  1989 3 1 0 0 1 -1 -1 100 0 1 0 0
 age_obs_#:2 #  1989 6 1 0 0 1 -1 -1 100 0 1 0 0
-184 N age comp observations 
-age_obs_#:184 #  2023 10 5 0 0 1 -1 -1 100 0.714943 0.266667 0.0183908 0
+173 N age comp observations 
+age_obs_#:173 #  2023 10 5 0 0 1 -1 -1 100 0.714943 0.266667 0.0183908 0
 
-Age_Data Nobs by fleet  140 21 14 0 9
+Age_Data Nobs by fleet  140 10 14 0 9
 Age_Data superperiods by fleet  0 0 0 0 0
 process age comps 
 area seas fleet age_bins  0 1 2 3
 1 1 1 freq  9.996e-05 0.871188 0.120109 0.00860374
 1 1 1 cuml  9.996e-05 0.871288 0.991396 1
-1 1 2 freq  9.996e-05 0.741719 0.238246 0.019935
-1 1 2 cuml  9.996e-05 0.741819 0.980065 1
+1 1 2 freq  9.996e-05 0.681336 0.279039 0.0395246
+1 1 2 cuml  9.996e-05 0.681436 0.960475 1
 1 1 3 freq  -nan -nan -nan -nan
 1 1 3 cuml  -nan -nan -nan -nan
 1 1 4 freq  0 0 0 0
@@ -413,8 +413,8 @@ area seas fleet age_bins  0 1 2 3
 1 1 5 cuml  -nan -nan -nan -nan
 1 2 1 freq  9.996e-05 0.925946 0.0698016 0.00415215
 1 2 1 cuml  9.996e-05 0.926046 0.995848 1
-1 2 2 freq  9.996e-05 0.892381 0.10423 0.00328941
-1 2 2 cuml  9.996e-05 0.892481 0.996711 1
+1 2 2 freq  9.996e-05 0.909407 0.0883425 0.00215022
+1 2 2 cuml  9.996e-05 0.909507 0.99785 1
 1 2 3 freq  9.996e-05 0.960689 0.036824 0.00238743
 1 2 3 cuml  9.996e-05 0.960789 0.997613 1
 1 2 4 freq  0 0 0 0
@@ -763,7 +763,7 @@ Q_parm_RD:
 #Now create parameters for D-M variance of composition data; CANNOT be time-varying
  selex and composition base parameters 
 1 ##  -2 5.5 0 0 0 0 5 0 0 0 0 0 0 0 ## Age_inflection_SEINE(1)
-2 ##  -1 5.5 0.5 0 0 0 5 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
+2 ##  -1 1.5 0.5 0 0 0 5 0 0 0 0 0 0 0 ## Age_95%width_SEINE(1)
 3 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_PELAGO(2)
 4 ##  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0 ## Age_95%width_PELAGO(2)
 5 ##  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0 ## Age_inflection_ECOCADIZ(3)
@@ -776,7 +776,7 @@ selparm_fleet:
 check on conversion of retention parameter
 check on mirror bounds
 1 sel  -2 5.5 0 0 0 0 5 0 0 0 0 0 0 0
-2 sel  -1 5.5 0.5 0 0 0 5 0 0 0 0 0 0 0
+2 sel  -1 1.5 0.5 0 0 0 5 0 0 0 0 0 0 0
 3 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
 4 sel  -1 5.5 0.5 0 0 0 3 0 0 0 0 0 0 0
 5 sel  -2 5.5 0 0 0 0 3 0 0 0 0 0 0 0
@@ -813,7 +813,7 @@ Recalc_flag_for_age_selex_recalc_by_year
  5 1 0.0689289
  5 2 0.0562533
  5 3 0.0421242
- 5 5 2.0013
+ 5 5 2.71995
  -9999 0 0
  number of variance adjustment records = 4
  Var_adjustments as read 
@@ -821,7 +821,7 @@ Recalc_flag_for_age_selex_recalc_by_year
  0 0 0 0 0
  0 0 0 0 0
  1 1 1 1 1
- 0.0689289 0.0562533 0.0421242 1 2.0013
+ 0.0689289 0.0562533 0.0421242 1 2.71995
  1 1 1 1 1
  1 1 1 1 1
 1 max_lambda_phase 
@@ -862,7 +862,7 @@ Active parameters plus derived quantities:  319
 Begin setting up parameters
  now dimension the selectivity arrays 9
  -2 -1 -2 -1 -2 -1 -2 -1 0.01
- 5.5 5.5 5.5 5.5 5.5 5.5 5.5 5.5 3
+ 5.5 1.5 5.5 5.5 5.5 5.5 5.5 5.5 3
  5 5 3 3 3 3 2 2 -5
  OK after dimension the selectivity arrays 
  check 1  70
@@ -4122,18 +4122,19 @@ yr 2023, seas: 4, fleet:1
  finished time series 
 Finished time_series
 Finished survey obj_fun  0 1985.88 1678.21 568.145 1060.97
-Finished agecomp obj_fun  278.611 12.4337 31.3905 0 180.516
+Finished agecomp obj_fun  278.611 5.61308 31.3905 0 245.338
  initequ_catch -log(L)  0 0 0 0 0
  catch -log(L)  2.26694e-15 0 0 0 0
 Finished recruitdev obj_fun 0 0 0.72
- OK with obj_func 5811.96
+ OK with obj_func 5869.96
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 3.17796 0.6
-Calculated Btgt: 3.96558 0.55
-Calculated Fmsy 11.8952 6998.41
+Calculated Fspr 3.24622 0.6
+Calculated Btgt: 4.05672 0.55
+Calculated Fmsy 12.1685 6631.22
 Finished benchmark, forecast, and sdreporting
-Iterations: 1295
+Iterations: 1531
+ finished COVAR.SSO
 Writing wtatage.ss_new
 Finished StdDev quantities
 Finished posteriors

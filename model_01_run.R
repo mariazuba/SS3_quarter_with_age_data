@@ -12,7 +12,10 @@
 # The process includes logging the execution time and managing the 
 # version control of the `model/run` directory, making sure that the results
 # from each scenario are accurately tracked and stored. 
-
+rm(list=ls())
+run_esc<-"boot/data/run/" 
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
 # libraries ------------------------------------------------------
 library(r4ss) 
 library(icesTAF)
@@ -29,38 +32,18 @@ list.files(path.data)
 
 # Scenarios ----
 #'*------------------------------------------------------------------------------------------*
-### S0 ----
-s0_path   <- file.path(path.data, "S0") 
-s0_model  <- file.path(path_esc)
-cp(s0_path, s0_model)
-cp("boot/software/ss3", "model/run/S0")
-wd <- paste0(getwd(),"/model/run/S0")
+
+path   <- file.path(path.data, esc) 
+model  <- file.path(path_esc)
+cp(path, model)
+cp("boot/software/ss3", paste0("model/run/",esc))
+wd <- paste0(getwd(),"/model/run/",esc)
 system(wd)
 system(paste0("chmod 755 ",wd,"/ss3"))
 r4ss::run(dir=wd, exe="ss3", skipfinished=FALSE, show_in_console =T)
 
 #'*------------------------------------------------------------------------------------------*
-### S1 ----
-# Specify the source and destination folders
-# model_S0 <- "model/run/S0"
-# model_S1 <- "model/run/S1"
-# # Create the destination folder if it doesn't exist
-# dir.create(model_S1, recursive = TRUE, showWarnings = FALSE)
-# # List of files you want to copy
-# files_to_copy <- c("starter.ss", "control.SS", "data.SS", "forecast.ss", "ss3","wtatage.ss")
-# # Copy the files to the destination folder
-# sapply(files_to_copy, function(file) {
-#   file.copy(file.path(model_S0, file), model_S1, overwrite = TRUE)
-# })
-# 
-# #### modify the model
-# inputs <- r4ss::SS_read(dir = model_S1)
-# 
-# 
-# wd <- paste0(getwd(),"/model/run/S0")
-# system(wd)
-# system(paste0("chmod 755 ",wd,"/ss3"))
-# r4ss::run(dir=wd, exe="ss3", skipfinished=FALSE, show_in_console =T)
+
 
 
 

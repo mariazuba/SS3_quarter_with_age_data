@@ -144,7 +144,7 @@
 #_No size_selex_parm
 #_AgeSelex
 -2	5.5	0	  0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	5.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-1	1.5	0.5	0	0	0	5	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
 -1	5.5	0.5 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
@@ -177,7 +177,7 @@
 5 1 0.0689289  #_SEINE
 5 2 0.0562533  #_PELAGO
 5 3 0.0421242  #_ECOCADIZ
-5 5 2.0013 #_ECORECLUTAS
+5 5 2.7199500 #_ECORECLUTAS
 -9999	0	   0	#_terminator               
 #
 1 #_maxlambdaphase
