@@ -129,7 +129,7 @@
 #_Pattern	Discard	Male	Special
 0	0	0	0	#_1 SEINE  
 0	0	0	0	#_2 PELAGO 
-0 0	0	0	#_3 ECOCADIZ   
+0 	0	0	0	#_3 ECOCADIZ   
 0	0	0	0	#_4 BOCADEVA       
 0	0	0	0	#_5 ECORECLUTAS
 #
