@@ -73,12 +73,12 @@
 4 #_Spawner-Recruitment; 2=Ricker; 3=std_B-H; 4=SCAA;5=Hockey; 6=B-H_flattop; 7=survival_3Parm;8=Shepard_3Parm
 0 # 0/1 to use steepness in initial equ recruitment calculation
 0 # future feature: 0/1 to make realized sigmaR a function of SR curvature
-#_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn # parm_name
-  5	25	 20	0	0	0	 1	0	0	0	0	0	0	0	#_SR_LN(R0)   
-0.2	 1	0.9	0	0	0	-4	0	0	0	0	0	0	0	#_SR_SCAA_null
-  0	 2	0.6	0	0	0	-4	0	0	0	0	0	0	0	#_SR_sigmaR   
- -5	 5	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_regime   
-  0	 0	  0	0	0	0	-4	0	0	0	0	0	0	0	#_SR_autocorr 
+#_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr dev_mxyr	dev_PH	Block	Blk_Fxn # parm_name
+  5	25	 20	0	0	0	 1	0	0	0	  0		0	0	0	#_SR_LN(R0)   
+0.2	 1	0.9	0	0	0	-4	0	0	0	  0		0	0	0	#_SR_SCAA_null
+  0	 2	0.6	0	0	0	-4	0	0	0	  0		0	0	0	#_SR_sigmaR   
+ -5	 5	  0	0	0	0	-4	0	0	0	  0		0	0	0	#_SR_regime   
+  0	 0	  0	0	0	0	-4	0	0	0	  0		0	0	0	#_SR_autocorr 
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
 1989 # first year of main recr_devs; early devs can preceed this era
@@ -132,7 +132,7 @@
 #_Pattern	Discard	Male	Special
 0	0	0	0	#_1 SEINE  
 0	0	0	0	#_2 PELAGO 
-0 0	0	0	#_3 ECOCADIZ   
+0 	0	0	0	#_3 ECOCADIZ   
 0	0	0	0	#_4 BOCADEVA       
 0	0	0	0	#_5 ECORECLUTAS
 #
@@ -148,13 +148,13 @@
 #_No size_selex_parm
 #_AgeSelex
 -2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	1.5	0.5	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-1	1.5	0.5	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
 #-2	5.5	0.9	  0	0	0	-2	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
-#-1	5.5	0.3 0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
+#-1	5.5	0.3 	  0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	0.2 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+-1	5.5	0.2 	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
 -2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
--1	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
+-1	5.5	0.5	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
 #_timevary selex parameters
 #_LO  HI    INIT  PRIOR   PR_SD   PR_type   PHASE  #  parm_name
 # -2   5.5   0.5   0       0       0        4  #_AgeSel_P_1_ECOCADIZ_Block1
