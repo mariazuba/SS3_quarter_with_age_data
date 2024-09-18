@@ -48,7 +48,7 @@ mkdir(path_rep)
 
 load(paste0(run_out,"/output.RData"))
 load(paste0(run_data,"/inputData.RData")) 
-  
+
 
 
 # Figures --------------------------------------------
@@ -85,8 +85,9 @@ load(paste0(run_data,"/inputData.RData"))
           legend.text = element_text(size = 6)) + 
     theme(legend.position = 'top') 
   ggsave(file.path(paste0(path_rep,"/fig_weight_by_quarters.png")), fig7,  width=5, height=5)
+
   
-## Catches by $uarters
+## Catches by quarters
 fig1b<- ggplot(catch, aes(x = year, y = catch,fill=factor(seas))) +
   geom_bar(stat = "identity") +
   labs(x = "Year",y = "Catches (ton)",title = "",fill = "Quarters" ) +
@@ -102,6 +103,26 @@ ggsave(file.path(paste0(path_rep,"/fig_catches.png")), fig1b,  width=8, height=5
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
 
+ CPUEs<- dat$CPUE
+fig_xa<-ggplot(CPUEs, aes(x = year, y = obs,color=factor(index))) +
+    geom_point() + geom_line()+
+    labs(x = "Year",y = "Index (tonnes)",title = "",color = "Indices" ) + 
+    scale_color_discrete(name = "Surveys",
+                         labels = c("PELAGO","ECOCADIZ","BOCADEVA","ECOCADIZ-RECLUTAS"))+
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5),legend.position = "right")+
+    theme(plot.title = element_text(size =5),
+          axis.title = element_text(size = 10),
+          axis.text = element_text(size = 8),
+          strip.text = element_text(size = 8),
+          panel.background = element_rect(colour="gray",fill = "gray99"),
+          strip.background = element_rect(colour = "gray", fill = "gray99"),
+          axis.text.x = element_text(angle = 45, hjust = 1),
+          legend.title = element_text(size = 10, face = "bold"), 
+          legend.text = element_text(size = 8))+
+  scale_x_continuous(breaks = seq(min(CPUEs$year), max(CPUEs$year), by = 2)) 
+  ggsave(file.path(paste0(path_rep,"/fig_indiceBiomass.png")), fig_xa,  width=8, height=5)
+  
 ## age composition Seine ----
 catage[catage==0]<-NA
 agecomp<-  catage%>% 
@@ -285,9 +306,11 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   dev.off()
 
 ## Selectivity ----
+  if (esc !="S1") {
   png(file.path(paste0(path_rep,"/fig_age_selectivity_var.png")),width=4,height=4,res=300,units='in')
    SSplotSelex(output,subplots=11)
    dev.off()
+  }
   
   png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=4,height=4,res=300,units='in')
   SSplotSelex(output,subplots=2,mainTitle = FALSE)
