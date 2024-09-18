@@ -14,6 +14,10 @@
 
 # run retrospective analysis 
 rm(list=ls())
+run_esc<-"boot/data/run/" 
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
+
 # Load packages -----------------------------------------------------------
 library(r4ss)
 library(icesTAF)
@@ -29,7 +33,7 @@ run_esc<-paste0(getwd(),"/model/run/")
 retro_esc<-paste0(getwd(),"/model/retro/")
 
 list.files(run_esc)
-esc<-"S0"
+
 
 run.dir<-paste0(run_esc,esc)
 retro.dir <- paste0(retro_esc,esc)

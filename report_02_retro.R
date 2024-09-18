@@ -18,7 +18,9 @@
 
 
 rm(list=ls())
-
+run_esc<-"boot/data/run/" 
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
 
 # Load packages -----------------------------------------------------------
 
@@ -35,7 +37,7 @@ wd <- getwd()
 retro_out<-paste0(getwd(),"/output/retro/")
 retro_ls<-list.files(retro_out)
 sub(".RData", "", sub("retrospective_", "", retro_ls))
-esc<-"S0"
+
 
 
   retro_rep<-paste0(getwd(),"/report/retro/",esc)

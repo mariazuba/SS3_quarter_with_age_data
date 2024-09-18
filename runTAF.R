@@ -57,10 +57,31 @@ library(rmarkdown)
 #'*Catchability Q_power and SDextra surveys*
 # s16: s15 + S10 Q_power and SDextra PELAGO_ECOCADIZ_BOCADEVA_ECOCADIZ-RECLUTAS
 
+#'*Relación stock-recluta Beverton-Holt*
+# s17: s1 + relación stock-recluta Beverton-Holt h=0.6
+# s18: s1 + relación stock-recluta Beverton-Holt h=0.7
+# s19: s1 + relación stock-recluta Beverton-Holt h=0.8
+# s20: s1 + relación stock-recluta Beverton-Holt h=0.9
 
+#'*Corrección por sesgo desvios reclutamiento*
+
+
+#'*initial* *probar otros valores!!!*
+# s21: s1 + se incluye captura inicial 1988 trimestral
+
+#'*mes de desove*
+# s22: s1 + mes desove 1, mes reclutamiento 7 (age 0)
+# s23: s1 + mes desove 1, mes reclutamiento 10 (age 0)
+# s24: s1 + mes desove 7, mes reclutamiento 7 (age 0)
+# s25: s1 + mes desove 7, mes reclutamiento 10 (age 0)
+# s26: s1 + mes desove 7, mes reclutamiento 1 (age 1) # no converge
+# s27: s1 + mes desove 4, mes reclutamiento 10 (age 0)
+
+#'*M estimado*
+# s28: s1 + M estimado fijo para todas las edades
 
 boot<-"boot/initial/data/run/" 
-esc<-"S5.1"
+esc<-"S1"
 write(esc, file = paste0(boot,"Esc.txt"))
 sourceTAF("bootstrap")
 sourceTAF("data")
@@ -69,9 +90,9 @@ sourceTAF("output_01_run")
 sourceTAF("report_01_run")
 
 
-# sourceTAF("model_02_retro")
-# sourceTAF("output_02_retro")
-# sourceTAF("report_02_retro")
+ sourceTAF("model_02_retro")
+ sourceTAF("output_02_retro")
+ sourceTAF("report_02_retro")
 
 # Compilar reporte.Rmd a reporte.html
  render("Report_SS3_quarter_with_age_data.Rmd", 

@@ -12,6 +12,10 @@
 # The script concludes by clearing the workspace.
 
 # load libraries ----------------------------------------------------------
+rm(list=ls())
+run_esc<-"boot/data/run/" 
+list.files(run_esc, full.names = TRUE)
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
 
 library(icesTAF)
 library(icesAdvice)
@@ -26,7 +30,7 @@ library(ss3diags)
 retro_esc<-paste0(getwd(),"/model/retro/")
 retro_out<-paste0(getwd(),"/output/retro/")
 list.files(retro_esc)
-esc<-"S0"
+
 
 system(paste("rm -r", shQuote(retro_out)))
 mkdir(retro_out)
