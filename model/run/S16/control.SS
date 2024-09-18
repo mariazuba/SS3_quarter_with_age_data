@@ -136,7 +136,7 @@
 #_Pattern	Discard	Male	Special
 0	0	0	0	#_1 SEINE  
 0	0	0	0	#_2 PELAGO 
-0 0	0	0	#_3 ECOCADIZ   
+0 	0	0	0	#_3 ECOCADIZ   
 0	0	0	0	#_4 BOCADEVA       
 0	0	0	0	#_5 ECORECLUTAS
 #
@@ -152,13 +152,13 @@
 #_No size_selex_parm
 #_AgeSelex
 -2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_SEINE      
--1	1.5	0.5	0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
+-1	1.5	0.5	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_2_SEINE   
 #-2	5.5	0.9	  0	0	0	-2	0	0	0	0	0	0	0	#_AgeSel_P_1_PELAGO      
-#-1	5.5	0.3 0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
+#-1	5.5	0.3 	  0	0	0	-3	0	0	0	0	0	0	0	#_AgeSel_P_2_PELAGO  
 -2	5.5	0	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_1_ECOCADIZ   
--1	5.5	0.2 0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
+-1	5.5	0.2 	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECOCADIZ    
 -2	5.5	0	  0	0	0	2	0	0	0	0	0	0	0	#_AgeSel_P_1_ECORECLUTAS   
--1	5.5	0.5	0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
+-1	5.5	0.5	  0	0	0	3	0	0	0	0	0	0	0	#_AgeSel_P_2_ECORECLUTAS 
 #_timevary selex parameters
 #_LO  HI    INIT  PRIOR   PR_SD   PR_type   PHASE  #  parm_name
 # -2   5.5   0.5   0       0       0        4  #_AgeSel_P_1_ECOCADIZ_Block1
