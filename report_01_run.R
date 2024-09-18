@@ -327,6 +327,21 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   sspar(mfrow = c(1, 1), plot.cex = 0.8)
   SSplotRecdevs(output,subplots = 2,pwidth = 5,pheight = 5)
   dev.off()
+
+## Catchability
+  
+  Calc_Q<-output$cpue %>% select(c("Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
+  Calc_Q<-Calc_Q %>% 
+    mutate(Fleet_name=fct_reorder(Fleet_name,Calc_Q))
+  
+  fig_q<-Calc_Q %>% ggplot(aes(x=Fleet_name,y=Calc_Q))+
+    geom_point()+
+    labs(x="Surveys",y="Catchability",title="")+
+    theme_bw()+
+    theme(plot.title=element_text(hjust=0.5),legend.position="top")
+  ggsave(file.path(paste0(path_rep,"/fig_catchability.png")), fig_q,  width=5, height=5)
+  
+  
   
   #SSplotSPR(output)
   #SSplotCatch(output)
@@ -703,9 +718,9 @@ desc_DAT<-c("Catch biomass 1989 to 2023. Combined Spanish and Portuguese fleets"
            "Proportion-at-age [0 to 3]. we assume that all individuals with age 1 or higher (B1+)",
            "Age specific [0 to 3]. Estimated at WD Rincón et al xxx",
            "",
-           "SCAA stock recruitment model, Ignore steepness, sigmaR=0.6",
+           "Ignore steepness, sigmaR=0.6",
            "Starting equilibrium population age structure",
-           "Age based. logistic. xxxx",
+           "Age based. logistic. Fixed",
            "Age based. logistic. Fixed",
            "Age based. logistic. Fixed",
            "Age based. logistic. Fixed",
@@ -716,7 +731,7 @@ desc_DAT<-c("Catch biomass 1989 to 2023. Combined Spanish and Portuguese fleets"
            "",
           "Implemented in phases using standard ADMB process",
           "Catch CV = 0.05, Pelago = 0.30, Ecocadiz = 0.30, Bocadeva = 0.30, Ecocadiz-Reclutas = 0.30",
-          "The Francis method T.A.xxx was selected for length data weighting in catches and surveys data"
+          "The Francis method T.A.1.8 was selected for length data weighting in catches and surveys data"
           )
 
 
