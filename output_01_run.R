@@ -38,6 +38,7 @@ library(icesTAF)
 library(r4ss)
 library(tidyverse)
 library(lubridate)
+library(ss3diags)
 
 # Setup and read in files -----------------------------------------------------
 run_esc<-paste0(getwd(),"/model/run/")
