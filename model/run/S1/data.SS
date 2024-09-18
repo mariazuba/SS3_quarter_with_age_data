@@ -14,10 +14,10 @@
 #_fleetinfo
 #_type	surveytiming	area	units	need_catch_mult	fleetname
 1	-1  	1	1	0	SEINE      	#_SEINE     
-3	0.33	1	1	0	PELAGO     	#_PELAGO  
-3	0.58	1	1	0	ECOCADIZ   	#_ECOCADIZ   
-3	0.58	1	1	0	BOCADEVA	  #_BOCADEVA
-3	0.83	1	1	0	ECORECLUTAS	#_ECORECLUTAS
+3	4	1	1	0	PELAGO     	#_PELAGO  #0.33
+3	7	1	1	0	ECOCADIZ   	#_ECOCADIZ #0.58  
+3	7	1	1	0	BOCADEVA	  #_BOCADEVA #0.58
+3	10	1	1	0	ECORECLUTAS	#_ECORECLUTAS #0.83
 #_Catch data
 #_year	season	fleet	catch	catch_se
 -999	1	1	0	      0.05	#_SEINE
