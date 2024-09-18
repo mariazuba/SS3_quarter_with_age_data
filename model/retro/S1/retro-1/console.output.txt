@@ -1,6 +1,6 @@
 ###
 console output
-2024-09-16 13:12:47.129698
+2024-09-18 13:36:56.820863
 ###
  
  reading from starter.ss
@@ -13,7 +13,7 @@ End of control file successful! 999
 Begin setting up parameters ...  end of parameter section 
 Reading the empirical weight at age file ...done
 Evaluating biology calculations once ... done
-Starting optimization of 'ss3' in phase 1 of 3 at Mon Sep 16 13:12:39 2024
+Starting optimization of 'ss3' in phase 1 of 3 at Wed Sep 18 13:36:49 2024
 1 1 -log(L): 5263.97  Spbio: 1.38738e+06 1.34992e+06
 phase= 1 | nvar=  2 | iter=  0 | nll=5.26e+03 | mag=3.04e+04 | par[  1]=SR_parm[1]
 1 2 -log(L): 5263.95  Spbio: 1.38737e+06 1.34991e+06
@@ -505,7 +505,7 @@ Calculating Hessian (48 variables): 3 276 -log(L): 122.272  Spbio: 9124.56 7928.
 Differentiating 8 derived quantities: 3 469 -log(L): 122.272  Spbio: 9124.56 7928.71 cat 0.236887
 1, 2, 3, 4, 5, 6, 7, 8 done (3.6 s) 
 Inverting Hessian (48 variables): 20%, 40%, 60%, 80%, 100% done (0.002 s) 
-Starting standard error calculations...  done (0.051 s) 
+Starting standard error calculations...  done (0.057 s) 
 Iterations: 469
 Writing wtatage.ss_new
 Finished posteriors
@@ -516,4 +516,4 @@ Begin writing *.ss_new output files ... Finished writing *.ss_new output files
 !!  Run has completed  !! 
 !!  See warning.sso for 8 warnings  and 2 notes 
 
-Finished running model 'ss3' after 7.7 s.
+Finished running model 'ss3' after 7.6 s.

@@ -220,13 +220,27 @@ Annual recruitments are defined as parameters and the functional relationship fo
 
 Fishing mortality is applied as the hybrid method does a Pope´s approximation to provide initial values for iterative adjustment of the continuous F values to closely approximate the observed catch. Total catch biomass by year is assumed to be accurate and precise. The F values are tuned to match this catch. 
 
-The *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey are assumed to be relative indices of abundance. The catchability are modelled with a simple $q$ linear model.
+#### Catchability
+
+All the surveys are assumed to be relative indices of abundance. The catchability are modelled with a simple $q$ linear model.
+
+#### Selectivity
 
 The fishery selectivity was set as a logistic function fixed over time. <!-- se usan bloques de selectividad--> (**Figure xx**).  In *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys was set as a logistic function fixed over time (**Figure xx**).
 
-A standar error of **0.10** was assumed for all years of catches and **xx** for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of **xx** is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
+#### Data weighting
 
-The Francis method TA1.8 [@Francis2011] was selected for length data weighting in catches and surveys data. The initial population is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial <!--**catch of 30 000 tonnes – corresponding to the average Portuguese catches previous 5 years (1987-91) + average Spain catches first 5 years of data (1992-96)**-->. Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_hom.27.9a_assessment)-->. The R packages r4ss version 1.49.2 [@Taylor2021] and ss3diags version 1.10.2 [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in R version 4.2.2. <!--revisar versiones-->
+Coeficient of variation (CV): A standar error of 0.05 was assumed for all years of catches and 0.3 for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of 0.3 is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
+
+Sample size (nm): The age composition were adjusted assumming a multinomial error structure with variance described by the sample size, set at 100 for both the commercial fleet and acoustic survey. The Francis method TA1.8 [@Francis2011] was selected for age data weighting in catches and surveys data. 
+
+
+#### Initial population
+
+It is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial catch of 0 tonnes <!-- corresponding to the average catches first 5 years of data (1989-93.)  -->
+
+
+Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_ane27.9a_assessment)-->. The R packages r4ss version `r packageVersion("r4ss")`  [@Taylor2021] and ss3diags version `r packageVersion("ss3diags")` [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in `r R.version.string`.
 
 
 \newpage
@@ -406,6 +420,7 @@ include_graphics(file.path(path_mod,"tb_timeseries.png"))
 
 ## Selectivity
 
+Figure `r run_reference("fig_age_selectivity")` shows the estimated selectivity for the age composition of the commercial fleet and acoustic surveys (logistic-shaped fixed selectivity across all years).
 
 ```{r fig.width=7, fig.height=4, dpi=300}
 # Cargar las imágenes
@@ -417,15 +432,20 @@ img2 <- png::readPNG(file.path(path_mod,"fig_age_selectivity.png"))
 g2 <- rasterGrob(img2, interpolate=TRUE)
 
 # Organizar las imágenes en una cuadrícula
-grid.arrange(g1,  ncol=1)
+grid.arrange(g2,  ncol=1)
 ```
 
+Figure `r run_bookmark("fig_age_selectivity", figruns)`: ane.27.9a stock.Estimated selectivity for catch-at-age (logistic shaped fixed selectivity across all years).
 
 ## Catchability
 
-<!-- En lo que respecta a la capturabilidad, se ha considerado que la biomasa observada en las campañas acústicas es proporcional a la biomasa vulnerable de la población, y la capturabilidad (q) se ajusta para garantizar que la relación entre la biomasa observada y la biomasa vulnerable sea coherente con las expectativas del modelo.  -->
-<!-- Sin embargo, es crucial señalar que las biomasas estimadas por el modelo han resultado ser xx veces menores que las estimadas en las campañas acústicas. Este desajuste podría indicar que los datos no están proporcionando información sustancial para la estimación de R0, como se evidenció en el perfil de verosimilitud, que mostró un gradiente plano para los índices de biomasa acústica. Se debe revisar y ajustar los parámetros del modelo, especialmente aquellos relacionados con la capturabilidad, con el fin de mejorar la concordancia entre las estimaciones del modelo y los datos observados. -->
+The catchability (q) is adjusted to maintain a consistent relationship between the observed biomass and the vulnerable biomass in acoustic surveys. As vulnerable biomass decreases throughout the year, catchability increases, indicating that efforts intensify when the vulnerable biomass is lower (Figure  `r run_reference("fig_catchability")` ).
 
+```{r}
+include_graphics(file.path(path_mod,"fig_catchability.png"))
+```
+
+Figure `r run_bookmark("fig_catchability", figruns)`: ane.27.9a stock. Estimated catchability parameters for the different surveys indices.
 
 
 \newpage

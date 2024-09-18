@@ -69,19 +69,20 @@ library(rmarkdown)
 #'*initial* *probar otros valores!!!*
 # s21: s1 + se incluye captura inicial 1988 trimestral
 
-#'*mes de desove*
-# s22: s1 + mes desove 1, mes reclutamiento 7 (age 0)
-# s23: s1 + mes desove 1, mes reclutamiento 10 (age 0)
-# s24: s1 + mes desove 7, mes reclutamiento 7 (age 0)
-# s25: s1 + mes desove 7, mes reclutamiento 10 (age 0)
-# s26: s1 + mes desove 7, mes reclutamiento 1 (age 1) # no converge
-# s27: s1 + mes desove 4, mes reclutamiento 10 (age 0)
+#'*Spawning and settlement*
+# s22: s1 + spawn month  1, settlement month 7 (age 0)
+# s23: s1 + spawn month  1, settlement month 10 (age 0)
+# s24: s1 + spawn month 7, settlement month7 (age 0)
+# s25: s1 + spawn month  7, settlement month 10 (age 0)
+# s26: s1 + spawn month 7, settlement month 1 (age 1) # no converge
+# s27: s1 + spawn month  4, settlement month 10 (age 0)
 
 #'*M estimado*
 # s28: s1 + M estimado fijo para todas las edades
 
 boot<-"boot/initial/data/run/" 
 esc<-"S1"
+
 write(esc, file = paste0(boot,"Esc.txt"))
 sourceTAF("bootstrap")
 sourceTAF("data")

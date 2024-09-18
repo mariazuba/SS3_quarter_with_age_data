@@ -1,0 +1,134 @@
+---
+output:
+  word_document:
+    fig_caption: yes
+    reference_docx: "boot/data/sec_04_template.docx"
+    toc: true
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+library(png)
+library(grid)
+library(gridExtra)
+```
+
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE}
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='!hbt',fig.align = 'center' )
+
+# To print the inline numbers using normal notation and not scientific notation.
+options(scipen=999)
+
+```
+
+
+```{r caption_settings}
+tabruns.start <- list(
+   # run_word_field("STYLEREF 2 \\s"),
+   # ftext("."),
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+tabruns <- list(
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+figruns.start <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+figruns <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+```
+
+```{r officer_landscape}
+op_section <- prop_section(type = "continuous")
+close_section <- prop_section(
+    page_size = page_size(orient = "landscape"), 
+    type = "continuous")
+
+```
+
+
+
+
+Before the assessment base several model configurations were explored to establish a preliminary model with consistent settings. 
+
+ The modeled time period begins in 1989 and extends to 2023 to align with the available data periods. The time steps are based on quarters: the first quarter covers January to March, the second quarter covers April to June, the third quarter covers July to September, and the fourth quarter covers October to December, each lasting three months.
+
+**Spawning and settlement**: Spawning is assumed to occur in April, with recruitment in July. Thus, age-0 fish are observed in quarters 3 and 4 (July-December), and they advance to age 1 in January (beginning of quarter 1). This explains the absence of age-0 fish in quarters 1 and 2 (Methot, personal communication).
+
+
+
+
+# Initial scenario (S1)
+
+
+
+
+
+## Spawning and settlement timming
+
+Six scenarios (s22 to s27) were evaluated to analyze the effects of spawning and recruitment timing on the population dynamics of age-0 and age-1 fish. The model was based on quarters, with spawning and recruitment occurring in specific months according to each scenario. The scenarios varied in the spawning month (January, April, or July) and the recruitment month (July, October, or January).  All scenarios use scenario "S1", previously described, as a reference.
+
+
+```{r}
+# Install flextable if not already installed
+# install.packages("flextable")
+
+# Load the flextable library
+library(flextable)
+
+# Create the dataset for the scenarios
+data <- data.frame(
+  Scenario = c("s22", "s23", "s24", "s25", "s26", "s27"),
+  Description = c(
+    "S1 + Spawning in January, recruitment in July, age 0",
+    "S1 + Spawning in January, recruitment in October, age 0",
+    "S1 + Spawning in July, recruitment in July, age 0",
+    "S1 + Spawning in July, recruitment in October, age 0",
+    "S1 + Spawning in July, recruitment in January, age 1",
+    "S1 + Spawning in April, recruitment in October, age 0"
+  )
+)
+
+# Create the table with flextable
+ft <- flextable(data)
+
+# Optional formatting
+ft <- theme_box(ft)
+ft <- autofit(ft)
+
+# Display the table
+ft
+
+```
+
+```{r}
+load(paste0("report/run/comparison","/report.RData"))
+# Filtrar los escenarios S22 a S27
+ESC_22_27 <- t(diagsSS[diagsSS$ESC %in% c("S1","S22", "S23", "S24", "S25", "S26", "S27"), ])
+# Create the table with flextable
+ft1 <- flextable(ESC_22_27)
+
+# Optional formatting
+ft1 <- theme_box(ft1)
+ft1 <- autofit(ft1)
+
+# Display the table
+ft1
+
+
+```

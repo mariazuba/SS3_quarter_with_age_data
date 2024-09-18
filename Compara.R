@@ -11,7 +11,9 @@ library(ss3diags)
 
 boot<-"boot/initial/data/run/" 
 ls_esc<-list.files(boot)
-esc<-ls_esc[ls_esc != "Esc.txt"]
+esc<-ls_esc[ls_esc != c("Esc.txt","S26")]
+
+#Se extrae S26 porque no converge
 
 replist<-list()
 qvalues<-list()
@@ -40,16 +42,25 @@ jaba_age<-SSplotJABBAres(output,subplots = "age")
 
 diag[[Esc]]<-data.frame(ESC=Esc,
                         convergency=output$maximum_gradient_component,
-                        Totallike=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
+                        Total_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
+                        Age_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Age_comp"],
                         RMSE_index=jaba_cpue$RMSE.perc[jaba_cpue$indices == "Combined"],
                         RMSE_age=jaba_age$RMSE.perc[jaba_age$indices == "Combined"])
+
+
+
 }
 
 
+dir.create("report/run/comparison")
+
+diagsSS<-plyr::ldply(diag,data.frame)
+
+
+save(diagsSS,file=paste0("report/run/comparison","/report.RData"))
 
 mod.sum <- SSsummarize(replist)
 
-dir.create("report/run/comparison")
 
 SSplotComparisons(mod.sum, subplots=c(13),
                   legendlabels = esc,

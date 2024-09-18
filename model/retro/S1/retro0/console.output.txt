@@ -1,6 +1,6 @@
 ###
 console output
-2024-09-16 13:12:33.151918
+2024-09-18 13:36:47.048207
 ###
  
  reading from starter.ss
@@ -13,7 +13,7 @@ End of control file successful! 999
 Begin setting up parameters ...  end of parameter section 
 Reading the empirical weight at age file ...done
 Evaluating biology calculations once ... done
-Starting optimization of 'ss3' in phase 1 of 3 at Mon Sep 16 13:12:24 2024
+Starting optimization of 'ss3' in phase 1 of 3 at Wed Sep 18 13:36:38 2024
 1 1 -log(L): 5787.64  Spbio: 1.38738e+06 1.34992e+06
 phase= 1 | nvar=  2 | iter=  0 | nll=5.79e+03 | mag=3.33e+04 | par[  1]=SR_parm[1]
 1 2 -log(L): 5787.62  Spbio: 1.38737e+06 1.34991e+06
@@ -410,7 +410,7 @@ phase= 3 | nvar= 49 | iter=200 | nll=1.27e+02 | mag=2.84e+00 | par[ 44]=selparm[
 3 377 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
 3 378 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
 phase= 3 | nvar= 49 | iter=220 | nll=1.27e+02 | mag=5.50e-05 | par[ 44]=selparm[1]
-Optimization completed after 2.9 s with final statistics:
+Optimization completed after 3.1 s with final statistics:
   nll=126.657133 | mag=5.50152e-05 | par[ 44]=selparm[1]
 
 3 379 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
@@ -612,11 +612,11 @@ Calculating Hessian (49 variables): 3 380 -log(L): 126.657  Spbio: 9222.63 7766.
 3 574 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
 3 575 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
 3 576 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
- done (1.5 s) 
+ done (1.7 s) 
 Differentiating 8 derived quantities: 3 577 -log(L): 126.657  Spbio: 9222.63 7766.05 cat 0.203076
-1, 2, 3, 4, 5, 6, 7, 8 done (3.6 s) 
-Inverting Hessian (49 variables): 20%, 40%, 60%, 80%, 100% done (0.003 s) 
-Starting standard error calculations...  done (0.05 s) 
+1, 2, 3, 4, 5, 6, 7, 8 done (3.7 s) 
+Inverting Hessian (49 variables): 20%, 40%, 60%, 80%, 100% done (0.002 s) 
+Starting standard error calculations...  done (0.051 s) 
 Iterations: 577
 Writing wtatage.ss_new
 Finished posteriors
@@ -627,4 +627,4 @@ Begin writing *.ss_new output files ... Finished writing *.ss_new output files
 !!  Run has completed  !! 
 !!  See warning.sso for 7 warnings  and 2 notes 
 
-Finished running model 'ss3' after 8.4 s.
+Finished running model 'ss3' after 8.8 s.
