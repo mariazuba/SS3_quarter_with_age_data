@@ -230,7 +230,7 @@ The fishery selectivity was set as a logistic function fixed over time. <!-- se 
 
 #### Data weighting
 
-Coeficient of variation (CV): A standar error of 0.05 was assumed for all years of catches and 0.3 for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of 0.3 is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
+Coeficient of variation (CV): A standar error of 0.05 was assumed for all quarters of catches and 0.3 for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of 0.3 is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates.
 
 Sample size (nm): The age composition were adjusted assumming a multinomial error structure with variance described by the sample size, set at 100 for both the commercial fleet and acoustic survey. The Francis method TA1.8 [@Francis2011] was selected for age data weighting in catches and surveys data. 
 
@@ -238,7 +238,6 @@ Sample size (nm): The age composition were adjusted assumming a multinomial erro
 #### Initial population
 
 It is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1989 and the equilibrium population age structure was assumed to be in an exploited state with an initial catch of 0 tonnes <!-- corresponding to the average catches first 5 years of data (1989-93.)  -->
-
 
 Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter is shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_ane27.9a_assessment)-->. The R packages r4ss version `r packageVersion("r4ss")`  [@Taylor2021] and ss3diags version `r packageVersion("ss3diags")` [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in `r R.version.string`.
 
@@ -252,7 +251,6 @@ Table `r run_bookmark("tb_dat_stru", tabruns)`: ane.27.9a stock. Input data type
 ```{r}
 include_graphics(file.path(path_mod,"tb_dat_stru.png"))
 ```
-
 
 
 \newpage
@@ -330,6 +328,7 @@ Figure `r run_bookmark("fig_age_fit_agg", figruns)`: ane.27.9a stock. Model fit 
 \newpage
 
 Although the aggregated fits show an overall adequate result, some years exhibit variability in the age composition of the commercial fleet (SEINE) catches, leading to reduced precision in the fits for the fourth quarter, particularly in 1991, 1996, and 2012 (Figure `r run_reference("fig_age_fit_Seine")`). This pattern is also evident in the annual data fits for the PELAGO survey, especially in the later years of the series (2020-2023), where there is a tendency to overestimate age 1 and underestimate age 2 (Figure `r run_reference("fig_age_fit_Pelago")`). In the ECOCADIZ survey, there are difficulties in estimating ages 0 and 1, with a tendency to underestimate age 0 and overestimate age 1 from 2016 to 2023 (Figure `r run_reference("fig_age_fit_Ecocadiz")`). In ECOCADIZ-RECLUTAS, a generally good fit is observed without a clear pattern of overestimation or underestimation (Figure `r run_reference("fig_age_fit_EcocadizRecl")`). These patterns are also reflected in the bubble plots of the residuals corresponding to the fit of these data (Figure `r run_reference("fig_comp_agefit_multi-fleet_comparison")`).
+
 
 ```{r}
 include_graphics(file.path(path_mod,"fig_age_fit_Seine.png"))

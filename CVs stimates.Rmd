@@ -1,0 +1,76 @@
+---
+output:
+  word_document:
+    fig_caption: yes
+    reference_docx: "boot/data/sec_04_template.docx"
+    toc: true
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+library(png)
+library(grid)
+library(gridExtra)
+```
+
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE}
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='!hbt',fig.align = 'center' )
+
+# To print the inline numbers using normal notation and not scientific notation.
+options(scipen=999)
+
+```
+
+
+```{r caption_settings}
+tabruns.start <- list(
+   # run_word_field("STYLEREF 2 \\s"),
+   # ftext("."),
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+tabruns <- list(
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+figruns.start <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+figruns <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+```
+
+```{r officer_landscape}
+op_section <- prop_section(type = "continuous")
+close_section <- prop_section(
+    page_size = page_size(orient = "landscape"), 
+    type = "continuous")
+
+```
+
+# Estimation of Abundance Index Variance Using LOESS Regression
+
+María José Zúñiga, Margarita Rincón and  Fernando Ramos
+
+
+The population dynamics of the anchovy in the Gulf of Cádiz are estimated using the Stock Synthesis (SS3) model [@Methot2013], integrating available data. The model's fit to the observed data is evaluated through a negative log-likelihood function, which maximizes the goodness of fit by assuming a lognormal error distribution for each data component and assigning a specific variance (CV) to each observation. In the initial reference model (S1), a fixed variance of 0.3 (CV=30%) is assumed for the abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECOCADIZ-RECLUTAS*, based on arbitrary assignment. To assess an alternative scenario, the variance is estimated using a simple smoothing method, following the procedure recommended by @Francis2011. In this case, the variance of the survey data is estimated using LOESS regression. Biomass values are log-transformed, and a LOESS fit is applied with a span of 0.6 for PELAGO, ECOCADIZ, and ECOCADIZ-RECLUTAS, and 0.72 for BOCADEVA, due to data gaps in certain years and the short length of the time series. Residuals and the coefficient of variation (CV) are then calculated, with the CV defined as the ratio of the standard deviation of the residuals to the mean of the predicted values. The results indicate that PELAGO has a CV of 46.1%, ECOCADIZ 29%, BOCADEVA 41.9%, and ECOCADIZ-RECLUTAS the lowest, with 25%. The LOESS curves reveal temporal trends, with more pronounced fluctuations in surveys with higher CVs, indicating greater variability in those data.
+
+```{r}
+include_graphics(file.path("report/run/comparison","/fig_CVs_Loess.png"))
+```
+Figure `r run_bookmark("fig_CVs_Loess", figruns.start)`: ane.27.9a stock. Estimation of Abundance Index Variance Using LOESS Regression.
+
+# Reference

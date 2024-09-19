@@ -75,7 +75,27 @@ Before the assessment base several model configurations were explored to establi
 
 # Initial scenario (S1)
 
+## Coeficient variation
 
+- usar CVs de BOCADEVA
+- cambios de escenarios usando CV estimados externamente con loess
+- Estimate extra standard error for an index to be added to the input standard deviation of the survey variability
+
+
+## Stock-recruitment relationship
+
+
+## Selectivity
+
+
+## Catchability
+
+
+
+
+
+
+## Initial population and fishing conditions
 
 
 
@@ -116,6 +136,11 @@ ft
 
 ```
 
+
+
+
+
+
 ```{r}
 load(paste0("report/run/comparison","/report.RData"))
 # Filtrar los escenarios S22 a S27
@@ -132,3 +157,7 @@ ft1
 
 
 ```
+
+
+
+
