@@ -28,18 +28,19 @@ library(r4ss)
 getwd()
 
 # directory with input files
-run_esc<-"boot/data/run/" 
-list.files(run_esc, full.names = TRUE)
-esc<-readLines(paste0(run_esc,"Esc.txt")) 
-data_esc<-paste0("data/run/",esc)
+boot_esc<-"boot/data/run/" 
+list.files(boot_esc, full.names = TRUE)
+esc <-readLines(paste0(boot_esc,"Esc.txt")) 
+data_esc<-"data/run/"
 
 # create data folder using the function mkdir in icesTAF
 mkdir(data_esc)
-#dir.create(data_esc)
 
-run.dir  <- paste0(run_esc,esc)
-dat <- r4ss::SS_readdat(file = paste0(run.dir,"/data.SS"),verbose = TRUE)
-wtatage <-r4ss::SS_readwtatage(file = paste0(run.dir,"/wtatage.ss"),verbose = TRUE)
+
+dat <- r4ss::SS_read(dir = paste0("model/run/",esc))
+
+#dat <- r4ss::SS_readdat(file = paste0(run.dir,"/data.SS"),verbose = TRUE)
+#wtatage <-r4ss::SS_readwtatage(file = paste0(run.dir,"/wtatage.ss"),verbose = TRUE)
 #ctl <-r4ss::SS_readctl(file = paste0(run.dir,"/control.SS"),datlist =paste0(run.dir,"/data.SS"),verbose = FALSE)
 #----------------------------------------------------------
 
@@ -52,52 +53,52 @@ natmort <- data.frame(rbind(M)) #ctl$natM
 names(natmort)<-age
 
 # catch in tonnes
-catch <- subset(dat$catch, year>=(dat$styr), c('year','seas','catch'))
+catch <- subset(dat$dat$catch, year>=(dat$dat$styr), c('year','seas','catch'))
 # total biomass in the acoustic survey Pelago
-btotal_idx_pelago <- subset(dat$CPUE,index==2,c("year",'seas',"obs"))
+btotal_idx_pelago <- subset(dat$dat$CPUE,index==2,c("year",'month',"obs"))
 # total biomass in the acoustic survey Ecocadiz
-btotal_idx_ecocadiz <- subset(dat$CPUE,index==3,c("year",'seas',"obs"))
+btotal_idx_ecocadiz <- subset(dat$dat$CPUE,index==3,c("year",'month',"obs"))
 # total biomass in the DEPM survey Bocadeva
-btotal_idx_bocadeva <- subset(dat$CPUE,index==4,c("year",'seas',"obs"))
+btotal_idx_bocadeva <- subset(dat$dat$CPUE,index==4,c("year",'month',"obs"))
 # total biomass in the acoustic survey EcocadizReclutas
-btotal_idx_ecocadizRec <- subset(dat$CPUE,index==5,c("year",'seas',"obs"))
+btotal_idx_ecocadizRec <- subset(dat$dat$CPUE,index==5,c("year",'month',"obs"))
 
 
 # historical numbers at age in the catch table
-catage    <- subset(dat$agecomp,FltSvy==1 & Yr>=(dat$styr) & Yr<(dat$endyr),c("Yr","Seas","a0","a1","a2","a3"))
+catage    <- subset(dat$dat$agecomp,fleet==1 & year>=(dat$dat$styr) & year<(dat$dat$endyr),c("year","month","a0","a1","a2","a3"))
 # numbers at age in the acoustic survey Pelago
-natage_idx_pelago <- subset(dat$agecomp,FltSvy==2 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
+natage_idx_pelago <- subset(dat$dat$agecomp,fleet==2 & year%in% dat$dat$styr:dat$dat$endyr,c("year","month","a0","a1","a2","a3"))
 # numbers at age in the acoustic survey Ecocadiz
-natage_idx_ecocadiz <- subset(dat$agecomp,FltSvy==3 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
+natage_idx_ecocadiz <- subset(dat$dat$agecomp,fleet==3 & year%in% dat$dat$styr:dat$dat$endyr,c("year","month","a0","a1","a2","a3"))
 # numbers at age in the acoustic survey EcocadizReclutas
-natage_idx_ecocadizRec <- subset(dat$agecomp,FltSvy==5 & Yr%in% dat$styr:dat$endyr,c("Yr","Seas","a0","a1","a2","a3"))
+natage_idx_ecocadizRec <- subset(dat$dat$agecomp,fleet==5 & year%in% dat$dat$styr:dat$dat$endyr,c("year","month","a0","a1","a2","a3"))
 
 
 # weight at age in the catch
-waca <- subset(wtatage, Fleet=="1" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+waca <- subset(dat$wtatage, fleet=="1" & year %in% dat$dat$styr:dat$dat$endyr,c("year","seas","0","1","2","3"))
 # weight at age in the stock  mid season
-west <- subset(wtatage, Fleet=="-1" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+west <- subset(dat$wtatage, fleet=="-1" & year %in% dat$dat$styr:dat$dat$endyr,c("year","seas","0","1","2","3"))
 
 # fecundity
-fecundity <- subset(wtatage, Fleet=="-2" & Yr %in% dat$styr:dat$endyr,c("Yr","Seas","0","1","2","3"))
+fecundity <- subset(dat$wtatage, fleet=="-2" & year %in% dat$dat$styr:dat$dat$endyr,c("year","seas","0","1","2","3"))
 
 # maturity
 maturity <- fecundity/west
 maturity$'0'[maturity$'0'=="NaN"]<-0
 
 # Write TAF tables in data folder -----------------------------------------
-
+dir.create(paste0("data/run/",esc))
 write.taf(list(natmort=natmort, 
                catage = catage, catch = catch, 
                btotal_idx_pelago = btotal_idx_pelago, natage_idx_pelago=natage_idx_pelago,
                btotal_idx_ecocadiz = btotal_idx_ecocadiz,natage_idx_ecocadiz=natage_idx_ecocadiz,
                btotal_idx_bocadeva = btotal_idx_bocadeva, 
                btotal_idx_ecocadizRec = btotal_idx_ecocadizRec,natage_idx_ecocadizRec=natage_idx_ecocadizRec,
-               waca = waca, west = west, fecundity = fecundity, maturity = maturity),dir=data_esc)
+               waca = waca, west = west, fecundity = fecundity, maturity = maturity),dir=paste0("data/run/",esc))
 
 
 # Save data in RData file  -----------------------------------------
-save.image(paste0(data_esc,"/inputData.RData"))
+save.image(paste0(paste0("data/run/",esc),"/inputData.RData"))
 
 # Script info -------------------------------------------------------------
 
