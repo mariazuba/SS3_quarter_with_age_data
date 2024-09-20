@@ -4111,12 +4111,11 @@ Finished recruitdev obj_fun 0 0 0.72
  OK with obj_func 4160.91
 Wrote first version of output files (before hessian, benchmark, and forecast)
 Start benchmark and forecast, if requested
-Calculated Fspr 3.54378 0.6
-Calculated Btgt: 4.41762 0.55
-Calculated Fmsy 13.2515 8135.81
+Calculated Fspr 3.54314 0.6
+Calculated Btgt: 4.41672 0.55
+Calculated Fmsy 13.2488 8136.11
 Finished benchmark, forecast, and sdreporting
-Iterations: 573
- finished COVAR.SSO
+Iterations: 481
 Writing wtatage.ss_new
 Finished StdDev quantities
 Finished posteriors

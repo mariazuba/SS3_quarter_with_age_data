@@ -3,7 +3,7 @@ output:
   word_document:
     fig_caption: yes
     reference_docx: "boot/data/sec_04_template.docx"
-    toc: true
+    toc: false
 bibliography: "boot/data/report_biblio.bib"
 csl: "boot/data/ices-journal-of-marine-science.csl"
 ---
@@ -13,6 +13,8 @@ csl: "boot/data/ices-journal-of-marine-science.csl"
 library(knitr)
 library(icesAdvice)
 library(flextable)
+library(tibble)
+library(tidyr)
 library(FLCore)
 library(officedown)
 library(officer)
@@ -20,6 +22,10 @@ library(TAF)
 library(png)
 library(grid)
 library(gridExtra)
+library(r4ss)
+library(tidyverse)
+library(lubridate)
+library(ss3diags)
 ```
 
 
@@ -61,16 +67,248 @@ close_section <- prop_section(
 
 ```
 
-# Estimation of Abundance Index Variance Using LOESS Regression
-
-María José Zúñiga, Margarita Rincón and  Fernando Ramos
+# Analysis and model progress
 
 
-The population dynamics of the anchovy in the Gulf of Cádiz are estimated using the Stock Synthesis (SS3) model [@Methot2013], integrating available data. The model's fit to the observed data is evaluated through a negative log-likelihood function, which maximizes the goodness of fit by assuming a lognormal error distribution for each data component and assigning a specific variance (CV) to each observation. In the initial reference model (S1), a fixed variance of 0.3 (CV=30%) is assumed for the abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECOCADIZ-RECLUTAS*, based on arbitrary assignment. To assess an alternative scenario, the variance is estimated using a simple smoothing method, following the procedure recommended by @Francis2011. In this case, the variance of the survey data is estimated using LOESS regression. Biomass values are log-transformed, and a LOESS fit is applied with a span of 0.6 for PELAGO, ECOCADIZ, and ECOCADIZ-RECLUTAS, and 0.72 for BOCADEVA, due to data gaps in certain years and the short length of the time series. Residuals and the coefficient of variation (CV) are then calculated, with the CV defined as the ratio of the standard deviation of the residuals to the mean of the predicted values. The results indicate that PELAGO has a CV of 46.1%, ECOCADIZ 29%, BOCADEVA 41.9%, and ECOCADIZ-RECLUTAS the lowest, with 25%. The LOESS curves reveal temporal trends, with more pronounced fluctuations in surveys with higher CVs, indicating greater variability in those data.
+
+## Standar error (CV) abundance indices
+
+```{r }
+# LOESS analysis
+invisible(capture.output(source("CVs.R", echo = FALSE)))
+dir.create("report/run/comparison/Cvs")
+```
+
+The population dynamics of anchovy in the Gulf of Cádiz are estimated using the Stock Synthesis (SS3) model [@Methot2013], which integrates available data. The model's fit to the observed data is evaluated through a negative log-likelihood function that maximizes the goodness of fit by assuming a lognormal error distribution for each data component and assigning a specific variance (CV) to each observation. In the initial reference model (S1), an arbitrary fixed variance of 0.3 (CV = 30%) is assumed for the abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECOCADIZ-RECLUTAS* due to the lack of variance estimates for the acoustic surveys. Although biomass and variance estimates are available for the *BOCADEVA* survey (Table `r run_reference("ft")`), the same CV is assumed for consistency with the other surveys in the initial model.
+
+Table `r run_bookmark("ft", tabruns.start)`:  ane.27.9a stock. Spawning biomass and CV for *BOCADEVA* survey. 
+
+```{r}
+path_mod<-"report/run/comparison/Cvs"
+ssb <-dat$CPUE$obs[dat$CPUE$index == 4]
+cv  <-c(NA,0.32,0.40,0.30,0.61,0.43,0.62)
+boca<-data.frame(ssb,cv)
+
+# Create the table with flextable
+ft <- flextable(boca)
+ft <- set_header_labels(ft,ssb="SSB (ton)")
+ft <- add_header_row(ft,values = c("BOCADEVA\nsurvey"),colwidths = c( 2))
+ft <- align(ft,part = "header", align = "center") 
+ft <- fontsize(ft, size = 8, part = "body")
+ft <- theme_box(ft)
+ft <- autofit(ft)
+invisible(save_as_image(ft, path = paste0(path_mod,"/tb_CV_var_Bocadeva.png")))
+
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_CV_var_Bocadeva.png"))
+```
+
+
+To assess an alternative scenario, the variance is estimated using a simple smoothing method, following the procedure recommended by @Francis2011. In this case, the variance of the survey data is estimated using LOESS regression. Biomass values are log-transformed, and a LOESS fit is applied with varying span values: 0.3 for *PELAGO*, as this series is longer than the others; 0.6 for *ECOCADIZ* and *ECOCADIZ-RECLUTAS*; and 0.72 for *BOCADEVA*, due to data gaps in certain years and the shorter length of its time series. Residuals and the coefficient of variation (CV) are then calculated, with the CV defined as the ratio of the standard deviation of the residuals to the mean of the predicted values. The results indicate that *PELAGO* has a CV of `r round(cv_por_index$CV[cv_por_index$index == 2],0) `%, *ECOCADIZ* `r round(cv_por_index$CV[cv_por_index$index == 3],0) `%, *BOCADEVA* `r round(cv_por_index$CV[cv_por_index$index == 4],0) `%, and *ECOCADIZ-RECLUTAS* the lowest, with `r round(cv_por_index$CV[cv_por_index$index == 5],0) `%. The LOESS curves reveal temporal trends, with more pronounced fluctuations in surveys with higher CVs, indicating greater variability in those data  (Figure `r run_reference("fig_CVs_Loess")`).
+
 
 ```{r}
 include_graphics(file.path("report/run/comparison","/fig_CVs_Loess.png"))
 ```
 Figure `r run_bookmark("fig_CVs_Loess", figruns.start)`: ane.27.9a stock. Estimation of Abundance Index Variance Using LOESS Regression.
+
+## Sensibility scenarios about standard error
+
+The Table `r run_reference("ft0")` summarizes the different sensitivity scenarios related to the standard error (CV) of abundance indices from surveys, highlighting the modifications or additions applied to the baseline scenario S1, where a fixed CV of 0.3 was assumed for all surveys.
+
+Diagnostic results across scenarios were evaluated using key metrics such as model convergence, total likelihood, survey-specific likelihood (Survey_like), age composition likelihood, and the root mean square error (RMSE) of the indices and age data (Table `r run_reference("ft1")`). These metrics provide a clear assessment of the model's performance under different assumptions of error variability. Scenario S30, in particular, demonstrated a better fit to the survey data, reflected in a lower RMSE and improved survey likelihood, suggesting that the external estimation of CV using LOESS captures the variability in the survey data more accurately.
+
+The parameters estimated for each scenario, presented in Table (Table `r run_reference("ft2")`), show minor variations between scenarios. Figure `r run_reference("compare13_indices_flt5")` compares observed versus expected values for the abundance indices across the seven scenarios, while Figure `r run_reference("compare10_recruits_uncertainty")` presents the time series estimates for recruitment, spawning biomass, and fishing mortality. No significant differences in results were observed across the evaluated scenarios, indicating a general consistency in the model’s trends.
+
+\newpage
+
+Table `r run_bookmark("ft0", tabruns)`:  ane.27.9a stock. Sensitivity scenarios.
+
+```{r}
+path_mod<-"report/run/comparison/Cvs"
+# Create a dataframe with the scenarios
+scenarios <- data.frame(
+  Scenario = c("S1","S10","S29","S30","S31","S32","S33","S34"),
+  Description =  c(
+    "S1 CV= 0.3 all surveys",
+    "S1 + Q_SDextra: Estimate extra standard error for an index, added to the input standard deviation of the survey variability",
+    "S1 + Estimated CV for Bocadeva (Table 1)",
+    "S1 + Externally estimated CV with loess (Figure 1)",
+    "S30 + S10",
+    "S30 + S10 except Q_SDextra BOCADEVA",
+    "S30 + S10 except Q_SDextra BOCADEVA and ECOCADIZ",
+    "S30 + S10 except Q_SDextra BOCADEVA, ECOCADIZ, and PELAGO"
+  )
+)
+
+ft0 <- flextable(scenarios)
+ft0 <- colformat_double(ft0, digits=1, na_str = "")
+ft0 <- colformat_num(ft0,big.mark = "", na_str = "")
+ft0 <- align(ft0,part = "header", align = "center") 
+ft0 <- fontsize(ft0, size = 8, part = "body")
+ft0 <- autofit(ft0)
+
+invisible(save_as_image(ft0, path = paste0(path_mod, "/tb_scenarios_CVs.png")))
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_scenarios_CVs.png"))
+```
+
+
+```{r eval=FALSE}
+ESCs<-c("S1","S10","S29","S30","S31","S32","S33","S34")
+
+boot<-"boot/initial/data/run/" 
+esc<-ESCs[7]
+write(esc, file = paste0(boot,"Esc.txt"))
+sourceTAF("bootstrap")
+sourceTAF("data")
+sourceTAF("model_01_run")
+sourceTAF("output_01_run")
+sourceTAF("report_01_run")
+
+```
+
+```{r}
+
+esc<-c("S1","S10","S29","S30","S31","S32","S33","S34")
+replist<-list()
+diag<-list()
+params_est<-list()
+for(i in 1:length(esc)){
+Esc<-esc[i]
+load(paste0("output/run/",Esc,"/output.RData"))
+replist[[Esc]]<-output
+
+
+diag[[Esc]]<-data.frame(ESC=Esc,
+                        convergency=output$maximum_gradient_component,
+                        Total_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
+                        Survey_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Survey"],
+                        Age_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Age_comp"],
+                        RMSE_index=jaba_cpue$RMSE.perc[jaba_cpue$indices == "Combined"],
+                        RMSE_age=jaba_age$RMSE.perc[jaba_age$indices == "Combined"])
+
+#include_graphics(file.path("report/run/S30","tb_params_est.png"))
+params <- output$estimated_non_dev_parameters %>%
+           rownames_to_column(var = "Parameter")
+
+params_est[[Esc]] <- params %>% 
+              select(c(Parameter,Value))
+}
+
+diagsSS<-plyr::ldply(diag,data.frame)
+diagsSS<-diagsSS %>% select(-ESC)
+parmSS<-plyr::ldply(params_est,data.frame)
+
+df_diagsSS <-   pivot_longer(diagsSS, 
+                             cols = c(convergency, Total_like, Survey_like, Age_like, RMSE_index, RMSE_age),
+                             names_to = "Metric", 
+                             values_to = "Value")
+
+df1_diagsSS <- pivot_wider(df_diagsSS, names_from = .id, values_from = Value)
+
+df_parmSS <- pivot_wider(parmSS, names_from = .id, values_from = Value)
+
+```
+
+
+
+Table `r run_bookmark("ft1", tabruns)`:  ane.27.9a stock. Diagnostics by scenario.
+
+```{r}
+
+ft1 <- flextable(cbind(df1_diagsSS["Metric"], round(df1_diagsSS[,-which(names(df1_diagsSS) == "Metric")], 4)))
+ft1 <- colformat_double(ft1, digits=1, na_str = "")
+ft1 <- colformat_num(ft1,big.mark = "", na_str = "")
+ft1 <- align(ft1,part = "header", align = "center") 
+ft1 <- fontsize(ft1, size = 8, part = "body")
+ft1 <- autofit(ft1)
+invisible(save_as_image(ft1, path = paste0(path_mod,"/tb_Diagstics.png")))
+
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_Diagstics.png"))
+```
+
+
+Table `r run_bookmark("ft2", tabruns)`:  ane.27.9a stock. Parameters estimated by scenario.
+```{r}
+
+ft2 <- flextable(cbind(df_parmSS["Parameter"], round(df_parmSS[,-which(names(df_parmSS) == "Parameter")], 3)))
+ft2 <- colformat_double(ft2, digits=1, na_str = "")
+ft2 <- colformat_num(ft2,big.mark = "", na_str = "")
+ft2 <- align(ft2,part = "header", align = "center") 
+ft2 <- fontsize(ft2, size = 8, part = "body")
+ft2 <- autofit(ft2)
+invisible(save_as_image(ft2, path = paste0(path_mod,"/tb_Parameters.png")))
+
+
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_Parameters.png"))
+```
+
+
+```{r}
+
+mod.sum <- SSsummarize(replist)
+
+SSplotComparisons(mod.sum, subplots=c(13,2,8,10),indexPlotEach = F,
+                  legendlabels = esc,pwidth = 5,
+  pheight = 3,png=TRUE,plotdir="report/run/comparison/Cvs",legendloc='topleft')
+
+  #list.files("report/run/comparison/Cvs")
+```
+
+
+```{r fig.width=5, fig.height=6, dpi=300}
+
+path_mod<-"report/run/comparison/Cvs"
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"compare13_indices_flt2.png"))
+img2 <- png::readPNG(file.path(path_mod,"compare13_indices_flt3.png"))
+img3 <- png::readPNG(file.path(path_mod,"compare13_indices_flt4.png"))
+img4 <- png::readPNG(file.path(path_mod,"compare13_indices_flt5.png"))
+
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+g3 <- rasterGrob(img3, interpolate=TRUE)
+g4 <- rasterGrob(img4, interpolate=TRUE)
+
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g1, g2, g3, g4, ncol=1)
+```
+
+Figure `r run_bookmark("compare13_indices_flt5", figruns.start)`: ane.27.9a stock. Comparison of the model fit to the data observed versus expected values  of the indices from the  surveys of the 7 scenarios evaluated. The vertical  lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. 
+
+
+```{r fig.width=5, fig.height=7, dpi=300}
+#list.files("report/run/comparison/Cvs")
+path_mod<-"report/run/comparison/Cvs"
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"compare2_spawnbio_uncertainty.png"))
+img2 <- png::readPNG(file.path(path_mod,"compare8_Fvalue_uncertainty.png"))
+img3 <- png::readPNG(file.path(path_mod,"compare10_recruits_uncertainty.png"))
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+g3 <- rasterGrob(img3, interpolate=TRUE)
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g3, g1,g2, ncol=1)
+```
+
+Figure `r run_bookmark("compare10_recruits_uncertainty", figruns)`: ane.27.9a stock. Comparison of the time series estimated by the model for  recruitment (millions of fish), spawning biomass (in tons), and fishing mortality (year-1), of the 7 scenarios evaluated.
+
 
 # Reference

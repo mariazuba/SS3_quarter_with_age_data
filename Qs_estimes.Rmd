@@ -1,0 +1,325 @@
+---
+output:
+  word_document:
+    fig_caption: yes
+    reference_docx: "boot/data/sec_04_template.docx"
+    toc: false
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(tibble)
+library(tidyr)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+library(png)
+library(grid)
+library(gridExtra)
+library(r4ss)
+library(tidyverse)
+library(lubridate)
+library(ss3diags)
+```
+
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE}
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='!hbt',fig.align = 'center' )
+
+# To print the inline numbers using normal notation and not scientific notation.
+options(scipen=999)
+
+```
+
+
+```{r caption_settings}
+tabruns.start <- list(
+   # run_word_field("STYLEREF 2 \\s"),
+   # ftext("."),
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+tabruns <- list(
+  run_autonum(seq_id = "Table", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+figruns.start <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".", start=1)
+)
+
+figruns <- list(
+  run_autonum(seq_id = "Figure", pre_label = "", post_label = "", tnd=3, tns=".")
+)
+
+```
+
+```{r officer_landscape}
+op_section <- prop_section(type = "continuous")
+close_section <- prop_section(
+    page_size = page_size(orient = "landscape"), 
+    type = "continuous")
+
+```
+
+# Analysis and model progress
+
+## Catchability
+
+In this analysis, the sensitivity of the catchability coefficient ("Q") in the abundance indices from surveys was evaluated. The baseline scenario (S1) assumes a simple linear model for catchability across all surveys, where "Q" is adjusted to maintain a consistent relationship between observed biomass and vulnerable biomass in acoustic surveys. The results of this scenario show that as vulnerable biomass decreases throughout the year, catchability increases, indicating greater survey effort when vulnerable biomass is lower (Figure `r run_reference("fig_catchability")`).
+
+
+```{r}
+include_graphics(file.path("report/run/S1","fig_catchability.png"))
+```
+
+Figure `r run_bookmark("fig_catchability", figruns)`: ane.27.9a stock. Estimated catchability parameters for the different surveys indices.
+
+
+## Sensibility scenarios about catchability
+
+The Table `r run_reference("ft0")` summarizes the different sensitivity scenarios related to the catchability (CV) of abundance indices from surveys, highlighting the modifications or additions applied to the baseline scenario S1,  The catchability are modelled with a simple $q$ linear model was assumed for all surveys.
+
+Diagnostic results across scenarios were evaluated using key metrics such as model convergence, total likelihood, survey-specific likelihood (Survey_like), age composition likelihood, and the root mean square error (RMSE) of the indices and age data (Table `r run_reference("ft1")`). These metrics provide a clear assessment of the model's performance under different assumptions of catchability. 
+
+<!-- Scenario S30, in particular, demonstrated a better fit to the survey data, reflected in a lower RMSE and improved survey likelihood, suggesting that the external estimation of CV using LOESS captures the variability in the survey data more accurately. -->
+
+The parameters estimated for each scenario, presented in Table (Table `r run_reference("ft2")`), show minor variations between scenarios. Figure `r run_reference("compare13_indices_flt5")` compares observed versus expected values for the abundance indices across the seven scenarios, while Figure `r run_reference("compare10_recruits_uncertainty")` presents the time series estimates for recruitment, spawning biomass, and fishing mortality. 
+
+<!-- No significant differences in results were observed across the evaluated scenarios, indicating a general consistency in the model’s trends. -->
+
+\newpage
+
+Table `r run_bookmark("ft0", tabruns)`:  ane.27.9a stock. Sensitivity scenarios.
+
+```{r}
+dir.create("report/run/comparison/Qs")
+path_mod<-"report/run/comparison/Qs"
+
+# Create a dataframe with the scenarios
+scenarios <- data.frame(
+  Scenario = c("S1","S6","S7","S8","S9","S11","S12","S13","S14","S15","S16"),
+  Description =  c(
+    "S1  simple $q$ linear model for all surveys",
+    "S1 + q=1 PELAGO",
+    "S1 + q=1 ECOCADIZ",
+    "S1 + q=1 BOCADEVA",
+    "S1 + q=1 ECOCADIZ-RECLUTAS",
+    "s1 + Q_power_PELAGO",
+    "s1 + Q_power_ECOCADIZ",
+    "s1 + Q_power_BOCADEVA",
+    "s1 + Q_power_ECOCADIZ-RECLUTAS",
+    "s1 + Q_power_PELAGO_ECOCADIZ_BOCADEVA_ECOCADIZ-RECLUTAS",
+    "s16: s15 + S10 Q_power and SDextra PELAGO_ECOCADIZ_BOCADEVA_ECOCADIZ-RECLUTAS"
+  )
+)
+
+ft0 <- flextable(scenarios)
+ft0 <- colformat_double(ft0, digits=1, na_str = "")
+ft0 <- colformat_num(ft0,big.mark = "", na_str = "")
+ft0 <- align(ft0,part = "header", align = "center") 
+ft0 <- fontsize(ft0, size = 8, part = "body")
+ft0 <- autofit(ft0)
+
+invisible(save_as_image(ft0, path = paste0(path_mod, "/tb_scenarios_Qs.png")))
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_scenarios_Qs.png"))
+```
+
+
+```{r eval=FALSE}
+ESCs<-c("S1","S6","S7","S8","S9","S11","S12","S13","S14","S15","S16")
+
+boot<-"boot/initial/data/run/" 
+esc<-ESCs[11]
+write(esc, file = paste0(boot,"Esc.txt"))
+sourceTAF("bootstrap")
+sourceTAF("data")
+sourceTAF("model_01_run")
+sourceTAF("output_01_run")
+sourceTAF("report_01_run")
+
+```
+
+```{r}
+
+esc<-c("S1","S6","S7","S8","S9","S11","S12","S13","S14","S15","S16")
+replist<-list()
+diag<-list()
+params_est<-list()
+Calc_Q<-list()
+for(i in 1:length(esc)){
+Esc<-esc[i]
+load(paste0("output/run/",Esc,"/output.RData"))
+replist[[Esc]]<-output
+
+
+diag[[Esc]]<-data.frame(ESC=Esc,
+                        convergency=output$maximum_gradient_component,
+                        Total_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
+                        Survey_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Survey"],
+                        Age_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Age_comp"],
+                        RMSE_index=jaba_cpue$RMSE.perc[jaba_cpue$indices == "Combined"],
+                        RMSE_age=jaba_age$RMSE.perc[jaba_age$indices == "Combined"])
+
+#include_graphics(file.path("report/run/S30","tb_params_est.png"))
+params <- output$estimated_non_dev_parameters %>%
+           rownames_to_column(var = "Parameter")
+
+params_est[[Esc]] <- params %>% 
+              select(c(Parameter,Value))
+
+Calc_Q[[Esc]] <-output$cpue 
+}
+
+diagsSS<-plyr::ldply(diag,data.frame)
+diagsSS<-diagsSS %>% select(-ESC)
+parmSS<-plyr::ldply(params_est,data.frame)
+Q_SS<-plyr::ldply(Calc_Q,data.frame)
+
+
+df_diagsSS <-   pivot_longer(diagsSS, 
+                             cols = c(convergency, Total_like, Survey_like, Age_like, RMSE_index, RMSE_age),
+                             names_to = "Metric", 
+                             values_to = "Value")
+
+df1_diagsSS <- pivot_wider(df_diagsSS, names_from = .id, values_from = Value)
+
+df_parmSS <- pivot_wider(parmSS, names_from = .id, values_from = Value)
+
+Qdata<-Q_SS %>% select(c(".id","Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
+
+
+
+```
+
+
+
+Table `r run_bookmark("ft1", tabruns)`:  ane.27.9a stock. Diagnostics by scenario.
+
+```{r}
+path_mod<-"report/run/comparison/Qs"
+ft1 <- flextable(cbind(df1_diagsSS["Metric"], round(df1_diagsSS[,-which(names(df1_diagsSS) == "Metric")], 4)))
+ft1 <- colformat_double(ft1, digits=1, na_str = "")
+ft1 <- colformat_num(ft1,big.mark = "", na_str = "")
+ft1 <- align(ft1,part = "header", align = "center") 
+ft1 <- fontsize(ft1, size = 8, part = "body")
+ft1 <- autofit(ft1)
+invisible(save_as_image(ft1, path = paste0(path_mod,"/tb_Diagstics.png")))
+
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_Diagstics.png"))
+```
+
+
+Table `r run_bookmark("ft2", tabruns)`:  ane.27.9a stock. Parameters estimated by scenario.
+```{r}
+
+ft2 <- flextable(cbind(df_parmSS["Parameter"], round(df_parmSS[,-which(names(df_parmSS) == "Parameter")], 3)))
+ft2 <- colformat_double(ft2, digits=1, na_str = "")
+ft2 <- colformat_num(ft2,big.mark = "", na_str = "")
+ft2 <- align(ft2,part = "header", align = "center") 
+ft2 <- fontsize(ft2, size = 8, part = "body")
+ft2 <- autofit(ft2)
+invisible(save_as_image(ft2, path = paste0(path_mod,"/tb_Parameters.png")))
+
+
+```
+
+
+```{r}
+include_graphics(file.path(path_mod,"tb_Parameters.png"))
+```
+
+```{r}
+Qdata$Fleet_name <- factor(Qdata$Fleet_name, 
+                           levels = c("PELAGO", "ECOCADIZ", "BOCADEVA", "ECORECLUTAS"))
+
+# Reordenar la columna .id en orden descendente
+Qdata$.id <- Qdata$.id <- factor(Qdata$.id, levels = c("S1","S6","S7","S8","S9","S11","S12","S13","S14","S15","S16"))
+
+
+# Crear el gráfico
+fig_q <- Qdata %>%
+  ggplot(aes(x=Fleet_name, y=Calc_Q, colour=.id)) +
+  geom_point(aes(size = ifelse(.id == "S1", 4, 2)), shape = 21, stroke = 1.5,
+             fill = ifelse(Qdata$.id == "S1", "black", NA)) + 
+  # Puntos más grandes para S1 y normales para los demás
+  labs(x="Surveys", y="Catchability", title="") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "right") +
+  guides(size = "none",  # Eliminar la leyenda del tamaño
+         colour = guide_legend(override.aes = list(size = c(4, rep(2, length(levels(Qdata$.id))-1)))))
+
+  ggsave(file.path(paste0("report/run/comparison/Qs","/fig_catchability2.png")), fig_q,  width=4, height=4)
+  
+```
+
+Figure `r run_bookmark("fig_catchability2", figruns)`: ane.27.9a stock. Estimated catchability parameters for the different surveys indices.
+
+
+```{r}
+
+mod.sum <- SSsummarize(replist)
+
+SSplotComparisons(mod.sum, subplots=c(13,2,8,10),indexPlotEach = F,
+                  legendlabels = esc,pwidth = 5,
+  pheight = 3,png=TRUE,plotdir="report/run/comparison/Qs",legendloc='topleft')
+
+  #list.files("report/run/comparison/Cvs")
+```
+
+
+```{r fig.width=5, fig.height=6, dpi=300}
+
+path_mod<-"report/run/comparison/Qs"
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"compare13_indices_flt2.png"))
+img2 <- png::readPNG(file.path(path_mod,"compare13_indices_flt3.png"))
+img3 <- png::readPNG(file.path(path_mod,"compare13_indices_flt4.png"))
+img4 <- png::readPNG(file.path(path_mod,"compare13_indices_flt5.png"))
+
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+g3 <- rasterGrob(img3, interpolate=TRUE)
+g4 <- rasterGrob(img4, interpolate=TRUE)
+
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g1, g2, g3, g4, ncol=1)
+```
+
+Figure `r run_bookmark("compare13_indices_flt5", figruns.start)`: ane.27.9a stock. Comparison of the model fit to the data observed versus expected values  of the indices from the  surveys of the  scenarios evaluated. The vertical  lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. 
+
+
+```{r fig.width=5, fig.height=7, dpi=300}
+#list.files("report/run/comparison/Qs")
+path_mod<-"report/run/comparison/Qs"
+# Cargar las imágenes
+img1 <- png::readPNG(file.path(path_mod,"compare2_spawnbio_uncertainty.png"))
+img2 <- png::readPNG(file.path(path_mod,"compare8_Fvalue_uncertainty.png"))
+img3 <- png::readPNG(file.path(path_mod,"compare10_recruits_uncertainty.png"))
+# Convertir a grobs (graphic objects) para grid.arrange
+g1 <- rasterGrob(img1, interpolate=TRUE)
+g2 <- rasterGrob(img2, interpolate=TRUE)
+g3 <- rasterGrob(img3, interpolate=TRUE)
+# Organizar las imágenes en una cuadrícula
+grid.arrange(g3, g1,g2, ncol=1)
+
+```
+
+Figure `r run_bookmark("compare10_recruits_uncertainty", figruns)`: ane.27.9a stock. Comparison of the time series estimated by the model for  recruitment (millions of fish), spawning biomass (in tons), and fishing mortality (year-1), of the  scenarios evaluated.
+
+
+# Reference

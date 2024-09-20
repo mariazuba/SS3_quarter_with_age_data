@@ -25,6 +25,10 @@ system2("git", args = c("push"))
 #============================================================================
 # data
 #'*Se hace commit y push de los cambios cada vez que se ejecuta el modelo*
+#'# Se hace commit y push de los cambios cada vez que se ejecuta el modelo
+run_esc<-paste0(getwd(),"/model/run/")
+esc<-list.files(run_esc)
+
 for(i in 1:length(esc)){
   run_dat <- paste0("data/run/",esc[i])
   # Agregar todos los archivos en la carpeta específica al área de preparación
@@ -38,7 +42,7 @@ for(i in 1:length(esc)){
   # Ejecutar el comando git commit
   system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
   # (Opcional) Subir los cambios al repositorio remoto
-  system2("git", args = c("push"))
+ # system2("git", args = c("push"))
 }
 
 
@@ -48,8 +52,7 @@ for(i in 1:length(esc)){
 run_esc<-paste0(getwd(),"/model/run/")
 esc<-list.files(run_esc)
 
-#for(i in 1:length(esc)){
-  i=1
+for(i in 1:length(esc)){
   run_mod <- paste0("model/run/",esc[i])
   # Agregar todos los archivos en la carpeta específica al área de preparación
   system2("git", args = c("add",run_mod))
@@ -62,13 +65,13 @@ esc<-list.files(run_esc)
   # Ejecutar el comando git commit
   system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
   # (Opcional) Subir los cambios al repositorio remoto
-  system2("git", args = c("push"))
-#}
+#  system2("git", args = c("push"))
+}
 
 #============================================================================
 # output
 # Se hace commit y push de los cambios 
-#for(i in 1:length(esc)){
+for(i in 1:length(esc)){
   
   run_out <- paste0("output/run/",esc[i])
   # Agregar todos los archivos en la carpeta específica al área de preparación
@@ -82,8 +85,8 @@ esc<-list.files(run_esc)
   # Ejecutar el comando git commit
   system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
   # (Opcional) Subir los cambios al repositorio remoto
-  system2("git", args = c("push"))
-#}
+  #system2("git", args = c("push"))
+}
 
 #============================================================================
 # report
@@ -101,7 +104,7 @@ for(i in 1:length(esc)){
   # Ejecutar el comando git commit
   system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
   # (Opcional) Subir los cambios al repositorio remoto
-  system2("git", args = c("push"))
+  #system2("git", args = c("push"))
 }
 
 #============================================================================

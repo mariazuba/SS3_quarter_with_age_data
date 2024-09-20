@@ -22,7 +22,7 @@ CPUEs$log_obs <- log(CPUEs$obs)
 get_span_by_index <- function(index) {
   # Define different span values for each index
   if (index == 2) {
-    return(0.6)
+    return(0.3)
   } else if (index == 3) {
     return(0.6)
   } else if (index == 4) {
@@ -74,12 +74,9 @@ cv_por_index <- data.frame(
   CV = unlist(cv_results)
 )
 
-# Print the coefficients of variation
-print(cv_por_index)
-
 # Convert the CV to text for each index
 #cv_text <- paste("CV =", round(cv_por_index$CV, 1))
-cv_text <- paste0("CV = ", round(cv_por_index$CV, 1), "%")
+cv_text <- paste0("CV = ", round(cv_por_index$CV, 0), "%")
 
 
 # Create plots with ggplot for each 'index', showing the LOESS fit on real values and including the CV values
