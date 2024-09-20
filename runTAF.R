@@ -26,13 +26,11 @@ library(rmarkdown)
 # sourceTAF("report")
 
 boot<-"boot/initial/data/run/" 
-#esc<-"S1_SS3new" # references scenario
 esc<-"S1"
 write(esc, file = paste0(boot,"Esc.txt"))
 sourceTAF("bootstrap")
 sourceTAF("data")
-sourceTAF("model_02_run")
-#sourceTAF("model_01_run")
+sourceTAF("model_01_run")
 sourceTAF("output_01_run")
 sourceTAF("report_01_run")
 
@@ -45,7 +43,6 @@ sourceTAF("report_01_run")
  render("Report_SS3_quarter_with_age_data.Rmd", 
         output_file = paste0("Report_SS3_quarter_with_age_data_",esc,".docx"))
 
-sourceTAF("script_git")
 
 #sourceAll()
 
