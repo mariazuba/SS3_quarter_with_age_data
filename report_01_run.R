@@ -61,12 +61,12 @@ load(paste0(run_data,"/inputData.RData"))
 
 ## wt at age ----
   west[west==0]<-NA
-  watage_mid<-west  %>% melt(id.vars=c("Yr","Seas"))
+  watage_mid<-west  %>% melt(id.vars=c("year","seas"))
   
-  fig7<-watage_mid %>% ggplot(aes(x=Yr,y=value,colour=variable)) +
+  fig7<-watage_mid %>% ggplot(aes(x=year,y=value,colour=variable)) +
     geom_point() + geom_line()+
-    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top",
-               labeller = labeller(Seas = c("1" = "Q1", 
+    facet_wrap(.~seas,ncol=2,as.table = TRUE, strip.position = "top",
+               labeller = labeller(seas = c("1" = "Q1", 
                                             "2" = "Q2",
                                             "3" = "Q3", 
                                             "4" = "Q4")))+
@@ -103,7 +103,7 @@ ggsave(file.path(paste0(path_rep,"/fig_catches.png")), fig1b,  width=8, height=5
   SSplotIndices(output, subplots = c(2,3),mainTitle = T)
   dev.off()
 
- CPUEs<- dat$CPUE
+ CPUEs<- dat$dat$CPUE
 fig_xa<-ggplot(CPUEs, aes(x = year, y = obs,color=factor(index))) +
     geom_point() + geom_line()+
     labs(x = "Year",y = "Index (tonnes)",title = "",color = "Indices" ) + 
@@ -126,14 +126,14 @@ fig_xa<-ggplot(CPUEs, aes(x = year, y = obs,color=factor(index))) +
 ## age composition Seine ----
 catage[catage==0]<-NA
 agecomp<-  catage%>% 
-           melt(id.vars=c("Yr","Seas")) %>% 
+           melt(id.vars=c("year","month")) %>% 
            mutate(variable = factor(variable, levels = c("a0","a1", "a2", "a3"),
                            labels = c("0","1", "2", "3")))
 
-figxx<- agecomp %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
+figxx<- agecomp %>% ggplot(aes(x=year,y=value,fill=variable)) +
   geom_bar(stat = "identity") + 
-    facet_wrap(.~Seas,ncol=2,as.table = TRUE, strip.position = "top",
-               labeller = labeller(Seas = c("3" = "Q1", 
+    facet_wrap(.~month,ncol=2,as.table = TRUE, strip.position = "top",
+               labeller = labeller(month = c("3" = "Q1", 
                                             "6" = "Q2",
                                             "9" = "Q3", 
                                             "12" = "Q4")))+
@@ -153,17 +153,17 @@ ggsave(file.path(paste0(path_rep,"/fig_agecomp_by_quartersSeine.png")), figxx,  
   
 # Age composition surveys ----
 
-agecompSurvey <-  dat$agecomp  %>% filter(FltSvy>=2) %>% 
-  select(c(Yr,Seas,FltSvy,`a0`,`a1`,`a2`,`a3`)) %>% 
-  melt(id.vars=c("Yr","Seas","FltSvy")) %>% 
+agecompSurvey <-  dat$dat$agecomp  %>% filter(fleet>=2) %>% 
+  select(c(year,month,fleet,`a0`,`a1`,`a2`,`a3`)) %>% 
+  melt(id.vars=c("year","month","fleet")) %>% 
   mutate(variable = factor(variable, 
                            levels = c("a0","a1", "a2", "a3"),
                            labels = c("0","1", "2", "3")))
 
-figx1<- agecompSurvey %>% ggplot(aes(x=Yr,y=value,fill=variable)) +
+figx1<- agecompSurvey %>% ggplot(aes(x=year,y=value,fill=variable)) +
   geom_bar(stat = "identity") + 
-  facet_wrap(.~FltSvy,ncol=1,as.table = TRUE, strip.position = "top",
-             labeller = labeller(FltSvy = c("2" = "PELAGO", 
+  facet_wrap(.~fleet,ncol=1,as.table = TRUE, strip.position = "top",
+             labeller = labeller(fleet = c("2" = "PELAGO", 
                                           "3" = "ECOCADIZ",
                                           "5" = "ECOCADIZ-RECLUTAS"))) +
   labs(x="Year",y="Proportion",fill="Age")+
@@ -201,7 +201,7 @@ ggsave(file.path(paste0(path_rep,"/fig_agecomp_by_quartersSurveys.png")), figx1,
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
   
-file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png"),
+file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png"),
             to=paste0(path_rep,"/fig_comp_agefit_SEINE.png"), 
             overwrite=T)
 
@@ -219,7 +219,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   dev.off()
   
   
-  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_PELAGO.png"),
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_PELAGO.png"),
             to=paste0(path_rep,"/fig_comp_agefit_PELAGO.png"), 
             overwrite=T)
   
@@ -236,7 +236,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
               showsampsize = F,showeffN = F,mainTitle = T)
   dev.off()
   
-  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECOCADIZ.png"),
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_ECOCADIZ.png"),
             to=paste0(path_rep,"/fig_comp_agefit_ECOCADIZ.png"), 
             overwrite=T)
   
@@ -255,7 +255,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   dev.off()
   
   
-  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_ECORECLUTAS.png"),
+  file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_ECORECLUTAS.png"),
             to=paste0(path_rep,"/fig_comp_agefit_ECORECLUTAS.png"), 
             overwrite=T)
   
@@ -322,13 +322,13 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
   SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,legendloc ="bottomright")
   dev.off()
 
-##  Recruitment devs
+##  Recruitment devs ----
   png(file.path(paste0(path_rep,"/fig_Recdevs.png")),width=5,height=5,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.8)
   SSplotRecdevs(output,subplots = 2,pwidth = 5,pheight = 5)
   dev.off()
 
-## Catchability
+## Catchability ----
   
   Calc_Q<-output$cpue %>% select(c("Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
   Calc_Q<-Calc_Q %>% 
@@ -339,7 +339,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1.8_SEINE.png
     labs(x="Surveys",y="Catchability",title="")+
     theme_bw()+
     theme(plot.title=element_text(hjust=0.5),legend.position="top")
-  ggsave(file.path(paste0(path_rep,"/fig_catchability.png")), fig_q,  width=5, height=5)
+  ggsave(file.path(paste0(path_rep,"/fig_catchability.png")), fig_q,  width=4, height=4)
   
   
   
@@ -467,25 +467,25 @@ ggsave(file.path(paste0(path_rep,"/fig_time_series.png")), fig1a,  width=8, heig
   
   
 # tablas ----
-tb_catch <- dat$catch%>% filter(year>-999) %>% 
+tb_catch <- dat$dat$catch%>% filter(year>-999) %>% 
             select(c(year,seas,catch)) %>% 
             pivot_wider(
             names_from = "seas", 
             values_from = c("catch"))
 
-indices <- dat$CPUE%>% 
+indices <- dat$dat$CPUE%>% 
            pivot_wider(
            names_from = "index",  
-           values_from = c("obs", "se_log","seas"))
+           values_from = c("obs", "se_log","month"))
 
-nsamp <- dat$agecomp %>%
-         filter(FltSvy >= 2) %>% 
-         select(Yr, FltSvy, Nsamp) %>% 
+nsamp <- dat$dat$agecomp %>%
+         filter(fleet >= 2) %>% 
+         select(year, fleet, Nsamp) %>% 
          pivot_wider(
-           names_from = FltSvy, 
+           names_from = fleet, 
            values_from = Nsamp) %>% 
          rename_with(~c("year", "nm_2", "nm_3", "nm_5"),
-                     .cols = c(Yr, `2`, `3`, `5`)) %>%
+                     .cols = c(year, `2`, `3`, `5`)) %>%
          mutate(nm_4=NA)
 
 combined_df <- left_join(indices, nsamp, by = "year")
@@ -565,10 +565,10 @@ ft1
 #'*CV, NM and timing survey*
 ft2<-combined_df %>%
   select(year,
-         seas_2,se_log_2,nm_2,
-         seas_3,se_log_3,nm_3,
-         seas_4,se_log_4,nm_4,
-         seas_5,se_log_5,nm_5) %>%
+         month_2,se_log_2,nm_2,
+         month_3,se_log_3,nm_3,
+         month_4,se_log_4,nm_4,
+         month_5,se_log_5,nm_5) %>%
   arrange(year)%>%
   mutate(across(where(is.numeric), ~round(.x, 2))) %>%  # Redondear solo columnas numéricas
   flextable()
@@ -607,13 +607,19 @@ ft3<-params_est %>%flextable()
 ft3
 
 #'*tb_natM*
+natmort <- tibble::rownames_to_column(natmort, var = "Parameter")
 ft4<-natmort %>% flextable()
 ft4
 
 
 #'*tb_maturity*
-ft5 <- maturity[1,3:6 , drop = FALSE] %>% 
-  setNames(c("Age_0", "Age_1", "Age_2", "Age_3")) %>% 
+#'
+maturity1<-maturity[1,3:6 , drop = FALSE]
+row.names(maturity1)<-"Maturity"
+maturity1 <- tibble::rownames_to_column(maturity1, var = "Parameter")
+
+ft5 <- maturity1 %>% 
+  setNames(c("Parameter","Age_0", "Age_1", "Age_2", "Age_3")) %>% 
   flextable()
 ft5
 
