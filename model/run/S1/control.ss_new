@@ -1,10 +1,9 @@
-#V3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1
+#V3.30.22.beta: not an official version of SS;_fast(opt);_compile_date:_Sep 18 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1
 #_Stock_Synthesis_is_a_work_of_the_U.S._Government_and_is_not_subject_to_copyright_protection_in_the_United_States.
 #_Foreign_copyrights_may_apply._See_copyright.txt_for_more_information.
 #_User_support_available_at:NMFS.Stock.Synthesis@noaa.gov
 #_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
 #_Source_code_at:_https://github.com/nmfs-ost/ss3-source-code
-
 #C 2018 Hake control file
 #_data_and_control_files: data.SS // control.SS
 1  # 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read and use growth parameters
@@ -109,7 +108,7 @@
 0  # 0/1 to use steepness in initial equ recruitment calculation
 0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
-             5            25       15.2619             0             0             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+             5            25       15.2585             0             0             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
            0.2             1           0.9             0             0             0         -4          0          0          0          0          0          0          0 # SR_SCAA_null
              0             2           0.6             0             0             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
             -5             5             0             0             0             0         -4          0          0          0          0          0          0          0 # SR_regime
@@ -137,11 +136,11 @@
 #
 #_placeholder for full parameter lines for recruitment cycles
 # read specified recr devs
-#_Yr Input_value
+#_year Input_value
 #
 # all recruitment deviations
 #  1986E 1987E 1988E 1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016R 2017R 2018R 2019R 2020R 2021R 2022R 2023R
-#  -0.495208 -0.743609 0.121778 -0.153583 0.149102 -0.337321 -0.761619 -0.505309 -0.576082 0.213837 0.221955 0.597278 0.104877 -0.0883014 0.517248 0.292279 -0.243314 -0.0833707 -0.165118 0.300157 0.326876 -0.419105 -0.251998 -0.874882 -0.00186432 -0.122629 -0.164022 0.452345 0.0264313 0.453154 -0.179967 0.367654 0.01082 0.447232 0.226771 -0.0409231 0.245619 0.0157708#
+#  -0.495186 -0.74353 0.122022 -0.15077 0.153415 -0.336018 -0.760106 -0.501983 -0.575199 0.215953 0.225105 0.603163 0.103257 -0.0896081 0.518638 0.295347 -0.238732 -0.0824628 -0.160544 0.297166 0.325911 -0.420254 -0.254062 -0.873453 0.011715 -0.158169 -0.158536 0.457199 0.0316266 0.452485 -0.179648 0.35891 0.00545041 0.443423 0.221146 -0.0642356 0.249947 0.033922#
 #Fishing Mortality info 
 0.3 # F ballpark value in units of annual_F
 -2023 # F ballpark year (neg value to disable)
@@ -154,13 +153,13 @@
 #_ LO HI INIT PRIOR PR_SD  PR_type  PHASE
 #
 # F rates by fleet x season
-# Yr:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023
+#_year:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023
 # seas:  1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4
-# SEINE 0.541768 1.58027 1.01937 0.132175 1.31823 1.5762 1.26313 1.90893 0.624587 3.00006 0.832675 0.493573 0.779668 1.42772 0.68073 0.00648903 0.67696 1.17867 0.264069 0.231962 0.606535 2.78509 0.36794 0.212773 0.153681 0.0760715 0.127015 0.193266 0.0178649 0.416857 0.312055 0.298805 0.305002 0.471872 0.946672 0.465453 0.524978 0.892307 1.47684 3.00012 0.826709 1.38553 1.56639 1.27488 0.254245 0.463315 0.451906 0.609542 0.297652 1.154 1.67976 1.09345 0.730286 1.72258 2.37564 1.49628 0.700374 2.83265 1.44861 1.19322 0.890173 1.82268 1.96193 1.83942 1.07634 3.00009 0.956052 0.211975 0.590808 1.60401 0.302539 0.0224432 0.584905 1.07085 0.896811 0.3677 0.330758 0.731369 0.7715 0.755586 0.318403 0.922237 1.05688 0.208658 0.056421 2.54804 1.49466 0.690544 0.799533 2.38031 2.9998 1.82699 0.879893 2.85475 1.96249 0.0811179 0.277785 1.50756 2.57079 0.566818 0.697764 2.16257 3.00013 0.850478 0.793099 2.51302 2.18613 2.78402 0.565442 1.50807 1.96145 1.43782 0.632541 2.47036 1.33321 0.422308 0.0962814 1.21591 0.813661 0.385373 0.130881 0.900949 1.13745 1.02577 0.449982 1.05978 1.43945 1.0647 0.246236 1.8442 2.40427 1.01538 0.274393 2.09692 2.91627 1.94582 0.469621 3.00009 3.00013 1.73636
+# SEINE 0.543641 1.58735 1.02697 0.133265 1.32246 1.58285 1.27289 1.92803 0.62489 3.00007 0.835647 0.49526 0.781162 1.43133 0.684243 0.00652273 0.678856 1.1827 0.265636 0.233297 0.607328 2.79219 0.370182 0.213992 0.15411 0.0762863 0.127747 0.194275 0.0178956 0.417579 0.313154 0.299798 0.305298 0.472321 0.949546 0.466928 0.524137 0.890415 1.47707 3.00012 0.829206 1.39141 1.5805 1.29004 0.255879 0.466457 0.456158 0.615619 0.298714 1.15859 1.69151 1.10351 0.732259 1.72811 2.39085 1.5104 0.701225 2.83913 1.4594 1.2039 0.893069 1.83073 1.97837 1.86105 1.07727 3.0001 0.965059 0.213901 0.594639 1.61776 0.306293 0.022724 0.588807 1.07931 0.906433 0.372183 0.333477 0.737867 0.780604 0.765883 0.321022 0.930635 1.06934 0.211493 0.0568147 2.57032 1.50765 0.697892 0.792878 2.3494 3.00001 1.83983 0.912953 2.99968 2.09044 0.0877948 0.281874 1.53097 2.61659 0.579507 0.699183 2.16714 3.00013 0.854451 0.791779 2.50616 2.19821 2.81988 0.567944 1.51662 1.98129 1.45851 0.63684 2.49354 1.35877 0.431464 0.0975816 1.23494 0.830215 0.394332 0.132766 0.914985 1.15979 1.05062 0.455454 1.07446 1.46702 1.09118 0.249808 1.87716 2.48259 1.06239 0.283842 2.19236 2.9999 2.06626 0.474339 3.00004 3.00013 1.74413
 #
 #_Q_setup for fleets with cpue or survey data
 #_1:  fleet number
-#_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)
+#_2:  link type: 1=simple q; 2=mirror; 3=power (+1 parm); 4=mirror with scale (+1p); 5=offset (+1p); 6=offset & power (+2p)
 #_3:  extra input for link, i.e. mirror fleet# or dev index number
 #_4:  0/1 to select extra sd parameter
 #_5:  0/1 for biasadj or not
@@ -172,12 +171,12 @@
          5         1         0         0         0         0  #  ECORECLUTAS
 -9999 0 0 0 0 0
 #
-#_Q_parms(if_any);Qunits_are_ln(q)
+#_Q_parameters
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-           -30            15       1.06554             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_PELAGO(2)
-           -30            15        1.5607             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECOCADIZ(3)
-           -30            15        1.9702             0             0             0          3          0          0          0          0          0          0          0  #  LnQ_base_BOCADEVA(4)
-           -30            15       2.07312             0             0             0          1          0          0          0          0          0          0          0  #  LnQ_base_ECORECLUTAS(5)
+           -30            15       1.07367             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_PELAGO(2)
+           -30            15       1.60728             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECOCADIZ(3)
+           -30            15       1.97517             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_BOCADEVA(4)
+           -30            15       2.11698             0             0             0          1          0          0          0          0          0          0          0  #  LnQ_base_ECORECLUTAS(5)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -190,7 +189,7 @@
 #Pattern:_43; parm=2+special+2;  like 6, with 2 additional param for scaling (mean over bin range)
 #Pattern:_8;  parm=8; double_logistic with smooth transitions and constant above Linf option
 #Pattern:_9;  parm=6; simple 4-parm double logistic with starting length; parm 5 is first length; parm 6=1 does desc as offset
-#Pattern:_21; parm=2+special; non-parm len selex, read as pairs of size, then selex
+#Pattern:_21; parm=2*special; non-parm len selex, read as N break points, then N selex parameters
 #Pattern:_22; parm=4; double_normal as in CASAL
 #Pattern:_23; parm=6; double_normal where final value is directly equal to sp(6) so can be >1.0
 #Pattern:_24; parm=6; double_normal with sel(minL) and sel(maxL), using joiners
@@ -238,16 +237,16 @@
 # 4   BOCADEVA LenSelex
 # 5   ECORECLUTAS LenSelex
 # 1   SEINE AgeSelex
-            -2           5.5      0.158913             0             0             0          2          0          0          0          0          0          0          0  #  Age_inflection_SEINE(1)
-            -1           1.5      0.165942             0             0             0          2          0          0          0          0          0          0          0  #  Age_95%width_SEINE(1)
+            -2           5.5      0.161693             0             0             0          2          0          0          0          0          0          0          0  #  Age_inflection_SEINE(1)
+            -1           1.5      0.168064             0             0             0          2          0          0          0          0          0          0          0  #  Age_95%width_SEINE(1)
 # 2   PELAGO AgeSelex
 # 3   ECOCADIZ AgeSelex
-            -2           5.5      0.633802             0             0             0          3          0          0          0          0          0          0          0  #  Age_inflection_ECOCADIZ(3)
-            -1           5.5      0.542107             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECOCADIZ(3)
+            -2           5.5      0.674418             0             0             0          3          0          0          0          0          0          0          0  #  Age_inflection_ECOCADIZ(3)
+            -1           5.5      0.568462             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECOCADIZ(3)
 # 4   BOCADEVA AgeSelex
 # 5   ECORECLUTAS AgeSelex
-            -2           5.5        1.0297             0             0             0          2          0          0          0          0          0          0          0  #  Age_inflection_ECORECLUTAS(5)
-            -1           5.5        1.0681             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECORECLUTAS(5)
+            -2           5.5       1.04652             0             0             0          2          0          0          0          0          0          0          0  #  Age_inflection_ECORECLUTAS(5)
+            -1           5.5       1.06978             0             0             0          3          0          0          0          0          0          0          0  #  Age_95%width_ECORECLUTAS(5)
 #_No_Dirichlet parameters
 #_no timevary selex parameters
 #
@@ -273,7 +272,7 @@
  #_5=mult_by_agecomp_N
  #_6=mult_by_size-at-age_N
  #_7=mult_by_generalized_sizecomp
-#_Factor  Fleet  Value
+#_factor  fleet  value
       5      1 0.0693265
       5      2 0.0283887
       5      3  0.041075
