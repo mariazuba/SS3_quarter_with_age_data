@@ -1,10 +1,9 @@
-#V3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1
+#V3.30.22.beta: not an official version of SS;_fast(opt);_compile_date:_Sep 18 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1
 #_Stock_Synthesis_is_a_work_of_the_U.S._Government_and_is_not_subject_to_copyright_protection_in_the_United_States.
 #_Foreign_copyrights_may_apply._See_copyright.txt_for_more_information.
 #_User_support_available_at:NMFS.Stock.Synthesis@noaa.gov
 #_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
 #_Source_code_at:_https://github.com/nmfs-ost/ss3-source-code
-
 #C 2018 Hake control file
 #_data_and_control_files: data.SS // control.SS
 1  # 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read and use growth parameters
@@ -137,7 +136,7 @@
 #
 #_placeholder for full parameter lines for recruitment cycles
 # read specified recr devs
-#_Yr Input_value
+#_year Input_value
 #
 # all recruitment deviations
 #  1986E 1987E 1988E 1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016R 2017R 2018R 2019R 2020R 2021R 2022R 2023R
@@ -154,13 +153,13 @@
 #_ LO HI INIT PRIOR PR_SD  PR_type  PHASE
 #
 # F rates by fleet x season
-# Yr:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023
+#_year:  1989 1989 1989 1989 1990 1990 1990 1990 1991 1991 1991 1991 1992 1992 1992 1992 1993 1993 1993 1993 1994 1994 1994 1994 1995 1995 1995 1995 1996 1996 1996 1996 1997 1997 1997 1997 1998 1998 1998 1998 1999 1999 1999 1999 2000 2000 2000 2000 2001 2001 2001 2001 2002 2002 2002 2002 2003 2003 2003 2003 2004 2004 2004 2004 2005 2005 2005 2005 2006 2006 2006 2006 2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 2009 2009 2010 2010 2010 2010 2011 2011 2011 2011 2012 2012 2012 2012 2013 2013 2013 2013 2014 2014 2014 2014 2015 2015 2015 2015 2016 2016 2016 2016 2017 2017 2017 2017 2018 2018 2018 2018 2019 2019 2019 2019 2020 2020 2020 2020 2021 2021 2021 2021 2022 2022 2022 2022 2023 2023 2023 2023
 # seas:  1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4
 # SEINE 0.542553 1.58313 1.02221 0.132585 1.31962 1.57831 1.26649 1.91548 0.624927 3.00008 0.836897 0.496038 0.790073 1.45362 0.698182 0.00666816 0.69786 1.22505 0.276665 0.243638 0.636697 2.99964 0.404474 0.236172 0.163897 0.0810761 0.133837 0.204473 0.0183793 0.428695 0.320372 0.307532 0.309436 0.47868 0.958464 0.472399 0.52555 0.892465 1.4773 3.00012 0.826275 1.3845 1.56694 1.27543 0.254265 0.46337 0.452447 0.610223 0.297588 1.15367 1.68066 1.09415 0.730214 1.72234 2.37739 1.49795 0.700381 2.83253 1.45028 1.19482 0.889202 1.81982 1.95894 1.83544 1.07161 2.99987 0.951936 0.210929 0.586368 1.58823 0.297853 0.0221001 0.569345 1.03544 0.857172 0.349073 0.310645 0.680603 0.720067 0.694643 0.309994 0.899315 1.03213 0.203038 0.0559281 2.52689 1.49735 0.691183 0.811462 2.43507 3.00011 1.86612 0.876888 2.82165 1.94809 0.0803259 0.277656 1.50741 2.57369 0.56768 0.69639 2.15639 3.00012 0.84931 0.79392 2.51746 2.18947 2.79182 0.563019 1.49957 1.93752 1.41295 0.613806 2.3633 1.29559 0.406743 0.0972865 1.23347 0.829989 0.394417 0.133462 0.920945 1.17084 1.06293 0.464878 1.10171 1.50369 1.12804 0.252117 1.8955 2.50515 1.07559 0.285061 2.20313 2.99993 2.06572 0.474063 3.00005 3.00014 1.73812
 #
 #_Q_setup for fleets with cpue or survey data
 #_1:  fleet number
-#_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)
+#_2:  link type: 1=simple q; 2=mirror; 3=power (+1 parm); 4=mirror with scale (+1p); 5=offset (+1p); 6=offset & power (+2p)
 #_3:  extra input for link, i.e. mirror fleet# or dev index number
 #_4:  0/1 to select extra sd parameter
 #_5:  0/1 for biasadj or not
@@ -171,7 +170,7 @@
          4         1         0         0         0         0  #  ECORECLUTAS
 -9999 0 0 0 0 0
 #
-#_Q_parms(if_any);Qunits_are_ln(q)
+#_Q_parameters
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
            -30            15       1.06366             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_PELAGO(2)
            -30            15       1.53649             0             0             0          2          0          0          0          0          0          0          0  #  LnQ_base_ECOCADIZ(3)
@@ -188,7 +187,7 @@
 #Pattern:_43; parm=2+special+2;  like 6, with 2 additional param for scaling (mean over bin range)
 #Pattern:_8;  parm=8; double_logistic with smooth transitions and constant above Linf option
 #Pattern:_9;  parm=6; simple 4-parm double logistic with starting length; parm 5 is first length; parm 6=1 does desc as offset
-#Pattern:_21; parm=2+special; non-parm len selex, read as pairs of size, then selex
+#Pattern:_21; parm=2*special; non-parm len selex, read as N break points, then N selex parameters
 #Pattern:_22; parm=4; double_normal as in CASAL
 #Pattern:_23; parm=6; double_normal where final value is directly equal to sp(6) so can be >1.0
 #Pattern:_24; parm=6; double_normal with sel(minL) and sel(maxL), using joiners
@@ -267,7 +266,7 @@
  #_5=mult_by_agecomp_N
  #_6=mult_by_size-at-age_N
  #_7=mult_by_generalized_sizecomp
-#_Factor  Fleet  Value
+#_factor  fleet  value
       5      1 0.0693265
       5      2 0.0283887
       5      3  0.041075
